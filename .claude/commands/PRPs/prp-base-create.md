@@ -4,20 +4,24 @@
 
 Generate a complete PRP for feature implementation with deep and thorough research. Ensure rich context is passed to the AI through the PRP to enable one pass implementation success through self-validation and iterative refinement.
 
-The AI agent only gets the context you are appending to the PRP and its own training data. Assume the AI agent has access to the codebase and the same knowledge cutoff as you, so its important that your research findings are included or referenced in the PRP. The Agent has Websearch capabilities, so pass urls to documentation and examples.
+The AI agent only gets the context you are appending to the PRP and its own training data. Assume the AI agent has access to the codebase and the same knowledge cutoff as you, so its important that your research findings are included or referenced in the PRP. The Agent has Websearch capabilities, so pass urls to documentation and examples. Use specialized subagents when possible in .claude/agents
 
 ## Research Process
 
 > During the research process, create clear tasks and spawn as many agents and subagents as needed using the batch tools. The deeper research we do here the better the PRP will be. we optminize for chance of success and not for speed.
 
+**🤖 IMPORTANT**: Before creating your research plan, scan `.claude/agents/` to see what specialized subagents are available. Use them to optimize research time without losing quality.
+
 1. **Codebase Analysis in depth**
-   - Create clear todos and spawn subagents to search the codebase for similar features/patterns Think hard and plan your approach
+   - Check `.claude/agents/` for relevant specialized subagents before starting
+   - Create clear todos and spawn subagents to search the codebase for similar features/patterns
    - Identify all the necessary files to reference in the PRP
    - Note all existing conventions to follow
    - Check existing test patterns for validation approach
    - Use the batch tools to spawn subagents to search the codebase for similar features/patterns
 
 2. **External Research at scale**
+   - Check `.claude/agents/` for domain-specific research subagents
    - Create clear todos and spawn with instructions subagents to do deep research for similar features/patterns online and include urls to documentation and examples
    - Library documentation (include specific URLs)
    - For critical pieces of documentation add a .md file to PRPs/ai_docs and reference it in the PRP with clear reasoning and instructions
