@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="228.6mm" height="304.8mm"
+ viewBox="0 0 2592 3455"
+ xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" baseProfile="tiny">
+<desc>Noteheads only - Using Helsinki font characters</desc>
+<defs>
+</defs>
+<g fill="none" stroke="black" stroke-width="1" fill-rule="evenodd" stroke-linecap="square" stroke-linejoin="bevel">
+
+<!-- Flute Noteheads -->
+<g transform="matrix(0.531496,0,0,0.531496,0,0)">
+  
+  <!-- A4 Quarter Note: Measure 4, x=157, y=10 (filled notehead) -->
+  <text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3179" y="1037" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">&#102;</text>
+  
+  <!-- A4 Eighth Note: Measure 5, x=15, y=10 (filled notehead) -->
+  <text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3453" y="1037" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">&#102;</text>
+  
+  <!-- G4 Quarter Note: Measure 5, x=66, y=5 (filled notehead) -->
+  <text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3617" y="1049" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">&#102;</text>
+
+</g>
+
+<!-- Violin Noteheads -->
+<g transform="matrix(0.531496,0,0,0.531496,0,0)">
+  
+  <!-- B3 Dotted Half Note: Measure 4, x=15, y=-20 (hollow notehead) -->
+  <text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="2723" y="1429" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">&#70;</text>
+  
+  <!-- B3 Quarter Note: Measure 4, x=157, y=-20 (filled notehead) -->
+  <text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3179" y="1429" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">&#102;</text>
+  
+  <!-- B3 Eighth Note: Measure 5, x=15, y=-20 (filled notehead) -->
+  <text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3453" y="1429" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">&#102;</text>
+  
+  <!-- A3 Quarter Note: Measure 5, x=66, y=-20 (filled notehead) -->
+  <text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3617" y="1441" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">&#102;</text>
+  
+  <!-- C4 Eighth Note: Measure 5, x=136, y=-15 (filled notehead) -->
+  <text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3843" y="1417" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">&#102;</text>
+  
+  <!-- B3 Quarter Note: Measure 5, x=187, y=-20 (filled notehead) -->
+  <text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="4006" y="1429" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">&#102;</text>
+
+</g>
+
+</g>
+</svg>
