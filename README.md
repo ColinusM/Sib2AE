@@ -1,22 +1,70 @@
-# PRP (Product Requirement prompts)
+# Sibelius to After Effects (Sib2Ae) Universal Converter
 
-- A collection of prompts i use in my every day work
+**Universal MusicXML to SVG Processing Pipeline** - Extract, separate, and process musical notation with pixel-perfect accuracy.
 
-## Video Walkthrough
+## 🎼 What This Project Does
 
-👉 https://www.youtube.com/watch?v=KVOZ9s1S9Gk&lc=UgzfwxvFjo6pKEyPo1R4AaABAg
+This project implements a **three-tool universal pipeline** for processing musical notation from Sibelius SVG exports:
 
-### ☕ Support This Work
+1. **📝 Noteheads Extractor** - Extracts all noteheads from MusicXML into clean SVG
+2. **✂️ Noteheads Subtractor** - Removes noteheads from full score SVG  
+3. **🎯 Instrument Separator** - Separates instruments into individual SVG files
+
+**Key Innovation:** MusicXML-first approach with universal coordinate transformation for perfect accuracy across any musical score.
+
+## 🚀 Quick Start
+
+```bash
+# Clone and setup
+git clone https://github.com/Wirasm/PRPs-agentic-eng.git
+cd PRPs-agentic-eng
+uv sync
+
+# Extract noteheads from any MusicXML file
+python truly_universal_noteheads_extractor.py "Base/SS 9.musicxml"
+
+# Remove noteheads from full score
+python truly_universal_noteheads_subtractor.py "Base/SS 9.musicxml" "Base/SS 9 full.svg"
+
+# Separate instruments 
+python xml_based_instrument_separator.py "Base/SS 9.musicxml" "Base/SS 9 full.svg" "output"
+```
+
+## ✅ Proven Results
+
+**Test Case: Saint-Saëns Trio No. 2** 
+- ✅ Extracted 9 noteheads (3 flute, 6 violin) with pixel-perfect coordinates
+- ✅ Separated 2 instruments with proper XML structure maintained
+- ✅ Universal coordinate system works across any MusicXML/SVG combination
+
+## 🏗️ Architecture
+
+### Universal Coordinate System
+- **Staff 0** (Upper): Y 950-1100 (base: 1037)
+- **Staff 1** (Lower): Y 1250-1500 (base: 1417) 
+- **Staff 2** (Third): Y 1650-1800 (base: 1797)
+- **Staff 3** (Fourth): Y 2050-2200 (base: 2177)
+
+### Core Tools
+- `truly_universal_noteheads_extractor.py` - MusicXML → Noteheads SVG
+- `truly_universal_noteheads_subtractor.py` - Full SVG - Noteheads → Clean SVG
+- `xml_based_instrument_separator.py` - Any SVG → Per-instrument SVGs
+
+## 📋 Requirements
+
+- Python 3.12+
+- Dependencies: `svgelements`, `xml.etree.ElementTree`
+- Input: MusicXML + SVG files from Sibelius export
+
+---
+
+## ☕ Support This Work & PRP Methodology
+
+This project also demonstrates the **Product Requirement Prompt (PRP)** methodology for AI-assisted development.
 
 **Found value in these resources?**
 
 👉 **Buy me a coffee:** https://coff.ee/wirasm
-
-I spent a considerable amount of time creating these resources and prompts. If you find value in this project, please consider buying me a coffee to support my work.
-
-That will help me maintain and improve the resources available for free
-
----
 
 ### 🎯 Transform Your Team with AI Engineering Workshops
 
@@ -33,10 +81,11 @@ That will help me maintain and improve the resources available for free
 
 💡 **Perfect for:** Engineering teams, Product teams, and developers who want AI that actually works in production
 
-Let's talk!
-Contact me directly at rasmus@widinglabs.com
+Contact: rasmus@widinglabs.com
 
-# AI Engineering Resources for Claude Code
+---
+
+# PRP (Product Requirement Prompts) - AI Engineering Resources
 
 A comprehensive library of assets and context engineering for Agentic Engineering, optimized for Claude Code. This repository provides the Product Requirement Prompt (PRP) methodology, pre-configured commands, and extensive documentation to enable AI-assisted development that delivers production-ready code on the first pass.
 
