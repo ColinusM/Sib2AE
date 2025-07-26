@@ -1,17 +1,31 @@
 # Sibelius to After Effects (Sib2Ae) Universal Converter
 
-**Universal MusicXML to SVG Processing Pipeline** - Extract, separate, and process musical notation with pixel-perfect accuracy.
+**Complete MusicXML to After Effects Pipeline** - Transform musical notation into pixel-perfect animations with synchronized audio.
 
 ## 🎼 What This Project Does
 
-This project implements a **four-tool universal pipeline** for processing musical notation from Sibelius SVG exports:
+This project implements a **dual-pipeline system** for converting Sibelius exports into After Effects-ready assets:
 
+### SVG Processing Pipeline
 1. **📝 Noteheads Extractor** - Extracts all noteheads from MusicXML into clean SVG
 2. **✂️ Noteheads Subtractor** - Removes noteheads from full score SVG  
 3. **🎯 Instrument Separator** - Separates instruments into individual SVG files
 4. **📐 Staff/Barlines Extractor** - Extracts structural framework (staff lines and barlines)
 
+### Audio Processing Pipeline
+1. **🎵 MIDI Note Separator** - Splits MIDI into individual note files
+2. **🔊 Audio Renderer** - Converts MIDI notes to WAV audio files
+3. **⚡ Keyframes Generator** - Creates After Effects keyframe data from audio analysis
+
 **Key Innovation:** MusicXML-first approach with universal coordinate transformation for perfect accuracy across any musical score.
+
+## 📋 Prerequisites
+
+- **Python 3.12+**
+- **uv package manager**: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+- **FluidSynth** (for audio processing):
+  - **macOS**: `brew install fluidsynth`
+  - **Linux**: `sudo apt-get install fluidsynth`
 
 ## 🚀 Quick Start
 
@@ -21,17 +35,43 @@ git clone https://github.com/Wirasm/PRPs-agentic-eng.git
 cd PRPs-agentic-eng
 uv sync
 
-# Extract noteheads from any MusicXML file
-python truly_universal_noteheads_extractor.py "Base/SS 9.musicxml"
+# Install audio dependencies
+pip install mido librosa soundfile numpy
+
+# Verify installation
+python -c "import xml.etree.ElementTree, svgelements, mido, librosa; print('✅ All dependencies OK')"
+```
+
+## 🎼 SVG Processing Pipeline
+
+```bash
+# Extract noteheads from MusicXML
+python Separators/truly_universal_noteheads_extractor.py "Base/SS 9.musicxml"
 
 # Remove noteheads from full score
-python truly_universal_noteheads_subtractor.py "Base/SS 9.musicxml" "Base/SS 9 full.svg"
+python Separators/truly_universal_noteheads_subtractor.py "Base/SS 9.musicxml" "Base/SS 9 full.svg"
 
-# Separate instruments 
-python xml_based_instrument_separator.py "Base/SS 9.musicxml" "Base/SS 9 full.svg" "output"
+# Separate instruments into individual files
+python Separators/xml_based_instrument_separator.py "Base/SS 9.musicxml" "Base/SS 9 full.svg" "output"
 
 # Extract staff lines and barlines
 python staff_barlines_extractor.py "Base/SS 9.musicxml" "Base/SS 9 full.svg"
+
+# Complete SVG pipeline (recommended)
+python Separators/sib2ae_master_pipeline.py "Base/SS 9.musicxml" "Base/SS 9 full.svg"
+```
+
+## 🔊 Audio Processing Pipeline
+
+```bash
+# Split MIDI into individual notes
+python "Audio Separators/midi_note_separator.py" "Base/Saint-Saens Trio No 2.mid"
+
+# Convert MIDI notes to audio (fast version)
+python "Audio Separators/midi_to_audio_renderer_fast.py" "Base/Saint-Saens Trio No 2_individual_notes"
+
+# Generate After Effects keyframes (fast version)
+python "Audio Separators/audio_to_keyframes_fast.py" "Audio"
 ```
 
 ## ✅ Proven Results
@@ -56,17 +96,86 @@ python staff_barlines_extractor.py "Base/SS 9.musicxml" "Base/SS 9 full.svg"
 - `xml_based_instrument_separator.py` - Any SVG → Per-instrument SVGs
 - `staff_barlines_extractor.py` - Full SVG → Staff lines + Barlines SVG
 
-## 📋 Requirements
+## 📁 Output Structure
 
-- Python 3.12+
-- Dependencies: `svgelements`, `xml.etree.ElementTree`
-- Input: MusicXML + SVG files from Sibelius export
+After processing, you'll find organized outputs:
 
----
+```
+Symbolic Separators/           # SVG Processing Results
+├── Flute/
+│   ├── Flute_full.svg                    # Complete instrument score
+│   ├── Flute_noteheads_only.svg          # Just the noteheads
+│   ├── Flute_without_noteheads.svg       # Score minus noteheads
+│   └── individual_noteheads/             # One file per notehead
+│       ├── notehead_000_P1_A4_M4.svg
+│       └── notehead_001_P1_A4_M5.svg
+└── Violon/
+    └── [Similar structure]
 
-## ☕ Support This Work & PRP Methodology
+Audio/                         # Audio Processing Results
+├── Flute/
+│   ├── note_000_Flûte_A4_vel76.wav      # Individual note audio
+│   └── note_001_Flûte_G4_vel76.wav
+├── Violon/
+│   └── [Similar audio files]
+└── Keyframes/                            # After Effects JSON data
+    ├── Flute/
+    │   └── note_000_Flûte_A4_vel76_keyframes.json
+    └── Violon/
+        └── [Similar keyframe files]
+```
 
-This project also demonstrates the **Product Requirement Prompt (PRP)** methodology for AI-assisted development.
+## 🎯 Complete Workflow Example
+
+```bash
+# Process complete Saint-Saëns Trio No. 2 (both pipelines)
+python Separators/sib2ae_master_pipeline.py "Base/SS 9.musicxml" "Base/SS 9 full.svg"
+python "Audio Separators/midi_note_separator.py" "Base/Saint-Saens Trio No 2.mid"
+python "Audio Separators/midi_to_audio_renderer_fast.py" "Base/Saint-Saens Trio No 2_individual_notes"
+python "Audio Separators/audio_to_keyframes_fast.py" "Audio"
+```
+
+**Result**: Complete After Effects project with separated visual elements and synchronized audio keyframes.
+
+## 🔧 Troubleshooting
+
+**FluidSynth not found**:
+```bash
+# macOS
+brew install fluidsynth
+which fluidsynth  # Should show path
+```
+
+**Audio dependencies missing**:
+```bash
+pip install mido librosa soundfile numpy
+python -c "import mido, librosa; print('Audio OK')"
+```
+
+**SVG files not rendering**: Check that XML namespaces are preserved in output files.
+
+## 📚 Documentation
+
+- **[QUICKSTART.md](QUICKSTART.md)** - Essential 10-minute setup guide
+- **[ONBOARDING.md](ONBOARDING.md)** - Comprehensive developer onboarding
+- **[CLAUDE.md](CLAUDE.md)** - Development guidelines and commands
+- **[PRPs/README.md](PRPs/README.md)** - PRP methodology documentation
+
+## 🚀 Development & Contribution
+
+This project uses the **Product Requirement Prompt (PRP)** methodology for AI-assisted development. 
+
+**For Contributors**:
+1. See **[ONBOARDING.md](ONBOARDING.md)** for complete setup and contribution guide
+2. Use PRP templates in `PRPs/templates/` for feature development
+3. Follow development workflow in `CLAUDE.md`
+
+**For PRP Methodology**:
+- See `PRPs/README.md` for complete PRP documentation
+- Use `/create-base-prp` and `/execute-base-prp` Claude Code commands
+- Access PRP templates and AI documentation in `PRPs/` directory
+
+## ☕ Support This Work
 
 **Found value in these resources?**
 
@@ -74,352 +183,10 @@ This project also demonstrates the **Product Requirement Prompt (PRP)** methodol
 
 ### 🎯 Transform Your Team with AI Engineering Workshops
 
-**Ready to move beyond toy demos to production-ready AI systems?**
-
 👉 **Book a workshop:** https://www.rasmuswiding.com/
 
-✅ **What you'll get:**
-
-- Put your team on a path to become AI power users
-- Learn the exact PRP methodology used by top engineering teams
-- Hands-on training with Claude Code, PRPs, and real codebases
-- From beginner to advanced AI engineering workshops for teams and individuals
-
-💡 **Perfect for:** Engineering teams, Product teams, and developers who want AI that actually works in production
+- Learn the PRP methodology used by top engineering teams
+- Hands-on training with Claude Code and real codebases
+- From beginner to advanced AI engineering workshops
 
 Contact: rasmus@widinglabs.com
-
----
-
-# PRP (Product Requirement Prompts) - AI Engineering Resources
-
-A comprehensive library of assets and context engineering for Agentic Engineering, optimized for Claude Code. This repository provides the Product Requirement Prompt (PRP) methodology, pre-configured commands, and extensive documentation to enable AI-assisted development that delivers production-ready code on the first pass.
-
-## What is PRP?
-
-Product Requirement Prompt (PRP)
-
-## In short
-
-A PRP is PRD + curated codebase intelligence + agent/runbook—the minimum viable packet an AI needs to plausibly ship production-ready code on the first pass.
-
-Product Requirement Prompt (PRP) is a structured prompt methodology first established in summer 2024 with context engineering at heart. A PRP supplies an AI coding agent with everything it needs to deliver a vertical slice of working software—no more, no less.
-
-### How PRP Differs from Traditional PRD
-
-A traditional PRD clarifies what the product must do and why customers need it, but deliberately avoids how it will be built.
-
-A PRP keeps the goal and justification sections of a PRD yet adds three AI-critical layers:
-
-### Context
-
-Precise file paths and content, library versions and library context, code snippets examples. LLMs generate higher-quality code when given direct, in-prompt references instead of broad descriptions. Usage of a ai_docs/ directory to pipe in library and other docs.
-
-## Getting Started
-
-### Option 1: Copy Resources to Your Existing Project
-
-1. **Copy the Claude commands** to your project:
-
-   ```bash
-   # From your project root
-   cp -r /path/to/PRPs-agentic-eng/.claude/commands .claude/
-   ```
-
-2. **Copy the PRP templates and runner**:
-
-   ```bash
-   cp -r /path/to/PRPs-agentic-eng/PRPs/templates PRPs/
-   cp -r /path/to/PRPs-agentic-eng/PRPs/scripts PRPs/
-   cp /path/to/PRPs-agentic-eng/PRPs/README.md PRPs/
-   ```
-
-3. **Copy AI documentation** (optional but recommended):
-   ```bash
-   cp -r /path/to/PRPs-agentic-eng/PRPs/ai_docs PRPs/
-   ```
-
-### Option 2: Clone and Start a New Project
-
-1. **Clone this repository**:
-
-   ```bash
-   git clone https://github.com/Wirasm/PRPs-agentic-eng.git
-   cd PRPs-agentic-eng
-   ```
-
-2. **Create your project structure**:
-
-   ```bash
-   # Example for a Python project
-   mkdir -p src/tests
-   touch src/__init__.py
-   touch pyproject.toml
-   touch CLAUDE.md
-   ```
-
-3. **Initialize with UV** (for Python projects):
-   ```bash
-   uv venv
-   uv sync
-   ```
-
-## Using Claude Commands
-
-The `.claude/commands/` directory contains 12 pre-configured commands that appear as slash commands in Claude Code.
-
-### Available Commands
-
-1. **PRP Creation & Execution**:
-   - `/create-base-prp` - Generate comprehensive PRPs with research
-   - `/execute-base-prp` - Execute PRPs against codebase
-   - `/planning-create` - Create planning documents with diagrams
-   - `/spec-create-adv` - Advanced specification creation
-   - `/spec-execute` - Execute specifications
-
-2. **Code Review & Refactoring**:
-   - `/review-general` - General code review
-   - `/review-staged-unstaged` - Review git changes
-   - `/refactor-simple` - Simple refactoring tasks
-
-3. **Git & GitHub**:
-   - `/create-pr` - Create pull requests
-
-4. **Utilities**:
-   - `/prime-core` - Prime Claude with project context
-   - `/onboarding` - Onboarding process for new team members
-   - `/debug` - Debugging workflow
-
-### How to Use Commands
-
-1. **In Claude Code**, type `/` to see available commands
-2. **Select a command** and provide arguments when prompted
-3. **Example usage**:
-   ```
-   /create-base-prp user authentication system with OAuth2
-   ```
-
-## Using PRPs
-
-### Creating a PRP
-
-1. **Use the template** as a starting point:
-
-   ```bash
-   cp PRPs/templates/prp_base.md PRPs/my-feature.md
-   ```
-
-2. **Fill in the sections**:
-   - Goal: What needs to be built
-   - Why: Business value and user impact
-   - Context: Documentation, code examples, gotchas
-   - Implementation Blueprint: Tasks and pseudocode
-   - Validation Loop: Executable tests
-
-3. **Or use Claude to generate one**:
-   ```
-   /create-base-prp implement user authentication with JWT tokens
-   ```
-
-### Executing a PRP
-
-1. **Using the runner script**:
-
-   ```bash
-   # Interactive mode (recommended for development)
-   uv run PRPs/scripts/prp_runner.py --prp my-feature --interactive
-
-   # Headless mode (for CI/CD)
-   uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format json
-
-   # Streaming JSON (for real-time monitoring)
-   uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format stream-json
-   ```
-
-2. **Using Claude commands**:
-   ```
-   /execute-base-prp PRPs/my-feature.md
-   ```
-
-### PRP Best Practices
-
-1. **Context is King**: Include ALL necessary documentation, examples, and caveats
-2. **Validation Loops**: Provide executable tests/lints the AI can run and fix
-3. **Information Dense**: Use keywords and patterns from the codebase
-4. **Progressive Success**: Start simple, validate, then enhance
-
-### Example PRP Structure
-
-```markdown
-## Goal
-
-Implement user authentication with JWT tokens
-
-## Why
-
-- Enable secure user sessions
-- Support API authentication
-- Replace basic auth with industry standard
-
-## What
-
-JWT-based authentication system with login, logout, and token refresh
-
-### Success Criteria
-
-- [ ] Users can login with email/password
-- [ ] JWT tokens expire after 24 hours
-- [ ] Refresh tokens work correctly
-- [ ] All endpoints properly secured
-
-## All Needed Context
-
-### Documentation & References
-
-- url: https://jwt.io/introduction/
-  why: JWT structure and best practices
-
-- file: src/auth/basic_auth.py
-  why: Current auth pattern to replace
-
-- doc: https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
-  section: OAuth2 with Password and JWT
-
-### Known Gotchas
-
-# CRITICAL: Use RS256 algorithm for production
-
-# CRITICAL: Store refresh tokens in httpOnly cookies
-
-# CRITICAL: Implement token blacklist for logout
-
-## Implementation Blueprint
-
-[... detailed implementation plan ...]
-
-## Validation Loop
-
-### Level 1: Syntax & Style
-
-ruff check src/ --fix
-mypy src/
-
-### Level 2: Unit Tests
-
-uv run pytest tests/test_auth.py -v
-
-### Level 3: Integration Test
-
-curl -X POST http://localhost:8000/auth/login \
- -H "Content-Type: application/json" \
- -d '{"email": "test@example.com", "password": "testpass"}'
-```
-
-## Project Structure Recommendations
-
-```
-your-project/
-|-- .claude/
-|   |-- commands/          # Claude Code commands
-|   `-- settings.json      # Tool permissions
-|-- PRPs/
-|   |-- templates/         # PRP templates
-|   |-- scrips/           # PRP runner
-|   |-- ai_docs/          # Library documentation
-|   |-- completed/        # Finished PRPs
-|   `-- *.md              # Active PRPs
-|-- CLAUDE.md             # Project-specific guidelines
-|-- src/                  # Your source code
-`-- tests/                # Your tests
-```
-
-## Setting Up CLAUDE.md
-
-Create a `CLAUDE.md` file in your project root with:
-
-1. **Core Principles**: KISS, YAGNI, etc.
-2. **Code Structure**: File size limits, function length
-3. **Architecture**: How your project is organized
-4. **Testing**: Test patterns and requirements
-5. **Style Conventions**: Language-specific guidelines
-6. **Development Commands**: How to run tests, lint, etc.
-
-See the example CLAUDE.md in this repository for a comprehensive template.
-
-## Advanced Usage
-
-### Running Multiple Claude Sessions
-
-Use Git worktrees for parallel development:
-
-```bash
-git worktree add -b feature-auth ../project-auth
-git worktree add -b feature-api ../project-api
-
-# Run Claude in each worktree
-cd ../project-auth && claude
-cd ../project-api && claude
-```
-
-### CI/CD Integration
-
-Use the PRP runner in headless mode:
-
-```yaml
-# GitHub Actions example
-- name: Execute PRP
-  run: |
-    uv run PRPs/scripts/prp_runner.py \
-      --prp implement-feature \
-      --output-format json > result.json
-```
-
-### Custom Commands
-
-Create your own commands in `.claude/commands/`:
-
-```markdown
-# .claude/commands/my-command.md
-
-# My Custom Command
-
-Do something specific to my project.
-
-## Arguments: $ARGUMENTS
-
-[Your command implementation]
-```
-
-## Resources Included
-
-### Documentation (PRPs/ai_docs/)
-
-- `cc_base.md` - Core Claude Code documentation
-- `cc_actions_sdk.md` - GitHub Actions and SDK integration
-- `cc_best_practices.md` - Best practices guide
-- `cc_settings.md` - Configuration and security
-- `cc_tutorials.md` - Step-by-step tutorials
-
-### Templates (PRPs/templates/)
-
-- `prp_base.md` - Comprehensive PRP template with validation
-- `prp_spec.md` - Specification template
-- `prp_planning_base.md` - Planning template with diagrams
-
-### Example PRP
-
-- `example-from-workshop-mcp-crawl4ai-refactor-1.md` - Real-world refactoring example
-
-## License
-
-MIT License
-
-## Support
-
-I spent a considerable amount of time creating these resources and prompts. If you find value in this project, please consider buying me a coffee to support my work.
-
-👉 **Buy me a coffee:** https://coff.ee/wirasm
-
----
-
-Remember: The goal is one-pass implementation success through comprehensive context. Happy coding with Claude Code!
