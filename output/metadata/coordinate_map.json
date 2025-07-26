@@ -1,0 +1,4492 @@
+{
+  "total_elements": 186,
+  "processing_info": {
+    "coordinate_system": "absolute",
+    "dpi": 300,
+    "precision": 2
+  },
+  "elements": [
+    {
+      "id": "other_8477512986707108441",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 6.44,
+        "y": 18.71,
+        "width": 84.23,
+        "height": 11.2
+      },
+      "center_point": {
+        "x": 48.55,
+        "y": 24.31
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.333333513333,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.333333513333,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-1056913106885346212",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.16,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 2.14
+      },
+      "center_point": {
+        "x": 3.16,
+        "y": 6.62
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-8655850393548285729",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.16,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 2.14
+      },
+      "center_point": {
+        "x": 3.16,
+        "y": 6.62
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-2388622859699703779",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 7.72,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 7.72,
+        "y": 5.81
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_1835137883149189906",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 7.72,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 7.72,
+        "y": 5.81
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-2682068642088696847",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 7.72,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 7.72,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7965425135786457143",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 7.72,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 7.72,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_4622582279835295580",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 11.29,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 11.29,
+        "y": 5.81
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_7284159122786514256",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 11.29,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 11.29,
+        "y": 5.81
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_4730026734106645191",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 11.29,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 11.29,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-107129167488329461",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 11.29,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 11.29,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_5922424582730972624",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 14.86,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 14.86,
+        "y": 5.81
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-5844234461759897028",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 14.86,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 14.86,
+        "y": 5.81
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_1247761703917053514",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 14.86,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 14.86,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7201628111871905507",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 14.86,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 14.86,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_3136188603375432970",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.02,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 19.02,
+        "y": 5.81
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-1188710917544436715",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.02,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 19.02,
+        "y": 5.81
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-2901076015380421472",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.02,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 19.02,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-316098379446268993",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.02,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 19.02,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-168048508279456488",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 25.6,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 25.6,
+        "y": 5.81
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_5963997854533215747",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 25.6,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 25.6,
+        "y": 5.81
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_2370635268027147211",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 25.6,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 25.6,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7657249590464469356",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 25.6,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.53
+      },
+      "center_point": {
+        "x": 25.6,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 0.0,
+        "y": 0.17,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 0.0,
+        "y": 0.17
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 64.67,
+        "y": 173.62,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 64.67,
+        "y": 173.62
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 64.66536825254867,
+        "f": 173.61642708598023
+      }
+    },
+    {
+      "id": "other_-5776842828766906471",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 74.4,
+        "y": 199.9,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 74.4,
+        "y": 199.9
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 64.66536825254867,
+        "f": 173.61642708598023
+      }
+    },
+    {
+      "id": "text_7708433361440863900",
+      "type": "text",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 73.26,
+        "y": 197.8,
+        "width": 1.33,
+        "height": 1.33
+      },
+      "center_point": {
+        "x": 73.93,
+        "y": 198.47
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 64.66536825254867,
+        "f": 173.61642708598023
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 64.67,
+        "y": 173.62,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 64.67,
+        "y": 173.62
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 64.66536825254867,
+        "f": 173.61642708598023
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 0.0,
+        "y": 0.17,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 0.0,
+        "y": 0.17
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 57.93,
+        "y": 224.64,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 57.93,
+        "y": 224.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 57.93303128376207,
+        "f": 224.64012130537586
+      }
+    },
+    {
+      "id": "other_8362712566294269456",
+      "type": "other",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 66.65,
+        "y": 258.6,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 66.65,
+        "y": 258.6
+      },
+      "staff_position": 2,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 57.93303128376207,
+        "f": 224.64012130537586
+      }
+    },
+    {
+      "id": "text_2783066772725421528",
+      "type": "text",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 65.63,
+        "y": 255.61,
+        "width": 1.33,
+        "height": 1.33
+      },
+      "center_point": {
+        "x": 66.3,
+        "y": 256.28
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 57.93303128376207,
+        "f": 224.64012130537586
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 57.93,
+        "y": 224.64,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 57.93,
+        "y": 224.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 57.93303128376207,
+        "f": 224.64012130537586
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 0.0,
+        "y": 0.17,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 0.0,
+        "y": 0.17
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_5236286564763510288",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.84,
+        "y": 5.98,
+        "width": 1.52,
+        "height": 0.12
+      },
+      "center_point": {
+        "x": 18.6,
+        "y": 6.04
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-5196626127129111797",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.84,
+        "y": 5.98,
+        "width": 1.52,
+        "height": 0.12
+      },
+      "center_point": {
+        "x": 18.6,
+        "y": 6.04
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_5992422697671516632",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.84,
+        "y": 5.98,
+        "width": 1.52,
+        "height": 0.14
+      },
+      "center_point": {
+        "x": 18.6,
+        "y": 6.05
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-621768345371617145",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.84,
+        "y": 5.98,
+        "width": 1.52,
+        "height": 0.14
+      },
+      "center_point": {
+        "x": 18.6,
+        "y": 6.05
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 477.28,
+        "y": 255.61,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 477.28,
+        "y": 255.61
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 477.283591065856,
+        "f": 255.6051380264449
+      }
+    },
+    {
+      "id": "other_-8159447807176380354",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 549.13,
+        "y": 294.27,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 549.13,
+        "y": 294.27
+      },
+      "staff_position": 4,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 477.283591065856,
+        "f": 255.6051380264449
+      }
+    },
+    {
+      "id": "clef_-9092897025886219051",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 540.7,
+        "y": 291.0,
+        "width": 1.33,
+        "height": 1.33
+      },
+      "center_point": {
+        "x": 541.37,
+        "y": 291.67
+      },
+      "staff_position": 4,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 477.283591065856,
+        "f": 255.6051380264449
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 477.28,
+        "y": 255.61,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 477.28,
+        "y": 255.61
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 477.283591065856,
+        "f": 255.6051380264449
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 0.0,
+        "y": 0.17,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 0.0,
+        "y": 0.17
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 486.5,
+        "y": 257.95,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 486.5,
+        "y": 257.95
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 486.49692937438016,
+        "f": 257.94713929112254
+      }
+    },
+    {
+      "id": "other_3234255738272446262",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 559.73,
+        "y": 296.92,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 559.73,
+        "y": 296.92
+      },
+      "staff_position": 4,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 486.49692937438016,
+        "f": 257.94713929112254
+      }
+    },
+    {
+      "id": "text_-4988475610078538492",
+      "type": "text",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 551.14,
+        "y": 293.34,
+        "width": 1.33,
+        "height": 1.33
+      },
+      "center_point": {
+        "x": 551.8,
+        "y": 294.0
+      },
+      "staff_position": 4,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 486.49692937438016,
+        "f": 257.94713929112254
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 486.5,
+        "y": 257.95,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 486.5,
+        "y": 257.95
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.1328740717518271,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.1328740717518271,
+        "e": 486.49692937438016,
+        "f": 257.94713929112254
+      }
+    },
+    {
+      "id": "other_-3377581254564607820",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 0.0,
+        "y": 0.17,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 0.0,
+        "y": 0.17
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_7447630096410251747",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 16.29,
+        "y": 8.49,
+        "width": 1.31,
+        "height": 0.09
+      },
+      "center_point": {
+        "x": 16.95,
+        "y": 8.54
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_4665860498326132348",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 16.29,
+        "y": 8.49,
+        "width": 1.31,
+        "height": 0.09
+      },
+      "center_point": {
+        "x": 16.95,
+        "y": 8.54
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-3740517347195710055",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 16.29,
+        "y": 8.41,
+        "width": 1.31,
+        "height": 0.08
+      },
+      "center_point": {
+        "x": 16.95,
+        "y": 8.45
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-8260751518456003099",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 16.29,
+        "y": 8.41,
+        "width": 1.31,
+        "height": 0.08
+      },
+      "center_point": {
+        "x": 16.95,
+        "y": 8.45
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_431318449902413024",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.24,
+        "y": 7.99,
+        "width": 2.57,
+        "height": 0.16
+      },
+      "center_point": {
+        "x": 16.52,
+        "y": 8.07
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_3969866659673523023",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.24,
+        "y": 7.99,
+        "width": 2.57,
+        "height": 0.16
+      },
+      "center_point": {
+        "x": 16.52,
+        "y": 8.07
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-8178785307493708323",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.24,
+        "y": 7.99,
+        "width": 2.57,
+        "height": 0.18
+      },
+      "center_point": {
+        "x": 16.52,
+        "y": 8.08
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_663396995559209014",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.24,
+        "y": 7.99,
+        "width": 2.57,
+        "height": 0.18
+      },
+      "center_point": {
+        "x": 16.52,
+        "y": 8.08
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_4628194315344235518",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.84,
+        "y": 7.99,
+        "width": 1.52,
+        "height": 0.12
+      },
+      "center_point": {
+        "x": 18.6,
+        "y": 8.05
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-2358626781789364564",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.84,
+        "y": 7.99,
+        "width": 1.52,
+        "height": 0.12
+      },
+      "center_point": {
+        "x": 18.6,
+        "y": 8.05
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_7113967359423032412",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.84,
+        "y": 7.99,
+        "width": 1.52,
+        "height": 0.14
+      },
+      "center_point": {
+        "x": 18.6,
+        "y": 8.06
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-1192873870190409727",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.84,
+        "y": 7.99,
+        "width": 1.52,
+        "height": 0.14
+      },
+      "center_point": {
+        "x": 18.6,
+        "y": 8.06
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-1362483549824884990",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.95,
+        "y": 8.49,
+        "width": 4.34,
+        "height": 0.08
+      },
+      "center_point": {
+        "x": 20.12,
+        "y": 8.53
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-4415626851711385102",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.95,
+        "y": 8.49,
+        "width": 4.34,
+        "height": 0.08
+      },
+      "center_point": {
+        "x": 20.12,
+        "y": 8.53
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-2477391089284722854",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.95,
+        "y": 8.41,
+        "width": 4.34,
+        "height": 0.08
+      },
+      "center_point": {
+        "x": 20.12,
+        "y": 8.45
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_6091779164423112815",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.95,
+        "y": 8.41,
+        "width": 4.34,
+        "height": 0.08
+      },
+      "center_point": {
+        "x": 20.12,
+        "y": 8.45
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-1834932347219776",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 6.08,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 6.08
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-1348592584940527670",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 6.08,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 6.08
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_3658420575526383962",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 5.95,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 5.95
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_4528348785434658157",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 5.95,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 5.95
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_8977298042311906015",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 5.82,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 5.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-35266859135215448",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 5.82,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 5.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_430549371918463641",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 5.68,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 5.68
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_1869296270747120950",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 5.68,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 5.68
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_3848766404331433651",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 5.55,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 5.55
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7856578183855531423",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 5.55,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 5.55
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-3124120853303491870",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.28,
+        "y": 5.95,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 3.28,
+        "y": 5.95
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_6864956801121767611",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 18.52,
+        "y": 32.65,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 19.41,
+        "y": 33.53
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_8172126144512433297",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.9,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 3.9,
+        "y": 5.55
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-1242346637135591256",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 22.03,
+        "y": 30.39,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 22.92,
+        "y": 31.28
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-2186236423399162961",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 5.86,
+        "y": 5.82,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 5.86,
+        "y": 5.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_7806198594889963856",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 33.08,
+        "y": 31.9,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 33.96,
+        "y": 32.78
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-6636374556004573888",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 9.43,
+        "y": 5.82,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 9.43,
+        "y": 5.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_4877842107103507500",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 53.23,
+        "y": 31.9,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 54.11,
+        "y": 32.78
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7460495853464009240",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 13.0,
+        "y": 5.82,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 13.0,
+        "y": 5.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_666881542930473018",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 73.38,
+        "y": 31.9,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 74.27,
+        "y": 32.78
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_6802963816526942944",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 7.69,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 7.69
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_4548817103244432797",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 7.69,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 7.69
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_7295685131574031564",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 7.55,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 7.55
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_2965144708606623246",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 7.55,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 7.55
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7325994445403820770",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 7.42,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_3912410235600702369",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 7.42,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_8853842511260681712",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 7.29,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 7.29
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-3016452770480266995",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 7.29,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 7.29
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-5575372346052361163",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 7.15,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 7.15
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_196193864787539881",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.15,
+        "y": 7.15,
+        "width": 22.47,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 14.38,
+        "y": 7.15
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-5495685597801484538",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.28,
+        "y": 7.55,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 3.28,
+        "y": 7.55
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-6447938811526252175",
+      "type": "clef",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 18.52,
+        "y": 41.69,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 19.41,
+        "y": 42.57
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7491054232609195748",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 3.9,
+        "y": 7.15,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 3.9,
+        "y": 7.15
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-4624558371597499066",
+      "type": "clef",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 22.03,
+        "y": 39.43,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 22.92,
+        "y": 40.31
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_8008192961088458434",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 5.86,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 5.86,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-828735209745149339",
+      "type": "clef",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 33.08,
+        "y": 40.94,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 33.96,
+        "y": 41.82
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-8207767000125961502",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 9.43,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 9.43,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-3032946792965148254",
+      "type": "clef",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 53.23,
+        "y": 40.94,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 54.11,
+        "y": 41.82
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-1588226526312365020",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 13.0,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 13.0,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-2399955066690953765",
+      "type": "clef",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 73.38,
+        "y": 40.94,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 74.27,
+        "y": 41.82
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_575583033876547148",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.25,
+        "y": 7.95,
+        "width": 6.33,
+        "height": 0.34
+      },
+      "center_point": {
+        "x": 18.41,
+        "y": 8.12
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-2241384025091260788",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.25,
+        "y": 7.95,
+        "width": 6.33,
+        "height": 0.34
+      },
+      "center_point": {
+        "x": 18.41,
+        "y": 8.12
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_7173977639604957905",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.25,
+        "y": 7.95,
+        "width": 6.33,
+        "height": 0.36
+      },
+      "center_point": {
+        "x": 18.41,
+        "y": 8.13
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_996994904482569750",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.25,
+        "y": 7.95,
+        "width": 6.33,
+        "height": 0.36
+      },
+      "center_point": {
+        "x": 18.41,
+        "y": 8.13
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_8938754980950513838",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.14,
+        "y": 5.82,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 15.14,
+        "y": 5.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-5842452300895729608",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 85.47,
+        "y": 31.9,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 86.36,
+        "y": 32.78
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-5970417565219199630",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.37,
+        "y": 5.75,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 15.37,
+        "y": 5.75
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-3266936085359203828",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 86.76,
+        "y": 31.52,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 87.65,
+        "y": 32.41
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_2237920851913502251",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.91,
+        "y": 5.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 17.91,
+        "y": 5.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_4883738195418839446",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.91,
+        "y": 5.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 17.91,
+        "y": 5.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-5615539249743415632",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.74,
+        "y": 5.88,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 17.74,
+        "y": 5.88
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "notehead_-7974073103374941817",
+      "type": "notehead",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 100.16,
+        "y": 32.27,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 101.05,
+        "y": 33.16
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_5591928660289779338",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.46,
+        "y": 5.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 19.46,
+        "y": 5.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_5691230706685413204",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.46,
+        "y": 5.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 19.46,
+        "y": 5.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-4041332253476750381",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.3,
+        "y": 5.88,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 19.3,
+        "y": 5.88
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "notehead_-685116185176702353",
+      "type": "notehead",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 108.95,
+        "y": 32.27,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 109.84,
+        "y": 33.16
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7487851254862757323",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.45,
+        "y": 5.55,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 19.45,
+        "y": 5.55
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_3702655958797216091",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 109.79,
+        "y": 30.39,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 110.68,
+        "y": 31.28
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-198053541516186644",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 20.4,
+        "y": 5.48,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 20.4,
+        "y": 5.7
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_6606740972765037032",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 20.4,
+        "y": 5.48,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 20.4,
+        "y": 5.7
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_2976129779108822899",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 20.24,
+        "y": 5.95,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 20.24,
+        "y": 5.95
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "notehead_-7059145338824511950",
+      "type": "notehead",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 114.22,
+        "y": 32.65,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 115.11,
+        "y": 33.53
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-751419129214414680",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 21.54,
+        "y": 5.84,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 21.54,
+        "y": 6.06
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_8071524290801014039",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 21.54,
+        "y": 5.84,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 21.54,
+        "y": 6.06
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7625425539097963223",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 21.53,
+        "y": 5.82,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 21.53,
+        "y": 5.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "notehead_788406511890435954",
+      "type": "notehead",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 121.5,
+        "y": 31.9,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 122.39,
+        "y": 32.78
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_8879230525687204048",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 21.53,
+        "y": 6.15,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 21.53,
+        "y": 6.15
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-8239661059913166497",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 121.5,
+        "y": 33.78,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 122.39,
+        "y": 34.66
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_3378135654214140922",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 22.45,
+        "y": 5.82,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 22.45,
+        "y": 5.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-8176643412475292719",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 126.74,
+        "y": 31.9,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 127.62,
+        "y": 32.78
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_6571031727956644390",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 23.74,
+        "y": 5.82,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 23.74,
+        "y": 5.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-3141100353011279679",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 134.03,
+        "y": 31.9,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 134.91,
+        "y": 32.78
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-6907218989044783714",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 24.68,
+        "y": 5.82,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 24.68,
+        "y": 5.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_5965664847954032983",
+      "type": "clef",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 139.3,
+        "y": 31.9,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 140.19,
+        "y": 32.78
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-3255511792194362915",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.1,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 15.23,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-4081382997292457750",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.1,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 15.23,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_3138751085005560403",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.3,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 15.3,
+        "y": 7.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_4897895087144177298",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.3,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 15.3,
+        "y": 7.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-2946680059881415003",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.14,
+        "y": 7.89,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 15.14,
+        "y": 7.89
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "notehead_-2623856080486331063",
+      "type": "notehead",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 85.47,
+        "y": 43.57,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 86.36,
+        "y": 44.45
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_6044008683927669769",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 15.4,
+        "y": 7.89,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 15.4,
+        "y": 7.89
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_6553605172341051516",
+      "type": "clef",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 86.91,
+        "y": 43.57,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 87.8,
+        "y": 44.45
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7606356154802457326",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.7,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 17.83,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_1531828901683054919",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.7,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 17.83,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_1379942537206858971",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.91,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 17.91,
+        "y": 7.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-5813983115011219731",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.91,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 17.91,
+        "y": 7.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_6739673795182870615",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 17.74,
+        "y": 7.89,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 17.74,
+        "y": 7.89
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "notehead_3462571727830644991",
+      "type": "notehead",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 100.16,
+        "y": 43.57,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 101.05,
+        "y": 44.45
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_1580619984381888455",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.26,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 19.39,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_8511285824465492188",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.26,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 19.39,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_5098519214514301198",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.46,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 19.46,
+        "y": 7.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_8409522855930971974",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.46,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 19.46,
+        "y": 7.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-6129940564097482835",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.3,
+        "y": 7.89,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 19.3,
+        "y": 7.89
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "notehead_4879776839624776888",
+      "type": "notehead",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 108.95,
+        "y": 43.57,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 109.84,
+        "y": 44.45
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-4678536991417153374",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 19.45,
+        "y": 7.55,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 19.45,
+        "y": 7.55
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-7431391504398557538",
+      "type": "clef",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 109.79,
+        "y": 41.69,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 110.68,
+        "y": 42.57
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_6894272167605653162",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 20.19,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 20.32,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_9045073035288892984",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 20.19,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 20.32,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_7302633901647973083",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 20.19,
+        "y": 7.95,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 20.32,
+        "y": 7.95
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-8339924391302202795",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 20.19,
+        "y": 7.95,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 20.32,
+        "y": 7.95
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-3699123151612094401",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 20.4,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.51
+      },
+      "center_point": {
+        "x": 20.4,
+        "y": 7.67
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-2085168039197338010",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 20.4,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.51
+      },
+      "center_point": {
+        "x": 20.4,
+        "y": 7.67
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_4988629606024823100",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 20.24,
+        "y": 7.95,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 20.24,
+        "y": 7.95
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "notehead_-1141536159489825533",
+      "type": "notehead",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 114.22,
+        "y": 43.95,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 115.11,
+        "y": 44.84
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_1639983756940103123",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 21.48,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 21.61,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_1977786113889774670",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 21.48,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 21.61,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_228213868940323284",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 21.69,
+        "y": 7.35,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 21.69,
+        "y": 7.57
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-7886745057935717157",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 21.69,
+        "y": 7.35,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 21.69,
+        "y": 7.57
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-5349043426673661659",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 21.53,
+        "y": 7.82,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 21.53,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "notehead_-3554523698626802814",
+      "type": "notehead",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 121.5,
+        "y": 43.2,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 122.39,
+        "y": 44.09
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_1737593610135964800",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 21.68,
+        "y": 7.49,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 21.68,
+        "y": 7.49
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_-7630385521070400657",
+      "type": "clef",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 122.35,
+        "y": 41.31,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 123.23,
+        "y": 42.2
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_7046744884840324946",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 22.41,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 22.54,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-2958886682167494073",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 22.41,
+        "y": 7.82,
+        "width": 0.26,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 22.54,
+        "y": 7.82
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-875809410693752492",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 22.62,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 22.62,
+        "y": 7.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_-505065181837256594",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 22.62,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.44
+      },
+      "center_point": {
+        "x": 22.62,
+        "y": 7.64
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_712496762172895596",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 22.45,
+        "y": 7.89,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 22.45,
+        "y": 7.89
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "notehead_5071995084260501526",
+      "type": "notehead",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 126.74,
+        "y": 43.57,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 127.62,
+        "y": 44.45
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_2666939015433524595",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 23.74,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 23.74,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_387807889673675094",
+      "type": "clef",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 134.03,
+        "y": 40.94,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 134.91,
+        "y": 41.82
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "other_7707365044989976494",
+      "type": "other",
+      "instrument": "flute",
+      "coordinates": {
+        "x": 24.68,
+        "y": 7.42,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "center_point": {
+        "x": 24.68,
+        "y": 7.42
+      },
+      "staff_position": 0,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    },
+    {
+      "id": "clef_1197157888684204033",
+      "type": "clef",
+      "instrument": "violin",
+      "coordinates": {
+        "x": 139.3,
+        "y": 40.94,
+        "width": 1.77,
+        "height": 1.77
+      },
+      "center_point": {
+        "x": 140.19,
+        "y": 41.82
+      },
+      "staff_position": 1,
+      "transform_matrix": {
+        "a": 0.17716542900243615,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 0.17716542900243615,
+        "e": 0.0,
+        "f": 0.166666756667
+      }
+    }
+  ],
+  "statistics": {
+    "element_counts": {
+      "other": 150,
+      "text": 3,
+      "clef": 23,
+      "notehead": 10
+    },
+    "instrument_counts": {
+      "flute": 168,
+      "violin": 18
+    },
+    "coordinate_ranges": {
+      "x_min": 0.0,
+      "x_max": 559.73,
+      "y_min": 0.17,
+      "y_max": 296.92
+    }
+  }
+}

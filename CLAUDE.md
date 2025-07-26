@@ -135,4 +135,10 @@ PRPs/
  pyproject.toml         # Python package configuration
 ```
 
+## Output Strategies
+
+- Always output in the `output` folder
+- Do not create a new output folder
+- Overwrite previous output in the `output` folder
+
 Remember: This framework is about **one-pass implementation success through comprehensive context and validation**. Every PRP should contain the exact context for an AI agent to successfully implement working code in a single pass.
