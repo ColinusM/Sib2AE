@@ -4,11 +4,12 @@
 
 ## 🎼 What This Project Does
 
-This project implements a **three-tool universal pipeline** for processing musical notation from Sibelius SVG exports:
+This project implements a **four-tool universal pipeline** for processing musical notation from Sibelius SVG exports:
 
 1. **📝 Noteheads Extractor** - Extracts all noteheads from MusicXML into clean SVG
 2. **✂️ Noteheads Subtractor** - Removes noteheads from full score SVG  
 3. **🎯 Instrument Separator** - Separates instruments into individual SVG files
+4. **📐 Staff/Barlines Extractor** - Extracts structural framework (staff lines and barlines)
 
 **Key Innovation:** MusicXML-first approach with universal coordinate transformation for perfect accuracy across any musical score.
 
@@ -28,6 +29,9 @@ python truly_universal_noteheads_subtractor.py "Base/SS 9.musicxml" "Base/SS 9 f
 
 # Separate instruments 
 python xml_based_instrument_separator.py "Base/SS 9.musicxml" "Base/SS 9 full.svg" "output"
+
+# Extract staff lines and barlines
+python staff_barlines_extractor.py "Base/SS 9.musicxml" "Base/SS 9 full.svg"
 ```
 
 ## ✅ Proven Results
@@ -35,6 +39,7 @@ python xml_based_instrument_separator.py "Base/SS 9.musicxml" "Base/SS 9 full.sv
 **Test Case: Saint-Saëns Trio No. 2** 
 - ✅ Extracted 9 noteheads (3 flute, 6 violin) with pixel-perfect coordinates
 - ✅ Separated 2 instruments with proper XML structure maintained
+- ✅ Extracted 10 staff lines + 13 barlines (11 regular + 2 thick end barlines)
 - ✅ Universal coordinate system works across any MusicXML/SVG combination
 
 ## 🏗️ Architecture
@@ -49,6 +54,7 @@ python xml_based_instrument_separator.py "Base/SS 9.musicxml" "Base/SS 9 full.sv
 - `truly_universal_noteheads_extractor.py` - MusicXML → Noteheads SVG
 - `truly_universal_noteheads_subtractor.py` - Full SVG - Noteheads → Clean SVG
 - `xml_based_instrument_separator.py` - Any SVG → Per-instrument SVGs
+- `staff_barlines_extractor.py` - Full SVG → Staff lines + Barlines SVG
 
 ## 📋 Requirements
 

@@ -8,10 +8,11 @@ This is a **Sibelius to After Effects (Sib2Ae) converter** that extracts and pro
 
 ### Core Architecture
 
-**Three Universal Tools Pipeline:**
+**Four Universal Tools Pipeline:**
 1. **Noteheads Extractor** (`truly_universal_noteheads_extractor.py`) - Extracts noteheads from MusicXML
 2. **Noteheads Subtractor** (`truly_universal_noteheads_subtractor.py`) - Removes noteheads from full SVG 
 3. **Instrument Separator** (`xml_based_instrument_separator.py`) - Separates instruments into individual SVG files
+4. **Staff/Barlines Extractor** (`staff_barlines_extractor.py`) - Extracts structural framework (staff lines + barlines)
 
 **Key Principle: MusicXML-First Approach**
 - Always analyze MusicXML before processing SVG
@@ -30,6 +31,9 @@ python truly_universal_noteheads_subtractor.py "Base/SS 9.musicxml" "Base/SS 9 f
 
 # Separate instruments
 python xml_based_instrument_separator.py "Base/SS 9.musicxml" "Base/SS 9 full.svg" "output_dir"
+
+# Extract staff lines and barlines
+python staff_barlines_extractor.py "Base/SS 9.musicxml" "Base/SS 9 full.svg"
 
 # Full workflow: Extract → Separate
 python truly_universal_noteheads_extractor.py "Base/SS 9.musicxml"
@@ -60,6 +64,12 @@ uv run pytest
 - **Code 70**: `\u0046` (hollow notehead - half/whole notes)
 - **Code 102**: `\u0066` (full notehead - quarter/eighth/sixteenth notes)
 
+### Staff/Barlines Structure Recognition
+- **Staff lines**: stroke-width="2.25", full-width horizontal lines (>3000 pixels)
+- **Ledger lines**: stroke-width="3.75", short horizontal lines (<3000 pixels) - EXCLUDED
+- **Regular barlines**: stroke-width="5", vertical lines connecting staves
+- **Thick end barlines**: stroke-width="16", final double barline effect
+
 ## File Structure
 
 ```
@@ -71,6 +81,7 @@ uv run pytest
 ├── truly_universal_noteheads_extractor.py    # Tool 1: Extract noteheads
 ├── truly_universal_noteheads_subtractor.py   # Tool 2: Remove noteheads  
 ├── xml_based_instrument_separator.py         # Tool 3: Separate instruments
+├── staff_barlines_extractor.py               # Tool 4: Extract staff/barlines
 ├── PRPs/                         # PRP methodology and templates
 └── noteheads_separated/          # Output: separated noteheads by instrument
 ```
