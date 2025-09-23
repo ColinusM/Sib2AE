@@ -275,7 +275,12 @@ class SVGViewerWebView:
             <div class="info-panel">
                 <strong>SVG Viewer</strong><br>
                 File: {os.path.basename(svg_path)}<br>
-                Hover over elements for details
+                Hover over elements for details<br>
+                <span style="font-size: 9px; color: #666;">⌘+Click to copy • ⌘+Wheel to zoom</span>
+            </div>
+
+            <div id="coordsDisplay" style="position: fixed; bottom: 10px; left: 10px; background: rgba(0,0,0,0.8); color: white; padding: 4px 8px; border-radius: 3px; font-family: monospace; font-size: 11px; pointer-events: none; z-index: 1000;">
+                SVG: (0, 0)
             </div>
 
             <div class="svg-container">
@@ -349,6 +354,313 @@ class SVGViewerWebView:
                     }}
                 }}
 
+                // Copy element info to clipboard on Cmd+Click
+                function copyElementInfo(element, index, debugInfo = '') {{
+                    try {{
+                        const tagName = element.tagName.toLowerCase();
+
+                        // For group elements, drill down to find the actual leaf element
+                        let targetElement = element;
+                        if (tagName === 'g') {{
+                            // Recursively find the deepest non-group element
+                            function findLeafElement(el) {{
+                                const children = Array.from(el.children);
+
+                                // Look for direct non-group children first
+                                const nonGroupChildren = children.filter(child => {{
+                                    const childTag = child.tagName.toLowerCase();
+                                    return ['text', 'circle', 'ellipse', 'path', 'polyline', 'rect'].includes(childTag);
+                                }});
+
+                                if (nonGroupChildren.length > 0) {{
+                                    // Prefer text elements for noteheads, then geometric shapes
+                                    const textChild = nonGroupChildren.find(c => c.tagName.toLowerCase() === 'text');
+                                    if (textChild) return textChild;
+
+                                    const shapeChild = nonGroupChildren.find(c =>
+                                        ['circle', 'ellipse', 'path'].includes(c.tagName.toLowerCase())
+                                    );
+                                    if (shapeChild) return shapeChild;
+
+                                    return nonGroupChildren[0]; // Return first non-group child
+                                }}
+
+                                // If only group children, recurse into the first group
+                                const groupChildren = children.filter(child =>
+                                    child.tagName.toLowerCase() === 'g'
+                                );
+
+                                if (groupChildren.length > 0) {{
+                                    return findLeafElement(groupChildren[0]);
+                                }}
+
+                                return el; // Return original if no children found
+                            }}
+
+                            const leafElement = findLeafElement(element);
+                            if (leafElement !== element) {{
+                                targetElement = leafElement;
+                                console.log('Drilled down to leaf element:', targetElement.tagName, targetElement);
+                            }}
+                        }}
+
+                        const finalTagName = targetElement.tagName.toLowerCase();
+                        const matchingData = findMatchingElementData(targetElement);
+
+                        let infoText = `=== SVG Element Info ===\\n`;
+                        infoText += `Tag: ${{finalTagName.toUpperCase()}}\\n`;
+
+                        if (matchingData) {{
+                            infoText += `Type: ${{matchingData.music_type}}\\n`;
+
+                            if (matchingData.text) {{
+                                infoText += `Text: "${{matchingData.text}}"\\n`;
+                            }}
+
+                            if (matchingData.coords) {{
+                                if (matchingData.coords.type === 'point') {{
+                                    infoText += `Position: (${{Math.round(matchingData.coords.x)}}, ${{Math.round(matchingData.coords.y)}})\\n`;
+                                }}
+                            }}
+
+                            // Add all attributes
+                            infoText += `\\nAttributes:\\n`;
+                            const attrs = Object.keys(matchingData.attrib);
+                            attrs.forEach(attr => {{
+                                const value = matchingData.attrib[attr];
+                                infoText += `  ${{attr}}: ${{value}}\\n`;
+                            }});
+                        }} else {{
+                            // Fallback for unmatched elements
+                            infoText += `Index: ${{index}}\\n`;
+                            const rect = targetElement.getBoundingClientRect();
+                            infoText += `Screen pos: (${{Math.round(rect.left)}}, ${{Math.round(rect.top)}})\\n`;
+
+                            // For text elements, show text content with more detail
+                            if (finalTagName === 'text') {{
+                                const cleanText = targetElement.textContent ? targetElement.textContent.trim() : '';
+                                const innerHTML = targetElement.innerHTML || '';
+                                const nodeValue = targetElement.firstChild ? targetElement.firstChild.nodeValue : '';
+
+                                infoText += `Text Content: "${{cleanText}}"\\n`;
+                                infoText += `Inner HTML: "${{innerHTML}}"\\n`;
+                                infoText += `Node Value: "${{nodeValue}}"\\n`;
+
+                                // Check for Unicode codepoints - including invisible ones
+                                let allText = cleanText || nodeValue || innerHTML;
+                                if (allText) {{
+                                    const codePoints = Array.from(allText).map(char => {{
+                                        const code = char.codePointAt(0);
+                                        return 'U+' + code.toString(16).toUpperCase().padStart(4, '0') + ' (' + char + ')';
+                                    }}).join(' ');
+                                    infoText += `Unicode: ${{codePoints}}\\n`;
+                                }} else {{
+                                    // Try to extract from DOM more aggressively
+                                    const allNodes = targetElement.childNodes;
+                                    let foundChars = [];
+                                    for (let node of allNodes) {{
+                                        if (node.nodeValue) {{
+                                            for (let char of node.nodeValue) {{
+                                                const code = char.codePointAt(0);
+                                                foundChars.push('U+' + code.toString(16).toUpperCase().padStart(4, '0') + ' (' + char + ')');
+                                            }}
+                                        }}
+                                    }}
+                                    if (foundChars.length > 0) {{
+                                        infoText += `Unicode (deep scan): ${{foundChars.join(' ')}}\\n`;
+                                    }} else {{
+                                        infoText += `Unicode: No text content found\\n`;
+                                    }}
+                                }}
+
+                                // Check if this is a Helsinki font notehead
+                                const fontFamily = targetElement.getAttribute('font-family') || '';
+                                if (fontFamily.includes('Helsinki')) {{
+                                    infoText += `Helsinki font detected - this is likely a musical symbol\\n`;
+                                }}
+
+                                // Get SVG coordinates
+                                const svg = targetElement.closest('svg');
+                                if (svg) {{
+                                    const rect = targetElement.getBoundingClientRect();
+                                    const svgRect = svg.getBoundingClientRect();
+                                    const svgX = rect.left - svgRect.left;
+                                    const svgY = rect.top - svgRect.top;
+                                    infoText += `SVG coords: (${{Math.round(svgX)}}, ${{Math.round(svgY)}})\\n`;
+                                }}
+                            }}
+                            // For group elements, show count of children
+                            else if (finalTagName === 'g') {{
+                                infoText += `Children: ${{targetElement.children.length}} elements\\n`;
+                                const childTags = Array.from(targetElement.children).map(c => c.tagName.toLowerCase());
+                                const uniqueTags = [...new Set(childTags)].slice(0, 5); // Show first 5 unique tags
+                                infoText += `Child types: ${{uniqueTags.join(', ')}}\\n`;
+                            }}
+
+                            // Add DOM attributes (limited to avoid huge output)
+                            infoText += `\\nDOM Attributes:\\n`;
+                            const attrs = Array.from(targetElement.attributes).slice(0, 10); // Limit to first 10 attributes
+                            for (let attr of attrs) {{
+                                let value = attr.value;
+                                if (value.length > 50) value = value.substring(0, 47) + '...';
+                                infoText += `  ${{attr.name}}: ${{value}}\\n`;
+                            }}
+                        }}
+
+                        // Add debug info if provided
+                        if (debugInfo) {{
+                            infoText += debugInfo;
+                        }}
+
+                        // Copy to clipboard using Python API
+                        if (window.pywebview && window.pywebview.api) {{
+                            const success = window.pywebview.api.copy_to_clipboard(infoText);
+                            if (success) {{
+                                showCopyFeedback(element);
+                                console.log('Element info copied to clipboard via Python API');
+                            }} else {{
+                                alert('Failed to copy to clipboard. Element info:\\n\\n' + infoText);
+                            }}
+                        }} else {{
+                            // Fallback: show info in alert if API not available
+                            alert('Element info:\\n\\n' + infoText);
+                        }}
+
+                    }} catch (e) {{
+                        console.error('Error copying element info:', e);
+                        alert('Error copying element info: ' + e.message);
+                    }}
+                }}
+
+                // Show visual feedback when element info is copied
+                function showCopyFeedback(element) {{
+                    const rect = element.getBoundingClientRect();
+                    const feedback = document.createElement('div');
+                    feedback.textContent = '📋 Copied!';
+                    feedback.style.cssText = `
+                        position: fixed;
+                        top: ${{rect.top - 30}}px;
+                        left: ${{rect.left}}px;
+                        background: #28a745;
+                        color: white;
+                        padding: 4px 8px;
+                        border-radius: 3px;
+                        font-size: 12px;
+                        z-index: 9999;
+                        pointer-events: none;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                    `;
+                    document.body.appendChild(feedback);
+
+                    setTimeout(() => {{
+                        if (feedback.parentNode) {{
+                            feedback.parentNode.removeChild(feedback);
+                        }}
+                    }}, 1500);
+                }}
+
+                // Mouse coordinate tracking and zoom
+                let currentZoom = 1.0;
+                const coordsDisplay = document.getElementById('coordsDisplay');
+
+                // Initialize SVG dimensions on load
+                document.addEventListener('DOMContentLoaded', function() {{
+                    const svg = document.querySelector('svg');
+                    if (svg && !svg.dataset.originalWidth) {{
+                        // Store original dimensions
+                        let originalWidth, originalHeight;
+                        try {{
+                            originalWidth = parseFloat(svg.getAttribute('width')) ||
+                                          (svg.viewBox && svg.viewBox.baseVal ? svg.viewBox.baseVal.width : null) ||
+                                          2592;
+                            originalHeight = parseFloat(svg.getAttribute('height')) ||
+                                           (svg.viewBox && svg.viewBox.baseVal ? svg.viewBox.baseVal.height : null) ||
+                                           3455;
+                        }} catch (e) {{
+                            originalWidth = 2592;
+                            originalHeight = 3455;
+                        }}
+
+                        svg.dataset.originalWidth = originalWidth;
+                        svg.dataset.originalHeight = originalHeight;
+                        currentZoom = 1.0; // Reset zoom to 1.0
+                        console.log('SVG initialized with dimensions:', originalWidth, 'x', originalHeight);
+                    }}
+                }});
+
+                // Update SVG coordinates on mouse move
+                document.addEventListener('mousemove', function(e) {{
+                    const svg = document.querySelector('svg');
+                    if (svg) {{
+                        const rect = svg.getBoundingClientRect();
+                        const svgX = ((e.clientX - rect.left) / currentZoom);
+                        const svgY = ((e.clientY - rect.top) / currentZoom);
+
+                        if (coordsDisplay) {{
+                            coordsDisplay.textContent = `SVG: (${{Math.round(svgX)}}, ${{Math.round(svgY)}}) | Zoom: ${{(currentZoom * 100).toFixed(0)}}%`;
+                        }}
+                    }}
+                }});
+
+                // Cmd+Wheel zooming using proper SVG scaling (no quality loss)
+                document.addEventListener('wheel', function(e) {{
+                    if (e.metaKey || e.ctrlKey) {{
+                        e.preventDefault();
+
+                        const svg = document.querySelector('svg');
+                        if (svg) {{
+                            const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+                            currentZoom *= zoomFactor;
+
+                            // Limit zoom range
+                            currentZoom = Math.max(0.1, Math.min(10, currentZoom));
+
+                            // Use SVG width/height scaling instead of CSS transform for crisp rendering
+                            let originalWidth, originalHeight;
+
+                            // Try to get original dimensions safely
+                            try {{
+                                originalWidth = parseFloat(svg.getAttribute('width')) ||
+                                              (svg.viewBox && svg.viewBox.baseVal ? svg.viewBox.baseVal.width : null) ||
+                                              2592;
+                                originalHeight = parseFloat(svg.getAttribute('height')) ||
+                                               (svg.viewBox && svg.viewBox.baseVal ? svg.viewBox.baseVal.height : null) ||
+                                               3455;
+                            }} catch (e) {{
+                                console.log('Using fallback dimensions');
+                                originalWidth = 2592;
+                                originalHeight = 3455;
+                            }}
+
+                            // Use stored original dimensions for consistent scaling
+                            const baseWidth = parseFloat(svg.dataset.originalWidth) || originalWidth;
+                            const baseHeight = parseFloat(svg.dataset.originalHeight) || originalHeight;
+
+                            // Store if not already stored
+                            if (!svg.dataset.originalWidth) {{
+                                svg.dataset.originalWidth = baseWidth;
+                                svg.dataset.originalHeight = baseHeight;
+                            }}
+
+                            const newWidth = baseWidth * currentZoom;
+                            const newHeight = baseHeight * currentZoom;
+
+                            console.log(`Zoom: ${{currentZoom.toFixed(2)}} | Base: ${{baseWidth}}x${{baseHeight}} | New: ${{newWidth.toFixed(0)}}x${{newHeight.toFixed(0)}}`);
+
+                            svg.setAttribute('width', newWidth);
+                            svg.setAttribute('height', newHeight);
+
+                            // Update container scrollable area
+                            const container = svg.parentElement;
+                            if (container) {{
+                                container.style.overflow = 'auto';
+                                container.style.width = '100%';
+                                container.style.height = '100%';
+                            }}
+                        }}
+                    }}
+                }});
+
                 // Add event listeners to all SVG elements
                 document.addEventListener('DOMContentLoaded', function() {{
                     const svgElements = document.querySelectorAll('svg *');
@@ -364,6 +676,52 @@ class SVGViewerWebView:
 
                         element.addEventListener('mouseleave', function(e) {{
                             hideTooltip();
+                        }});
+
+                        // Add click handler for Cmd+Click to copy element info
+                        element.addEventListener('click', function(e) {{
+                            if (e.metaKey || e.ctrlKey) {{ // Cmd on Mac, Ctrl on Windows/Linux
+                                e.preventDefault();
+
+                                // Find the most specific element at the click point
+                                const clickX = e.clientX;
+                                const clickY = e.clientY;
+                                const elementsAtPoint = document.elementsFromPoint(clickX, clickY);
+
+                                // Filter to SVG elements and find the smallest/most specific one
+                                const svgElements = elementsAtPoint.filter(el =>
+                                    el.tagName && ['text', 'circle', 'ellipse', 'path', 'polyline', 'rect', 'g'].includes(el.tagName.toLowerCase())
+                                );
+
+                                // Prefer non-group elements, or the smallest group
+                                let bestElement = element;
+                                for (let el of svgElements) {{
+                                    if (el.tagName.toLowerCase() !== 'g') {{
+                                        bestElement = el;
+                                        break; // Prefer any non-group element
+                                    }} else if (el.children.length < bestElement.children.length) {{
+                                        bestElement = el; // Prefer smaller groups
+                                    }}
+                                }}
+
+                                console.log('Elements at click point:', svgElements.map(el => el.tagName));
+                                console.log('Selected best element:', bestElement.tagName, bestElement);
+
+                                // Add debug info about all elements at click point
+                                let debugInfo = `\\n=== DEBUG: All elements at click point ===\\n`;
+                                svgElements.slice(0, 5).forEach((el, i) => {{
+                                    debugInfo += `${{i+1}}. ${{el.tagName.toUpperCase()}}`;
+                                    if (el.textContent && el.textContent.trim()) {{
+                                        debugInfo += ` - Text: "${{el.textContent.trim()}}"`;
+                                    }}
+                                    if (el.getAttribute('font-family')) {{
+                                        debugInfo += ` - Font: ${{el.getAttribute('font-family')}}`;
+                                    }}
+                                    debugInfo += `\\n`;
+                                }});
+
+                                copyElementInfo(bestElement, index, debugInfo);
+                            }}
                         }});
                     }});
                 }});
@@ -417,18 +775,44 @@ class SVGViewerWebView:
                 function findMatchingElementData(element) {{
                     const tagName = element.tagName.toLowerCase();
 
-                    // Try to match by tag and attributes
+                    // Try to match by tag and attributes with more specific matching
                     for (let data of elementsData) {{
                         if (data.tag === tagName) {{
                             // For text elements, match by content and position
                             if (tagName === 'text' && element.textContent) {{
-                                if (data.text === element.textContent.trim()) {{
+                                const elementText = element.textContent.trim();
+                                if (data.text === elementText) {{
                                     return data;
                                 }}
                             }}
-                            // For other elements, basic tag matching
+                            // For other elements, try to match by attributes
                             else if (tagName !== 'text') {{
-                                return data;
+                                // Try to match by key attributes like x, y, points, d, etc.
+                                let attributeMatch = false;
+
+                                if (tagName === 'polyline' && element.getAttribute('points')) {{
+                                    const elementPoints = element.getAttribute('points');
+                                    if (data.attrib.points === elementPoints) {{
+                                        return data;
+                                    }}
+                                }}
+                                else if (tagName === 'path' && element.getAttribute('d')) {{
+                                    const elementPath = element.getAttribute('d');
+                                    if (data.attrib.d === elementPath) {{
+                                        return data;
+                                    }}
+                                }}
+                                else if ((tagName === 'circle' || tagName === 'ellipse') && element.getAttribute('cx')) {{
+                                    const elementCx = element.getAttribute('cx');
+                                    const elementCy = element.getAttribute('cy');
+                                    if (data.attrib.cx === elementCx && data.attrib.cy === elementCy) {{
+                                        return data;
+                                    }}
+                                }}
+                                // Generic attribute matching for other elements
+                                else {{
+                                    return data; // Return first matching tag as fallback
+                                }}
                             }}
                         }}
                     }}
@@ -514,6 +898,39 @@ class SVGViewerWebView:
     def save_current_position(self):
         """Legacy API method - kept for backward compatibility"""
         return self.save_position_with_coords(self.window_x, self.window_y, self.window_width, self.window_height)
+
+    def copy_to_clipboard(self, text):
+        """API method for JavaScript to copy text to system clipboard"""
+        try:
+            import subprocess
+            import platform
+
+            system = platform.system()
+
+            if system == "Darwin":  # macOS
+                process = subprocess.run(['pbcopy'], input=text, text=True, check=True)
+            elif system == "Windows":
+                process = subprocess.run(['clip'], input=text, text=True, check=True)
+            elif system == "Linux":
+                # Try xclip first, then xsel as fallback
+                try:
+                    process = subprocess.run(['xclip', '-selection', 'clipboard'], input=text, text=True, check=True)
+                except FileNotFoundError:
+                    process = subprocess.run(['xsel', '--clipboard', '--input'], input=text, text=True, check=True)
+            else:
+                print(f"Unsupported system for clipboard: {system}")
+                return False
+
+            print(f"✅ Copied to clipboard: {len(text)} characters")
+            if self.parent_callback:
+                self.parent_callback(f"📋 Element info copied to clipboard ({len(text)} chars)")
+            return True
+
+        except Exception as e:
+            print(f"Error copying to clipboard: {e}")
+            if self.parent_callback:
+                self.parent_callback(f"❌ Clipboard error: {e}")
+            return False
 
     def set_svg_file(self, svg_path):
         """Set the SVG file to display"""

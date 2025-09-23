@@ -647,8 +647,8 @@ class Sib2AeGUI:
             return
 
         try:
-            # Use default SVG file if it exists
-            svg_file = self.default_svg if os.path.exists(self.default_svg) else None
+            # Look for the best SVG file to display (processed versions first)
+            svg_file = self.find_best_svg_file()
 
             # Launch SVG viewer window and keep reference
             self.svg_viewer = SVGViewerClass(parent_callback=self.log)
@@ -663,6 +663,40 @@ class Sib2AeGUI:
 
         except Exception as e:
             self.log(f"❌ Error auto-launching SVG viewer: {str(e)}")
+
+    def find_best_svg_file(self):
+        """Find the best SVG file to display (processed versions preferred)"""
+        # Priority order: noteheads subtracted > staff+barlines only > original full
+        base_name = "SS 9"
+
+        # Look for processed versions first
+        candidates = [
+            # Noteheads subtracted (best for viewing structure)
+            f"PRPs-agentic-eng/Base/{base_name} full_without_noteheads.svg",
+            f"PRPs-agentic-eng/{base_name}_without_noteheads.svg",
+            f"symbolic_output/{base_name}_without_noteheads.svg",
+
+            # Staff and barlines only (good for structure)
+            f"PRPs-agentic-eng/Base/{base_name} full_staff_barlines_only.svg",
+            f"PRPs-agentic-eng/{base_name}_staff_barlines_only.svg",
+            f"symbolic_output/{base_name}_staff_barlines_only.svg",
+
+            # Original full SVG (fallback)
+            self.default_svg
+        ]
+
+        for candidate in candidates:
+            full_path = str(self.project_root / candidate)
+            if os.path.exists(full_path):
+                if "without_noteheads" in candidate:
+                    self.log(f"📋 Using noteheads-subtracted SVG for better analysis")
+                elif "staff_barlines" in candidate:
+                    self.log(f"📐 Using staff+barlines-only SVG for structure view")
+                else:
+                    self.log(f"📄 Using original full SVG")
+                return full_path
+
+        return None
 
     def launch_svg_viewer(self):
         """Launch the SVG viewer window (manual trigger)"""
