@@ -14,9 +14,9 @@ uv sync
 **Easy-to-use graphical interface for running all pipeline scripts:**
 
 ```bash
-# Launch the GUI
+# Launch the GUI (recommended)
 python3 sib2ae_gui.py
-# OR
+# OR using shell script
 ./launch_gui.sh
 ```
 
@@ -26,6 +26,12 @@ python3 sib2ae_gui.py
 - **Master Pipeline Tab**: One-click complete workflow execution
 - **Output Log Tab**: Real-time script output and progress monitoring
 - **Quick Actions**: Open output directories, check dependencies, view generated files
+
+**GUI Configuration:**
+- **Main File**: `/Users/colinmignot/Claude Code/Sib2Ae/sib2ae_gui.py`
+- **Settings**: `gui_settings.json` - Window position/preferences auto-saved
+- **Launch Script**: `launch_gui.sh` - Python availability check
+- **Always On Top**: Stays visible for workflow efficiency
 
 ## Data Structure
 ```
@@ -104,13 +110,30 @@ python "PRPs-agentic-eng/App/Audio Separators/audio_to_keyframes.py" "PRPs-agent
 ```
 
 ### Synchronization Pipeline
-```bash
-# Coordinate XML-MIDI-SVG timing
-python "PRPs-agentic-eng/Synchronizer/context_gatherer.py" "PRPs-agentic-eng/Base/SS 9.musicxml" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2.mid"
 
-# Full synchronization (outputs to universal_output/)
-python "PRPs-agentic-eng/Synchronizer/synchronization_coordinator.py"
+**Current System (Simplified):**
+```bash
+# Universal note coordination (recommended for most use cases)
+python "PRPs-agentic-eng/note_coordinator.py" "PRPs-agentic-eng/Base/SS 9.musicxml" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2.mid" "universal_output"
 ```
+
+**Advanced System (Backup Components):**
+Located in: `PRPs-agentic-eng/App/Synchronizer 19-26-28-342/`
+
+```bash
+# 1. Context Gatherer - Master timing extraction & XML-MIDI-SVG relationships
+python "PRPs-agentic-eng/App/Synchronizer 19-26-28-342/context_gatherer.py" "Base/SS 9.musicxml" "Base/Saint-Saens Trio No 2.mid" "Base/SS 9 full.svg"
+
+# 2. Synchronization Coordinator - Master pipeline orchestrator
+python "PRPs-agentic-eng/App/Synchronizer 19-26-28-342/synchronization_coordinator.py"
+```
+
+**Advanced System Features:**
+- **Context Gatherer**: Master MIDI timing preservation, tied note handling (3:1 relationships), confidence scoring
+- **MIDI Matcher**: Tolerance-based matching (100ms), multi-factor scoring, unquantized MIDI support
+- **Tied Note Processor**: Visual-temporal mismatch handling, proportional timing calculation
+- **Master MIDI Extractor**: Authoritative timing reference preservation, tempo maps
+- **Synchronization Coordinator**: Sequential/parallel execution modes, performance optimization
 
 ## Working Directory
 **Important:** Run all commands from the project root directory: `/Users/colinmignot/Claude Code/Sib2Ae/`
@@ -175,12 +198,162 @@ Auto-triggers on build/run failures. Updates debug knowledge base after successf
 - **`midi_to_audio_renderer.py`** (8KB) - Standard sequential audio renderer (44kHz sample rate, 30s timeouts). Higher quality but slower.
 - **`audio_to_keyframes.py`** (12.3KB) - Full feature analysis keyframe generator. More comprehensive analysis but slower processing.
 
+## Synchronization Systems Comparison
+
+### Current System: `note_coordinator.py`
+**Location**: `PRPs-agentic-eng/note_coordinator.py`
+
+**Features:**
+- Unified, single-file approach for all coordination
+- Universal ID system linking XML, MIDI, and SVG data
+- Basic pitch + enharmonic matching
+- Simple coordinate transformation
+- Outputs to `universal_output/` with JSON manifests
+
+**Usage**: Recommended for most use cases due to simplicity
+
+### Advanced System: Multi-Component Synchronizer
+**Location**: `PRPs-agentic-eng/App/Synchronizer 19-26-28-342/`
+
+**Components:**
+1. **Context Gatherer** (`context_gatherer.py`) - Master timing extraction & relationship analysis
+2. **MIDI Matcher** (`utils/midi_matcher.py`) - Tolerance-based matching with confidence scoring
+3. **Tied Note Processor** (`utils/tied_note_processor.py`) - Handles 3:1 notehead-to-MIDI relationships
+4. **Master MIDI Extractor** (`utils/master_midi_extractor.py`) - Authoritative timing preservation
+5. **Synchronization Coordinator** (`synchronization_coordinator.py`) - Pipeline orchestrator
+
+**Advanced Features:**
+- **Tied Note Handling**: Manages 3 visual noteheads → 1 MIDI note relationships
+- **Master Timing Preservation**: Extracts authoritative reference from original MIDI before processing
+- **Tolerance-Based Matching**: Configurable 100ms tolerance with multi-factor confidence scoring
+- **Performance Modes**: Sequential vs parallel execution
+- **Comprehensive Analysis**: Visual-temporal mismatch handling, tempo maps, accuracy metrics
+
+**Usage**: For complex scores with tied notes, unquantized MIDI, or when maximum accuracy is required
+
+### Core Synchronization Principle
+
+**Critical Insight**: Both systems use the same fundamental approach:
+
+**Audio waveforms are NOT matched to noteheads after creation** - instead, both the visual notehead coordinates and audio keyframes are **derived from the same source note** with a **Universal ID** that preserves relationships throughout the pipeline.
+
+**The Universal ID Bridge:**
+```json
+{
+  "universal_id": "2584802d-2469-4e45-8cf0-ff934e1032d7",
+  "xml_data": {"part_id": "P1", "note_name": "A4", "svg_x": 3178, "svg_y": 1049},
+  "midi_data": {"start_time_seconds": 7.5, "velocity": 76},
+  "audio_filename": "note_000_Flûte_A4_vel76.wav",
+  "keyframes_filename": "note_000_Flûte_A4_vel76_keyframes.json"
+}
+```
+
+**File Chain Preservation:**
+```
+note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
+```
+
+**Result**: **Pixel-perfect synchronization** because:
+1. Visual coordinates from MusicXML → SVG transformation
+2. Audio waveform from same MIDI note → audio analysis
+3. Both linked by consistent naming + Universal ID
+4. Timing preserved through master MIDI reference
+
+### Architecture Comparison
+
+| Feature | Current System | Advanced System |
+|---------|---------------|-----------------|
+| **Complexity** | Single unified file | 5-component architecture |
+| **Tied Notes** | Basic handling | Advanced 3:1 relationship management |
+| **Timing** | Simple transformation | Master timing preservation + tempo maps |
+| **Matching** | Pitch + enharmonic | Tolerance-based + confidence scoring |
+| **Performance** | Sequential | Parallel execution modes |
+| **Output** | Universal registry | Master synchronization JSON |
+| **MIDI Handling** | Basic | Unquantized MIDI support |
+| **File Size** | 21KB | 120KB+ total |
+
 ## Status: All Scripts Useful
 Every script serves a production purpose:
 - **Primary workflow**: Master pipeline + fast audio versions
 - **Quality options**: Standard audio renderers for quality vs speed trade-offs
 - **Specialized tools**: Staff extractor for specific background element needs
+- **Synchronization options**: Simple coordination vs advanced multi-component system
+
+## After Effects Import Tools
+
+### CEP Extension (Professional)
+**Location**: `PRPs-agentic-eng/Extensions/Sib2Ae-Importer/`
+
+**Installation**:
+```bash
+# Copy to CEP extensions directory
+# macOS: /Library/Application Support/Adobe/CEP/extensions/
+# Windows: C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\
+
+# Enable debug mode
+defaults write com.adobe.CSXS.12 PlayerDebugMode 1  # macOS
+# Windows: Set registry HKEY_CURRENT_USER\Software\Adobe\CSXS.12 "PlayerDebugMode"="1"
+
+# Restart After Effects
+# Access via: Window > Extensions > Sib2Ae Importer
+```
+
+**Features**:
+- Modern HTML5/CSS3 interface
+- Real-time file preview
+- Selective import options (SVG/audio/JSON)
+- Dockable panel integration
+- Theme matching with After Effects
+- Progress tracking and status logging
+
+### ExtendScript (Rapid Testing)
+**Location**: `PRPs-agentic-eng/Scripts/Sib2Ae_Importer.jsx`
+
+**Usage**:
+```bash
+# No installation required - run directly:
+# File > Scripts > Run Script File... > Select Sib2Ae_Importer.jsx
+# OR copy to AE Scripts folder for menu access
+
+# MAJOR ADVANTAGE: No restart required!
+# Edit script → Run immediately → Perfect for development
+```
+
+**Features**:
+- ScriptUI interface with file preview
+- Recursive folder scanning
+- Auto-composition creation
+- Immediate testing workflow
+- Single file distribution
+
+### Import Workflow
+Both tools import pipeline results:
+
+```bash
+# 1. Run pipeline to generate outputs
+python "PRPs-agentic-eng/App/Symbolic Separators/sib2ae_master_pipeline.py" "SS 9" "symbolic_output"
+python "PRPs-agentic-eng/App/Audio Separators/midi_to_audio_renderer_fast.py" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2_individual_notes"
+
+# 2. Import to After Effects
+# Via Extension: Window > Extensions > Sib2Ae Importer
+# Via Script: File > Scripts > Run Script File > Sib2Ae_Importer.jsx
+
+# 3. Select pipeline output folder
+# 4. Choose import options (SVG/audio/JSON)
+# 5. Import creates organized composition
+```
+
+**Supported Imports**:
+- **SVG Files**: `instruments_output/*.svg` → AE layers
+- **Audio Files**: `Audio/*/*.wav` → AE audio layers
+- **JSON Files**: `Audio/Keyframes/*.json` → Keyframe data processing
+- **Auto-Organization**: Creates composition with properly named layers
+
+### Development Choice
+- **CEP Extension**: Professional end-user tool, rich UI, dockable panels
+- **ExtendScript**: Rapid development/testing, no restart needed, instant iteration
 
 ## Dependencies
 Core: svgelements, pydantic, click, pytest
 Audio: mido, librosa, soundfile, fluidsynth (brew install)
+After Effects: CEP 12, ExtendScript support
