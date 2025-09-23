@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "brave-search": {
+      "command": "brave-search-mcp-server",
+      "args": ["--brave-api-key", "BSAsxDTHA4eFDoSlIVb1yIPUVqkLCXL"],
+      "env": {}
+    }
+  }
+}

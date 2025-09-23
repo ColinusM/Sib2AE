@@ -782,7 +782,17 @@ class SVGViewerWebView:
                             if (tagName === 'text' && element.textContent) {{
                                 const elementText = element.textContent.trim();
                                 if (data.text === elementText) {{
-                                    return data;
+                                    // Additional check: also match by position if available
+                                    const elementX = element.getAttribute('x');
+                                    const elementY = element.getAttribute('y');
+                                    if (elementX && elementY && data.attrib.x && data.attrib.y) {{
+                                        if (Math.abs(parseFloat(elementX) - parseFloat(data.attrib.x)) < 1.0 &&
+                                            Math.abs(parseFloat(elementY) - parseFloat(data.attrib.y)) < 1.0) {{
+                                            return data;
+                                        }}
+                                    }} else {{
+                                        return data; // Match by text if no position data
+                                    }}
                                 }}
                             }}
                             // For other elements, try to match by attributes
@@ -809,9 +819,48 @@ class SVGViewerWebView:
                                         return data;
                                     }}
                                 }}
-                                // Generic attribute matching for other elements
+                                // Enhanced attribute matching for elements with x,y coordinates
+                                else if (element.getAttribute('x') && element.getAttribute('y')) {{
+                                    const elementX = element.getAttribute('x');
+                                    const elementY = element.getAttribute('y');
+                                    if (data.attrib.x && data.attrib.y) {{
+                                        // Use tolerance-based matching for coordinates
+                                        if (Math.abs(parseFloat(elementX) - parseFloat(data.attrib.x)) < 1.0 &&
+                                            Math.abs(parseFloat(elementY) - parseFloat(data.attrib.y)) < 1.0) {{
+                                            return data;
+                                        }}
+                                    }}
+                                }}
+                                // Match by transform attribute for positioned groups
+                                else if (element.getAttribute('transform') && data.attrib.transform) {{
+                                    if (element.getAttribute('transform') === data.attrib.transform) {{
+                                        return data;
+                                    }}
+                                }}
+                                // Multi-attribute matching for unique identification
                                 else {{
-                                    return data; // Return first matching tag as fallback
+                                    let matchedAttributes = 0;
+                                    let totalChecked = 0;
+
+                                    // Check key identifying attributes
+                                    const keyAttributes = ['x', 'y', 'width', 'height', 'id', 'class', 'style', 'transform'];
+
+                                    for (let attr of keyAttributes) {{
+                                        const elementAttr = element.getAttribute(attr);
+                                        const dataAttr = data.attrib[attr];
+
+                                        if (elementAttr && dataAttr) {{
+                                            totalChecked++;
+                                            if (elementAttr === dataAttr) {{
+                                                matchedAttributes++;
+                                            }}
+                                        }}
+                                    }}
+
+                                    // Only return if we have a strong match (2+ attributes or high match rate)
+                                    if (matchedAttributes >= 2 || (totalChecked > 0 && matchedAttributes / totalChecked >= 0.8)) {{
+                                        return data;
+                                    }}
                                 }}
                             }}
                         }}
