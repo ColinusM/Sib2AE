@@ -15,11 +15,16 @@ import sys
 import json
 from pathlib import Path
 
-# Import SVG viewer window
+# Import SVG viewer windows
 try:
-    from svg_viewer_window import SVGViewerWindow
+    from svg_viewer_webview import SVGViewerWebView
+    SVGViewerClass = SVGViewerWebView
 except ImportError:
-    SVGViewerWindow = None
+    try:
+        from svg_viewer_window import SVGViewerWindow
+        SVGViewerClass = SVGViewerWindow
+    except ImportError:
+        SVGViewerClass = None
 
 class Sib2AeGUI:
     def __init__(self, root):
@@ -637,8 +642,8 @@ class Sib2AeGUI:
 
     def auto_launch_svg_viewer(self):
         """Automatically launch the SVG viewer window on startup"""
-        if SVGViewerWindow is None:
-            self.log("⚠️ SVG Viewer not available (svg_viewer_window.py missing)")
+        if SVGViewerClass is None:
+            self.log("⚠️ SVG Viewer not available")
             return
 
         try:
@@ -646,30 +651,31 @@ class Sib2AeGUI:
             svg_file = self.default_svg if os.path.exists(self.default_svg) else None
 
             # Launch SVG viewer window and keep reference
-            self.svg_viewer = SVGViewerWindow(parent=self.root, svg_file=svg_file)
+            self.svg_viewer = SVGViewerClass(parent_callback=self.log)
 
-            self.log(f"🔍 SVG Viewer auto-launched")
+            # Show the SVG file in a separate process for webview
             if svg_file:
-                self.log(f"   Loaded: {os.path.basename(svg_file)}")
+                self.svg_viewer.show_in_subprocess(svg_file)
+                self.log(f"🔍 SVG Viewer auto-launched with {os.path.basename(svg_file)}")
+            else:
+                self.svg_viewer.show_in_subprocess()
+                self.log(f"🔍 SVG Viewer auto-launched (no SVG file)")
 
         except Exception as e:
             self.log(f"❌ Error auto-launching SVG viewer: {str(e)}")
 
     def launch_svg_viewer(self):
         """Launch the SVG viewer window (manual trigger)"""
-        if SVGViewerWindow is None:
-            messagebox.showerror("Error", "SVG Viewer not available.\nMake sure svg_viewer_window.py is in the project directory.")
+        if SVGViewerClass is None:
+            messagebox.showerror("Error", "SVG Viewer not available.")
             return
 
-        # If SVG viewer already exists and is open, bring it to front
-        if self.svg_viewer and hasattr(self.svg_viewer, 'root'):
+        # If SVG viewer already exists and is a webview, focus the window (if possible)
+        if self.svg_viewer and hasattr(self.svg_viewer, 'window'):
             try:
-                self.svg_viewer.root.lift()
-                self.svg_viewer.root.focus_force()
-                self.log("🔍 SVG Viewer brought to front")
-                return
+                # For webview, we can't easily bring to front, so create new instance
+                self.log("🔍 Creating new SVG Viewer instance")
             except:
-                # Window was closed, create new one
                 pass
 
         try:
@@ -681,11 +687,15 @@ class Sib2AeGUI:
                 svg_file = self.default_svg
 
             # Launch new SVG viewer window
-            self.svg_viewer = SVGViewerWindow(parent=self.root, svg_file=svg_file if os.path.exists(svg_file) else None)
+            self.svg_viewer = SVGViewerClass(parent_callback=self.log)
 
-            self.log(f"🔍 SVG Viewer launched")
-            if svg_file and os.path.exists(svg_file):
-                self.log(f"   Loaded: {os.path.basename(svg_file)}")
+            # Show the SVG file in a separate process for webview
+            if os.path.exists(svg_file):
+                self.svg_viewer.show_in_subprocess(svg_file)
+                self.log(f"🔍 SVG Viewer launched with {os.path.basename(svg_file)}")
+            else:
+                self.svg_viewer.show_in_subprocess()
+                self.log(f"🔍 SVG Viewer launched (no SVG file)")
 
         except Exception as e:
             error_msg = f"Error launching SVG viewer: {str(e)}"
