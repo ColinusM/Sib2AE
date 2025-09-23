@@ -12,17 +12,32 @@ import subprocess
 import threading
 import os
 import sys
+import json
 from pathlib import Path
 
 class Sib2AeGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Sib2Ae Pipeline GUI")
-        self.root.geometry("1000x800")
 
         # Set working directory to project root
         self.project_root = Path(__file__).parent
         os.chdir(self.project_root)
+
+        # Settings file for window preferences
+        self.settings_file = self.project_root / "gui_settings.json"
+
+        # Load saved window settings or use defaults
+        self.load_window_settings()
+
+        # Make window always on top (especially useful on macOS)
+        self.root.attributes('-topmost', True)
+
+        # Optional: Allow user to toggle always on top
+        self.always_on_top = True
+
+        # Bind window close event to save settings
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         # Default file paths from the codebase (use absolute paths)
         base_dir = self.project_root / "PRPs-agentic-eng" / "Base"
@@ -191,11 +206,19 @@ class Sib2AeGUI:
             ("Open Output Directory", self.open_output_directory),
             ("View Generated Files", self.view_generated_files),
             ("Check Dependencies", self.check_dependencies),
-            ("Clean Base Folder", self.clean_base_folder)
+            ("Clean Base Folder", self.clean_base_folder),
+            ("Remember Position", self.save_current_window_settings)
         ]
 
         for name, command in quick_actions:
             ttk.Button(quick_frame, text=name, command=command).pack(side='left', padx=5, pady=5)
+
+        # Always on top toggle
+        self.always_on_top_var = tk.BooleanVar(value=True)
+        always_on_top_cb = ttk.Checkbutton(quick_frame, text="Always On Top",
+                                          variable=self.always_on_top_var,
+                                          command=self.toggle_always_on_top)
+        always_on_top_cb.pack(side='right', padx=5, pady=5)
 
     def setup_log_tab(self):
         """Setup the Output Log tab"""
@@ -476,6 +499,106 @@ class Sib2AeGUI:
             error_msg = f"Error cleaning base folder: {e}"
             self.log(f"❌ {error_msg}")
             messagebox.showerror("Cleaning Error", error_msg)
+
+    def toggle_always_on_top(self):
+        """Toggle the always on top setting"""
+        self.always_on_top = self.always_on_top_var.get()
+        self.root.attributes('-topmost', self.always_on_top)
+
+        # Log the change
+        status = "enabled" if self.always_on_top else "disabled"
+        self.log(f"🔝 Always on top {status}")
+
+    def load_window_settings(self):
+        """Load window settings from file or use defaults"""
+        default_settings = {
+            "geometry": "1000x800+100+100",  # width x height + x_offset + y_offset
+            "always_on_top": True
+        }
+
+        try:
+            if self.settings_file.exists():
+                with open(self.settings_file, 'r') as f:
+                    settings = json.load(f)
+
+                # Validate settings and use defaults if invalid
+                geometry = settings.get("geometry", default_settings["geometry"])
+                always_on_top = settings.get("always_on_top", default_settings["always_on_top"])
+
+                self.root.geometry(geometry)
+                self.always_on_top = always_on_top
+
+                print(f"✅ Loaded window settings: {geometry}")
+            else:
+                # Use defaults for first run
+                self.root.geometry(default_settings["geometry"])
+                self.always_on_top = default_settings["always_on_top"]
+                print(f"📋 Using default window settings: {default_settings['geometry']}")
+
+        except Exception as e:
+            # Fall back to defaults if there's any error
+            self.root.geometry(default_settings["geometry"])
+            self.always_on_top = default_settings["always_on_top"]
+            print(f"⚠️ Error loading settings, using defaults: {e}")
+
+    def save_current_window_settings(self):
+        """Save current window position and size as new defaults"""
+        try:
+            # Get current window geometry
+            current_geometry = self.root.geometry()
+            current_always_on_top = self.always_on_top_var.get()
+
+            settings = {
+                "geometry": current_geometry,
+                "always_on_top": current_always_on_top
+            }
+
+            # Save to settings file
+            with open(self.settings_file, 'w') as f:
+                json.dump(settings, f, indent=2)
+
+            self.log(f"💾 Window position saved: {current_geometry}")
+            self.log(f"   Always on top: {'enabled' if current_always_on_top else 'disabled'}")
+
+            messagebox.showinfo(
+                "Position Saved",
+                f"Current window position and size saved!\n\n"
+                f"Position: {current_geometry}\n"
+                f"Always on top: {'Enabled' if current_always_on_top else 'Disabled'}\n\n"
+                f"This will be the default position when the GUI opens next time."
+            )
+
+        except Exception as e:
+            error_msg = f"Error saving window settings: {e}"
+            self.log(f"❌ {error_msg}")
+            messagebox.showerror("Save Error", error_msg)
+
+    def save_settings_on_close(self):
+        """Automatically save settings when window is closed"""
+        try:
+            current_geometry = self.root.geometry()
+            current_always_on_top = self.always_on_top_var.get()
+
+            settings = {
+                "geometry": current_geometry,
+                "always_on_top": current_always_on_top
+            }
+
+            with open(self.settings_file, 'w') as f:
+                json.dump(settings, f, indent=2)
+
+            print(f"💾 Auto-saved window settings on close: {current_geometry}")
+
+        except Exception as e:
+            print(f"⚠️ Error auto-saving settings: {e}")
+
+    def on_closing(self):
+        """Handle window close event"""
+        # Auto-save current position when closing
+        self.save_settings_on_close()
+
+        # Close the application
+        self.root.destroy()
 
 def main():
     root = tk.Tk()
