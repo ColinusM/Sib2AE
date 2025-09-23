@@ -15,6 +15,12 @@ import sys
 import json
 from pathlib import Path
 
+# Import SVG viewer window
+try:
+    from svg_viewer_window import SVGViewerWindow
+except ImportError:
+    SVGViewerWindow = None
+
 class Sib2AeGUI:
     def __init__(self, root):
         self.root = root
@@ -47,7 +53,13 @@ class Sib2AeGUI:
         self.default_midi_notes = str(base_dir / "Saint-Saens Trio No 2_individual_notes")
         self.default_audio_dir = str(self.project_root / "PRPs-agentic-eng" / "Audio")
 
+        # SVG viewer window reference
+        self.svg_viewer = None
+
         self.setup_ui()
+
+        # Auto-launch SVG viewer window
+        self.auto_launch_svg_viewer()
 
     def setup_ui(self):
         # Create top toolbar frame (compact)
@@ -95,22 +107,27 @@ class Sib2AeGUI:
         buttons_frame = ttk.Frame(title_frame)
         buttons_frame.pack(side='right', pady=1)
 
-        # Clean Base Folder button with trash bin icon (compact)
-        clean_btn = ttk.Button(buttons_frame, text="🗑️",
-                              command=self.clean_base_folder, width=3)
-        clean_btn.pack(side='right', padx=1)
-
-        # Remember Position button (compact)
-        position_btn = ttk.Button(buttons_frame, text="📍", width=3,
-                                 command=self.save_current_window_settings)
-        position_btn.pack(side='right', padx=1)
-
         # Always on top toggle in toolbar (compact)
         self.always_on_top_var = tk.BooleanVar(value=True)
         always_on_top_cb = ttk.Checkbutton(buttons_frame, text="🔝",
                                           variable=self.always_on_top_var,
                                           command=self.toggle_always_on_top)
         always_on_top_cb.pack(side='right', padx=2)
+
+        # SVG Viewer button (compact)
+        svg_viewer_btn = ttk.Button(buttons_frame, text="🔍", width=3,
+                                   command=self.launch_svg_viewer)
+        svg_viewer_btn.pack(side='right', padx=1)
+
+        # Remember Position button (compact)
+        position_btn = ttk.Button(buttons_frame, text="📍", width=3,
+                                 command=self.save_current_window_settings)
+        position_btn.pack(side='right', padx=1)
+
+        # Clean Base Folder button with trash bin icon (compact)
+        clean_btn = ttk.Button(buttons_frame, text="🗑️",
+                              command=self.clean_base_folder, width=3)
+        clean_btn.pack(side='right', padx=1)
 
         # Thin separator line
         separator = ttk.Separator(parent, orient='horizontal')
@@ -617,6 +634,63 @@ class Sib2AeGUI:
             error_msg = f"Error saving window settings: {e}"
             self.log(f"❌ {error_msg}")
             messagebox.showerror("Save Error", error_msg)
+
+    def auto_launch_svg_viewer(self):
+        """Automatically launch the SVG viewer window on startup"""
+        if SVGViewerWindow is None:
+            self.log("⚠️ SVG Viewer not available (svg_viewer_window.py missing)")
+            return
+
+        try:
+            # Use default SVG file if it exists
+            svg_file = self.default_svg if os.path.exists(self.default_svg) else None
+
+            # Launch SVG viewer window and keep reference
+            self.svg_viewer = SVGViewerWindow(parent=self.root, svg_file=svg_file)
+
+            self.log(f"🔍 SVG Viewer auto-launched")
+            if svg_file:
+                self.log(f"   Loaded: {os.path.basename(svg_file)}")
+
+        except Exception as e:
+            self.log(f"❌ Error auto-launching SVG viewer: {str(e)}")
+
+    def launch_svg_viewer(self):
+        """Launch the SVG viewer window (manual trigger)"""
+        if SVGViewerWindow is None:
+            messagebox.showerror("Error", "SVG Viewer not available.\nMake sure svg_viewer_window.py is in the project directory.")
+            return
+
+        # If SVG viewer already exists and is open, bring it to front
+        if self.svg_viewer and hasattr(self.svg_viewer, 'root'):
+            try:
+                self.svg_viewer.root.lift()
+                self.svg_viewer.root.focus_force()
+                self.log("🔍 SVG Viewer brought to front")
+                return
+            except:
+                # Window was closed, create new one
+                pass
+
+        try:
+            # Get current SVG file from the symbolic tab
+            svg_file = self.svg_var.get()
+
+            # If no SVG selected or doesn't exist, use default
+            if not svg_file or not os.path.exists(svg_file):
+                svg_file = self.default_svg
+
+            # Launch new SVG viewer window
+            self.svg_viewer = SVGViewerWindow(parent=self.root, svg_file=svg_file if os.path.exists(svg_file) else None)
+
+            self.log(f"🔍 SVG Viewer launched")
+            if svg_file and os.path.exists(svg_file):
+                self.log(f"   Loaded: {os.path.basename(svg_file)}")
+
+        except Exception as e:
+            error_msg = f"Error launching SVG viewer: {str(e)}"
+            self.log(f"❌ {error_msg}")
+            messagebox.showerror("SVG Viewer Error", error_msg)
 
     def save_settings_on_close(self):
         """Automatically save settings when window is closed"""
