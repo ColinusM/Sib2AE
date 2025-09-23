@@ -10,6 +10,23 @@ Converts MusicXML/MIDI/SVG to synchronized After Effects animations. Two pipelin
 uv sync
 ```
 
+## GUI Interface
+**Easy-to-use graphical interface for running all pipeline scripts:**
+
+```bash
+# Launch the GUI
+python3 sib2ae_gui.py
+# OR
+./launch_gui.sh
+```
+
+**GUI Features:**
+- **Symbolic Pipeline Tab**: Run all symbolic processing scripts with file browsers
+- **Audio Pipeline Tab**: Execute audio rendering and keyframe generation
+- **Master Pipeline Tab**: One-click complete workflow execution
+- **Output Log Tab**: Real-time script output and progress monitoring
+- **Quick Actions**: Open output directories, check dependencies, view generated files
+
 ## Data Structure
 ```
 PRPs-agentic-eng/
