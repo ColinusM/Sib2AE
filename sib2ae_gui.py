@@ -27,7 +27,7 @@ class Sib2AeGUI:
         # Settings file for window preferences
         self.settings_file = self.project_root / "gui_settings.json"
 
-        # Load saved window settings or use defaults
+        # Load saved window settings or use defaults (much more compact)
         self.load_window_settings()
 
         # Make window always on top (especially useful on macOS)
@@ -50,9 +50,16 @@ class Sib2AeGUI:
         self.setup_ui()
 
     def setup_ui(self):
-        # Create main notebook for tabs
+        # Create top toolbar frame (compact)
+        toolbar_frame = ttk.Frame(self.root)
+        toolbar_frame.pack(fill='x', padx=5, pady=2)
+
+        # Add persistent buttons to toolbar
+        self.setup_toolbar(toolbar_frame)
+
+        # Create main notebook for tabs (compact)
         notebook = ttk.Notebook(self.root)
-        notebook.pack(fill='both', expand=True, padx=10, pady=10)
+        notebook.pack(fill='both', expand=True, padx=5, pady=2)
 
         # Tab 1: Symbolic Pipeline
         self.symbolic_frame = ttk.Frame(notebook)
@@ -74,160 +81,198 @@ class Sib2AeGUI:
         notebook.add(self.log_frame, text="Output Log")
         self.setup_log_tab()
 
+    def setup_toolbar(self, parent):
+        """Setup the persistent toolbar with commonly used buttons"""
+        # Compact title and toolbar buttons
+        title_frame = ttk.Frame(parent)
+        title_frame.pack(fill='x')
+
+        # Compact project title
+        title_label = ttk.Label(title_frame, text="🎵 Sib2Ae", font=('Arial', 10, 'bold'))
+        title_label.pack(side='left', pady=1)
+
+        # Compact toolbar buttons frame (right side)
+        buttons_frame = ttk.Frame(title_frame)
+        buttons_frame.pack(side='right', pady=1)
+
+        # Clean Base Folder button with trash bin icon (compact)
+        clean_btn = ttk.Button(buttons_frame, text="🗑️",
+                              command=self.clean_base_folder, width=3)
+        clean_btn.pack(side='right', padx=1)
+
+        # Remember Position button (compact)
+        position_btn = ttk.Button(buttons_frame, text="📍", width=3,
+                                 command=self.save_current_window_settings)
+        position_btn.pack(side='right', padx=1)
+
+        # Always on top toggle in toolbar (compact)
+        self.always_on_top_var = tk.BooleanVar(value=True)
+        always_on_top_cb = ttk.Checkbutton(buttons_frame, text="🔝",
+                                          variable=self.always_on_top_var,
+                                          command=self.toggle_always_on_top)
+        always_on_top_cb.pack(side='right', padx=2)
+
+        # Thin separator line
+        separator = ttk.Separator(parent, orient='horizontal')
+        separator.pack(fill='x', pady=1)
+
     def setup_symbolic_tab(self):
         """Setup the Symbolic Pipeline tab"""
-        # File selection frame
-        file_frame = ttk.LabelFrame(self.symbolic_frame, text="Input Files")
-        file_frame.pack(fill='x', padx=5, pady=5)
+        # Compact file selection frame
+        file_frame = ttk.LabelFrame(self.symbolic_frame, text="Files")
+        file_frame.pack(fill='x', padx=2, pady=2)
 
-        # MusicXML file
-        ttk.Label(file_frame, text="MusicXML File:").grid(row=0, column=0, sticky='w', padx=5, pady=2)
+        # MusicXML file (compact)
+        ttk.Label(file_frame, text="XML:").grid(row=0, column=0, sticky='w', padx=2, pady=1)
         self.musicxml_var = tk.StringVar(value=self.default_musicxml)
-        ttk.Entry(file_frame, textvariable=self.musicxml_var, width=60).grid(row=0, column=1, padx=5, pady=2)
-        ttk.Button(file_frame, text="Browse", command=lambda: self.browse_file(self.musicxml_var, "MusicXML files", "*.musicxml")).grid(row=0, column=2, padx=5, pady=2)
+        ttk.Entry(file_frame, textvariable=self.musicxml_var, width=50).grid(row=0, column=1, padx=2, pady=1, sticky='ew')
+        ttk.Button(file_frame, text="...", width=3, command=lambda: self.browse_file(self.musicxml_var, "MusicXML files", "*.musicxml")).grid(row=0, column=2, padx=1, pady=1)
 
-        # SVG file
-        ttk.Label(file_frame, text="SVG File:").grid(row=1, column=0, sticky='w', padx=5, pady=2)
+        # SVG file (compact)
+        ttk.Label(file_frame, text="SVG:").grid(row=1, column=0, sticky='w', padx=2, pady=1)
         self.svg_var = tk.StringVar(value=self.default_svg)
-        ttk.Entry(file_frame, textvariable=self.svg_var, width=60).grid(row=1, column=1, padx=5, pady=2)
-        ttk.Button(file_frame, text="Browse", command=lambda: self.browse_file(self.svg_var, "SVG files", "*.svg")).grid(row=1, column=2, padx=5, pady=2)
+        ttk.Entry(file_frame, textvariable=self.svg_var, width=50).grid(row=1, column=1, padx=2, pady=1, sticky='ew')
+        ttk.Button(file_frame, text="...", width=3, command=lambda: self.browse_file(self.svg_var, "SVG files", "*.svg")).grid(row=1, column=2, padx=1, pady=1)
 
-        # Output directory
-        ttk.Label(file_frame, text="Output Directory:").grid(row=2, column=0, sticky='w', padx=5, pady=2)
+        # Output directory (compact)
+        ttk.Label(file_frame, text="Out:").grid(row=2, column=0, sticky='w', padx=2, pady=1)
         self.symbolic_output_var = tk.StringVar(value="symbolic_output")
-        ttk.Entry(file_frame, textvariable=self.symbolic_output_var, width=60).grid(row=2, column=1, padx=5, pady=2)
-        ttk.Button(file_frame, text="Browse", command=lambda: self.browse_directory(self.symbolic_output_var)).grid(row=2, column=2, padx=5, pady=2)
+        ttk.Entry(file_frame, textvariable=self.symbolic_output_var, width=50).grid(row=2, column=1, padx=2, pady=1, sticky='ew')
+        ttk.Button(file_frame, text="...", width=3, command=lambda: self.browse_directory(self.symbolic_output_var)).grid(row=2, column=2, padx=1, pady=1)
 
-        # Scripts frame
-        scripts_frame = ttk.LabelFrame(self.symbolic_frame, text="Symbolic Processing Scripts")
-        scripts_frame.pack(fill='both', expand=True, padx=5, pady=5)
+        # Configure column weights for responsive layout
+        file_frame.columnconfigure(1, weight=1)
 
-        # Create buttons for each symbolic script
+        # Compact scripts frame
+        scripts_frame = ttk.LabelFrame(self.symbolic_frame, text="Scripts")
+        scripts_frame.pack(fill='both', expand=True, padx=2, pady=2)
+
+        # Create compact buttons for each symbolic script
         symbolic_scripts = [
-            ("Extract Noteheads", "truly_universal_noteheads_extractor.py", "Extract noteheads from MusicXML with pixel-perfect coordinates"),
-            ("Subtract Noteheads", "truly_universal_noteheads_subtractor.py", "Remove noteheads from full SVG while preserving other elements"),
-            ("Separate Instruments", "xml_based_instrument_separator.py", "Create individual SVG files per instrument"),
-            ("Create Individual Noteheads", "individual_noteheads_creator.py", "Create one SVG file per notehead for After Effects"),
-            ("Extract Staff & Barlines", "staff_barlines_extractor.py", "Extract only staff lines and barlines (optional)")
+            ("Extract Noteheads", "truly_universal_noteheads_extractor.py"),
+            ("Subtract Noteheads", "truly_universal_noteheads_subtractor.py"),
+            ("Separate Instruments", "xml_based_instrument_separator.py"),
+            ("Individual Noteheads", "individual_noteheads_creator.py"),
+            ("Staff & Barlines", "staff_barlines_extractor.py")
         ]
 
-        for i, (name, script, description) in enumerate(symbolic_scripts):
-            frame = ttk.Frame(scripts_frame)
-            frame.pack(fill='x', padx=5, pady=2)
-
-            btn = ttk.Button(frame, text=f"Run {name}", width=25,
+        # Create a grid of compact buttons (2 columns)
+        for i, (name, script) in enumerate(symbolic_scripts):
+            row = i // 2
+            col = i % 2
+            btn = ttk.Button(scripts_frame, text=name, width=20,
                            command=lambda s=script: self.run_symbolic_script(s))
-            btn.pack(side='left', padx=5)
+            btn.grid(row=row, column=col, padx=2, pady=1, sticky='ew')
 
-            ttk.Label(frame, text=description, foreground='gray').pack(side='left', padx=10)
+        # Configure column weights
+        scripts_frame.columnconfigure(0, weight=1)
+        scripts_frame.columnconfigure(1, weight=1)
 
     def setup_audio_tab(self):
         """Setup the Audio Pipeline tab"""
-        # File selection frame
-        file_frame = ttk.LabelFrame(self.audio_frame, text="Input Files")
-        file_frame.pack(fill='x', padx=5, pady=5)
+        # Compact file selection frame
+        file_frame = ttk.LabelFrame(self.audio_frame, text="Files")
+        file_frame.pack(fill='x', padx=2, pady=2)
 
-        # MIDI file
-        ttk.Label(file_frame, text="MIDI File:").grid(row=0, column=0, sticky='w', padx=5, pady=2)
+        # MIDI file (compact)
+        ttk.Label(file_frame, text="MIDI:").grid(row=0, column=0, sticky='w', padx=2, pady=1)
         self.midi_var = tk.StringVar(value=self.default_midi)
-        ttk.Entry(file_frame, textvariable=self.midi_var, width=60).grid(row=0, column=1, padx=5, pady=2)
-        ttk.Button(file_frame, text="Browse", command=lambda: self.browse_file(self.midi_var, "MIDI files", "*.mid")).grid(row=0, column=2, padx=5, pady=2)
+        ttk.Entry(file_frame, textvariable=self.midi_var, width=50).grid(row=0, column=1, padx=2, pady=1, sticky='ew')
+        ttk.Button(file_frame, text="...", width=3, command=lambda: self.browse_file(self.midi_var, "MIDI files", "*.mid")).grid(row=0, column=2, padx=1, pady=1)
 
-        # MIDI notes directory
-        ttk.Label(file_frame, text="MIDI Notes Dir:").grid(row=1, column=0, sticky='w', padx=5, pady=2)
+        # MIDI notes directory (compact)
+        ttk.Label(file_frame, text="Notes:").grid(row=1, column=0, sticky='w', padx=2, pady=1)
         self.midi_notes_var = tk.StringVar(value=self.default_midi_notes)
-        ttk.Entry(file_frame, textvariable=self.midi_notes_var, width=60).grid(row=1, column=1, padx=5, pady=2)
-        ttk.Button(file_frame, text="Browse", command=lambda: self.browse_directory(self.midi_notes_var)).grid(row=1, column=2, padx=5, pady=2)
+        ttk.Entry(file_frame, textvariable=self.midi_notes_var, width=50).grid(row=1, column=1, padx=2, pady=1, sticky='ew')
+        ttk.Button(file_frame, text="...", width=3, command=lambda: self.browse_directory(self.midi_notes_var)).grid(row=1, column=2, padx=1, pady=1)
 
-        # Audio directory
-        ttk.Label(file_frame, text="Audio Directory:").grid(row=2, column=0, sticky='w', padx=5, pady=2)
+        # Audio directory (compact)
+        ttk.Label(file_frame, text="Audio:").grid(row=2, column=0, sticky='w', padx=2, pady=1)
         self.audio_dir_var = tk.StringVar(value=self.default_audio_dir)
-        ttk.Entry(file_frame, textvariable=self.audio_dir_var, width=60).grid(row=2, column=1, padx=5, pady=2)
-        ttk.Button(file_frame, text="Browse", command=lambda: self.browse_directory(self.audio_dir_var)).grid(row=2, column=2, padx=5, pady=2)
+        ttk.Entry(file_frame, textvariable=self.audio_dir_var, width=50).grid(row=2, column=1, padx=2, pady=1, sticky='ew')
+        ttk.Button(file_frame, text="...", width=3, command=lambda: self.browse_directory(self.audio_dir_var)).grid(row=2, column=2, padx=1, pady=1)
 
-        # Scripts frame
-        scripts_frame = ttk.LabelFrame(self.audio_frame, text="Audio Processing Scripts")
-        scripts_frame.pack(fill='both', expand=True, padx=5, pady=5)
+        # Configure column weights
+        file_frame.columnconfigure(1, weight=1)
 
-        # Create buttons for each audio script
+        # Compact scripts frame
+        scripts_frame = ttk.LabelFrame(self.audio_frame, text="Scripts")
+        scripts_frame.pack(fill='both', expand=True, padx=2, pady=2)
+
+        # Create compact buttons for each audio script
         audio_scripts = [
-            ("Separate MIDI Notes", "midi_note_separator.py", "Split MIDI into individual note files (foundation)"),
-            ("Render Audio (Fast)", "midi_to_audio_renderer_fast.py", "Convert MIDI to audio with parallel processing (RECOMMENDED)"),
-            ("Render Audio (Standard)", "midi_to_audio_renderer.py", "Convert MIDI to audio with higher quality"),
-            ("Generate Keyframes (Fast)", "audio_to_keyframes_fast.py", "Create After Effects keyframes with reduced density (RECOMMENDED)"),
-            ("Generate Keyframes (Standard)", "audio_to_keyframes.py", "Create comprehensive After Effects keyframes")
+            ("Separate MIDI", "midi_note_separator.py"),
+            ("Render Audio (Fast)", "midi_to_audio_renderer_fast.py"),
+            ("Render Audio", "midi_to_audio_renderer.py"),
+            ("Keyframes (Fast)", "audio_to_keyframes_fast.py"),
+            ("Keyframes", "audio_to_keyframes.py")
         ]
 
-        for i, (name, script, description) in enumerate(audio_scripts):
-            frame = ttk.Frame(scripts_frame)
-            frame.pack(fill='x', padx=5, pady=2)
-
-            btn = ttk.Button(frame, text=f"Run {name}", width=25,
+        # Create a grid of compact buttons (2 columns)
+        for i, (name, script) in enumerate(audio_scripts):
+            row = i // 2
+            col = i % 2
+            btn = ttk.Button(scripts_frame, text=name, width=20,
                            command=lambda s=script: self.run_audio_script(s))
-            btn.pack(side='left', padx=5)
+            btn.grid(row=row, column=col, padx=2, pady=1, sticky='ew')
 
-            ttk.Label(frame, text=description, foreground='gray').pack(side='left', padx=10)
+        # Configure column weights
+        scripts_frame.columnconfigure(0, weight=1)
+        scripts_frame.columnconfigure(1, weight=1)
 
     def setup_master_tab(self):
         """Setup the Master Pipeline tab"""
-        # Settings frame
-        settings_frame = ttk.LabelFrame(self.master_frame, text="Master Pipeline Settings")
-        settings_frame.pack(fill='x', padx=5, pady=5)
+        # Compact settings frame
+        settings_frame = ttk.LabelFrame(self.master_frame, text="Settings")
+        settings_frame.pack(fill='x', padx=2, pady=2)
 
-        # Base name
-        ttk.Label(settings_frame, text="Base Name:").grid(row=0, column=0, sticky='w', padx=5, pady=5)
+        # Base name (compact)
+        ttk.Label(settings_frame, text="Base:").grid(row=0, column=0, sticky='w', padx=2, pady=1)
         self.base_name_var = tk.StringVar(value="SS 9")
-        ttk.Entry(settings_frame, textvariable=self.base_name_var, width=20).grid(row=0, column=1, padx=5, pady=5)
-        ttk.Label(settings_frame, text="(e.g., 'SS 9' for 'SS 9.musicxml')", foreground='gray').grid(row=0, column=2, sticky='w', padx=5, pady=5)
+        ttk.Entry(settings_frame, textvariable=self.base_name_var, width=15).grid(row=0, column=1, padx=2, pady=1)
 
-        # Output directory
-        ttk.Label(settings_frame, text="Output Directory:").grid(row=1, column=0, sticky='w', padx=5, pady=5)
+        # Output directory (compact)
+        ttk.Label(settings_frame, text="Output:").grid(row=1, column=0, sticky='w', padx=2, pady=1)
         self.master_output_var = tk.StringVar(value="master_output")
-        ttk.Entry(settings_frame, textvariable=self.master_output_var, width=30).grid(row=1, column=1, padx=5, pady=5)
-        ttk.Button(settings_frame, text="Browse", command=lambda: self.browse_directory(self.master_output_var)).grid(row=1, column=2, padx=5, pady=5)
+        ttk.Entry(settings_frame, textvariable=self.master_output_var, width=25).grid(row=1, column=1, padx=2, pady=1, sticky='ew')
+        ttk.Button(settings_frame, text="...", width=3, command=lambda: self.browse_directory(self.master_output_var)).grid(row=1, column=2, padx=1, pady=1)
 
-        # Master pipeline button
-        master_frame = ttk.LabelFrame(self.master_frame, text="Complete Workflow")
-        master_frame.pack(fill='x', padx=5, pady=10)
+        settings_frame.columnconfigure(1, weight=1)
 
-        ttk.Button(master_frame, text="Run Master Pipeline",
+        # Compact master pipeline button
+        master_frame = ttk.LabelFrame(self.master_frame, text="Workflow")
+        master_frame.pack(fill='x', padx=2, pady=2)
+
+        ttk.Button(master_frame, text="🚀 Run Master Pipeline",
                   command=self.run_master_pipeline,
-                  style='Accent.TButton').pack(pady=10)
+                  style='Accent.TButton').pack(pady=5)
 
-        ttk.Label(master_frame,
-                 text="Runs the complete 4-tool symbolic pipeline and creates instrument-focused folder structure",
-                 foreground='blue').pack(pady=5)
-
-        # Quick actions frame
-        quick_frame = ttk.LabelFrame(self.master_frame, text="Quick Actions")
-        quick_frame.pack(fill='x', padx=5, pady=5)
+        # Compact quick actions frame
+        quick_frame = ttk.LabelFrame(self.master_frame, text="Actions")
+        quick_frame.pack(fill='x', padx=2, pady=2)
 
         quick_actions = [
-            ("Open Output Directory", self.open_output_directory),
-            ("View Generated Files", self.view_generated_files),
-            ("Check Dependencies", self.check_dependencies),
-            ("Clean Base Folder", self.clean_base_folder),
-            ("Remember Position", self.save_current_window_settings)
+            ("📁 Output", self.open_output_directory),
+            ("📋 Files", self.view_generated_files),
+            ("🔍 Deps", self.check_dependencies)
         ]
 
-        for name, command in quick_actions:
-            ttk.Button(quick_frame, text=name, command=command).pack(side='left', padx=5, pady=5)
+        # Arrange in a row for compactness
+        for i, (name, command) in enumerate(quick_actions):
+            ttk.Button(quick_frame, text=name, command=command, width=12).grid(row=0, column=i, padx=2, pady=2)
 
-        # Always on top toggle
-        self.always_on_top_var = tk.BooleanVar(value=True)
-        always_on_top_cb = ttk.Checkbutton(quick_frame, text="Always On Top",
-                                          variable=self.always_on_top_var,
-                                          command=self.toggle_always_on_top)
-        always_on_top_cb.pack(side='right', padx=5, pady=5)
+        # Configure columns
+        for i in range(len(quick_actions)):
+            quick_frame.columnconfigure(i, weight=1)
 
     def setup_log_tab(self):
         """Setup the Output Log tab"""
-        # Log display
-        self.log_text = scrolledtext.ScrolledText(self.log_frame, height=20, width=100)
-        self.log_text.pack(fill='both', expand=True, padx=5, pady=5)
+        # Compact log display
+        self.log_text = scrolledtext.ScrolledText(self.log_frame, height=15, width=80, font=('Consolas', 9))
+        self.log_text.pack(fill='both', expand=True, padx=2, pady=2)
 
-        # Clear button
-        ttk.Button(self.log_frame, text="Clear Log", command=self.clear_log).pack(pady=5)
+        # Compact clear button
+        ttk.Button(self.log_frame, text="Clear", command=self.clear_log, width=10).pack(pady=2)
 
         # Initial log message
         self.log("Sib2Ae Pipeline GUI initialized")
@@ -512,7 +557,7 @@ class Sib2AeGUI:
     def load_window_settings(self):
         """Load window settings from file or use defaults"""
         default_settings = {
-            "geometry": "1000x800+100+100",  # width x height + x_offset + y_offset
+            "geometry": "700x500+100+100",  # Much more compact: width x height + x_offset + y_offset
             "always_on_top": True
         }
 
