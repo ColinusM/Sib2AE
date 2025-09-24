@@ -61,10 +61,17 @@ class Sib2AeGUI:
         # SVG viewer window reference
         self.svg_viewer = None
 
+        # Context gatherer data
+        self.context_analysis = None
+        self.midi_mappings = {}
+
         self.setup_ui()
 
         # Auto-launch SVG viewer window
         self.auto_launch_svg_viewer()
+
+        # Auto-run context gatherer on launch for faster testing
+        self.auto_run_context_gatherer()
 
     def setup_ui(self):
         # Create top toolbar frame (compact)
@@ -118,6 +125,11 @@ class Sib2AeGUI:
                                           variable=self.always_on_top_var,
                                           command=self.toggle_always_on_top)
         always_on_top_cb.pack(side='right', padx=2)
+
+        # Context Gatherer button (compact)
+        context_btn = ttk.Button(buttons_frame, text="🎹", width=3,
+                                command=self.run_context_gatherer)
+        context_btn.pack(side='right', padx=1)
 
         # SVG Viewer button (compact)
         svg_viewer_btn = ttk.Button(buttons_frame, text="🔍", width=3,
@@ -268,6 +280,26 @@ class Sib2AeGUI:
         ttk.Button(master_frame, text="🚀 Run Master Pipeline",
                   command=self.run_master_pipeline,
                   style='Accent.TButton').pack(pady=5)
+
+        # Synchronization buttons frame
+        sync_frame = ttk.LabelFrame(self.master_frame, text="MIDI-XML-SVG Synchronization")
+        sync_frame.pack(fill='x', padx=2, pady=2)
+
+        # Create buttons in a row
+        button_frame = ttk.Frame(sync_frame)
+        button_frame.pack(fill='x', padx=2, pady=2)
+
+        ttk.Button(button_frame, text="🎹 Simple Sync (Note Coordinator)",
+                  command=self.run_note_coordinator,
+                  width=30).grid(row=0, column=0, padx=2, pady=2)
+
+        ttk.Button(button_frame, text="🎯 Advanced Sync (Context Gatherer)",
+                  command=self.run_context_gatherer,
+                  width=30).grid(row=0, column=1, padx=2, pady=2)
+
+        # Configure columns for equal width
+        button_frame.columnconfigure(0, weight=1)
+        button_frame.columnconfigure(1, weight=1)
 
         # Compact quick actions frame
         quick_frame = ttk.LabelFrame(self.master_frame, text="Actions")
@@ -723,9 +755,19 @@ class Sib2AeGUI:
             # Launch new SVG viewer window
             self.svg_viewer = SVGViewerClass(parent_callback=self.log)
 
+            # Pass MIDI mappings if available
+            if self.midi_mappings:
+                self.svg_viewer.midi_mappings = self.midi_mappings
+                self.log(f"🎹 Loaded {len(self.midi_mappings)} MIDI mappings into SVG viewer")
+
             # Show the SVG file in a separate process for webview
             if os.path.exists(svg_file):
-                self.svg_viewer.show_in_subprocess(svg_file)
+                # For webview with MIDI mappings, we need to use the enhanced show method
+                if self.midi_mappings:
+                    # Can't pass MIDI data to subprocess - need direct show
+                    self.svg_viewer.show(svg_file, self.default_musicxml, self.default_midi)
+                else:
+                    self.svg_viewer.show_in_subprocess(svg_file)
                 self.log(f"🔍 SVG Viewer launched with {os.path.basename(svg_file)}")
             else:
                 self.svg_viewer.show_in_subprocess()
@@ -754,6 +796,202 @@ class Sib2AeGUI:
 
         except Exception as e:
             print(f"⚠️ Error auto-saving settings: {e}")
+
+    def run_note_coordinator(self):
+        """Run the simple note coordinator synchronization system"""
+        try:
+            self.log("🎹 Running Note Coordinator...")
+
+            # Use default file paths
+            musicxml_path = self.default_musicxml
+            midi_path = self.default_midi
+            output_dir = "universal_output"
+
+            # Validate files exist
+            if not os.path.exists(musicxml_path):
+                self.log(f"❌ MusicXML file not found: {musicxml_path}")
+                return
+            if not os.path.exists(midi_path):
+                self.log(f"❌ MIDI file not found: {midi_path}")
+                return
+
+            # Run in background thread
+            def run_coordination():
+                try:
+                    # Build command
+                    cmd = [
+                        sys.executable,
+                        "PRPs-agentic-eng/note_coordinator.py",
+                        musicxml_path,
+                        midi_path,
+                        output_dir
+                    ]
+
+                    self.log(f"📊 Running: {' '.join(cmd)}")
+
+                    # Run the command
+                    result = subprocess.run(cmd, capture_output=True, text=True)
+
+                    if result.returncode == 0:
+                        self.log(f"✅ Note Coordinator completed successfully!")
+                        self.log(f"📁 Output directory: {output_dir}")
+
+                        # Load the universal registry for SVG viewer
+                        registry_path = os.path.join(output_dir, "universal_notes_registry.json")
+                        if os.path.exists(registry_path):
+                            with open(registry_path, 'r') as f:
+                                registry_data = json.load(f)
+
+                            # Convert to MIDI mappings format for SVG viewer
+                            self.midi_mappings = {}
+                            for note in registry_data.get('notes', []):
+                                # Note Coordinator uses nested structure
+                                svg_data = note.get('svg_data', {})
+                                midi_data = note.get('midi_data')
+
+                                # Skip notes with null MIDI data
+                                if midi_data is None:
+                                    continue
+
+                                if 'svg_x' in svg_data and 'svg_y' in svg_data and 'start_time_seconds' in midi_data:
+                                    coord_key = f"{int(svg_data['svg_x'])}_{int(svg_data['svg_y'])}"
+                                    self.log(f"🗝️  Mapping key: {coord_key} -> {midi_data['start_time_seconds']:.2f}s")
+                                    self.midi_mappings[coord_key] = {
+                                        'start_time': midi_data['start_time_seconds'],
+                                        'end_time': midi_data.get('end_time_seconds', midi_data['start_time_seconds'] + 1),
+                                        'velocity': midi_data.get('velocity', 64),
+                                        'pitch': midi_data.get('pitch_midi', 60),
+                                        'confidence': note.get('match_confidence', 1.0),
+                                        'timing_source': 'note_coordinator'
+                                    }
+
+                            self.log(f"🎹 MIDI mappings loaded: {len(self.midi_mappings)} notes")
+
+                            # Update SVG viewer if it exists
+                            if self.svg_viewer and hasattr(self.svg_viewer, 'midi_mappings'):
+                                self.svg_viewer.midi_mappings = self.midi_mappings
+                                # Update in real-time without restart
+                                if hasattr(self.svg_viewer, 'update_midi_mappings'):
+                                    try:
+                                        mappings_json = json.dumps(self.midi_mappings)
+                                        self.svg_viewer.update_midi_mappings(mappings_json)
+                                        self.log("🔄 SVG Viewer updated with MIDI mappings (real-time)")
+                                    except Exception as e:
+                                        self.log(f"⚠️ Real-time update failed: {e}")
+                                        self.log("🔄 SVG Viewer updated with MIDI mappings (fallback)")
+                                else:
+                                    self.log("🔄 SVG Viewer updated with MIDI mappings")
+
+                    else:
+                        self.log(f"❌ Note Coordinator failed with return code {result.returncode}")
+                        self.log(f"Error output: {result.stderr}")
+
+                except Exception as e:
+                    self.log(f"❌ Note Coordinator error: {e}")
+                    import traceback
+                    traceback.print_exc()
+
+            # Run in background thread
+            thread = threading.Thread(target=run_coordination, daemon=True)
+            thread.start()
+
+        except Exception as e:
+            self.log(f"❌ Failed to start Note Coordinator: {e}")
+
+    def run_context_gatherer(self):
+        """Run context gatherer to create XML-MIDI-SVG relationships"""
+        try:
+            self.log("🎹 Running Context Gatherer...")
+
+            # Use default file paths
+            musicxml_path = self.default_musicxml
+            midi_path = self.default_midi
+            svg_path = self.default_svg
+
+            # Validate files exist
+            if not os.path.exists(musicxml_path):
+                self.log(f"❌ MusicXML file not found: {musicxml_path}")
+                return
+            if not os.path.exists(midi_path):
+                self.log(f"❌ MIDI file not found: {midi_path}")
+                return
+            if not os.path.exists(svg_path):
+                self.log(f"❌ SVG file not found: {svg_path}")
+                return
+
+            # Run in background thread
+            def run_analysis():
+                try:
+                    # Import context gatherer
+                    sys.path.append(os.path.join(self.project_root, 'PRPs-agentic-eng', 'App', 'Synchronizer 19-26-28-342'))
+                    from context_gatherer import ContextGatherer
+
+                    self.log(f"📊 Analyzing: {os.path.basename(musicxml_path)}")
+
+                    # Create context gatherer
+                    gatherer = ContextGatherer(
+                        musicxml_path=Path(musicxml_path),
+                        midi_path=Path(midi_path),
+                        svg_path=Path(svg_path)
+                    )
+
+                    # Analyze relationships
+                    self.context_analysis = gatherer.analyze_and_create_relationships()
+
+                    # Extract MIDI mappings for SVG viewer
+                    self.midi_mappings = {}
+                    for sync_note in self.context_analysis.synchronized_notes:
+                        if sync_note.midi_note and sync_note.svg_noteheads:
+                            midi_data = {
+                                'start_time': sync_note.master_start_time_seconds,
+                                'end_time': sync_note.master_end_time_seconds,
+                                'velocity': sync_note.midi_note.velocity,
+                                'pitch': sync_note.midi_note.pitch,
+                                'confidence': sync_note.match_confidence,
+                                'timing_source': sync_note.timing_source
+                            }
+
+                            # Map to coordinates
+                            for svg_notehead in sync_note.svg_noteheads:
+                                coord_key = f"{int(svg_notehead.coordinates[0])}_{int(svg_notehead.coordinates[1])}"
+                                self.midi_mappings[coord_key] = midi_data
+
+                    self.log(f"✅ Context analysis complete!")
+                    self.log(f"🎹 MIDI mappings: {len(self.midi_mappings)} notes")
+                    self.log(f"🎯 Match rate: {self.context_analysis.timing_accuracy['match_rate']:.1%}")
+                    self.log(f"⏱️  Avg timing error: {self.context_analysis.timing_accuracy['average_timing_error_ms']:.1f}ms")
+
+                    # Update SVG viewer if it exists
+                    if self.svg_viewer and hasattr(self.svg_viewer, 'midi_mappings'):
+                        self.svg_viewer.midi_mappings = self.midi_mappings
+                        # Update in real-time without restart
+                        if hasattr(self.svg_viewer, 'update_midi_mappings'):
+                            try:
+                                mappings_json = json.dumps(self.midi_mappings)
+                                self.svg_viewer.update_midi_mappings(mappings_json)
+                                self.log("🔄 SVG Viewer updated with MIDI mappings (real-time)")
+                            except Exception as e:
+                                self.log(f"⚠️ Real-time update failed: {e}")
+                                self.log("🔄 SVG Viewer updated with MIDI mappings (fallback)")
+                        else:
+                            self.log("🔄 SVG Viewer updated with MIDI mappings")
+
+                except Exception as e:
+                    self.log(f"❌ Context gatherer error: {e}")
+                    import traceback
+                    traceback.print_exc()
+
+            # Run in background thread
+            thread = threading.Thread(target=run_analysis, daemon=True)
+            thread.start()
+
+        except Exception as e:
+            self.log(f"❌ Failed to start context gatherer: {e}")
+
+    def auto_run_context_gatherer(self):
+        """Auto-run context gatherer on GUI launch for faster testing"""
+        # Delay a bit to let GUI fully initialize
+        self.root.after(2000, self.run_context_gatherer)  # Run after 2 seconds
 
     def on_closing(self):
         """Handle window close event"""

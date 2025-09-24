@@ -18,6 +18,7 @@ class SVGViewerWebView:
         self.parent_callback = parent_callback
         self.settings_file = "svg_viewer_webview_settings.json"  # Use unique filename
         self.window = None
+        self.midi_mappings = {}  # Store MIDI timing data for noteheads
 
         # Load previous window settings
         self.load_settings()
@@ -66,6 +67,58 @@ class SVGViewerWebView:
                 json.dump(settings, f, indent=2)
         except Exception as e:
             print(f"Error saving settings: {e}")
+
+    def load_midi_mappings(self, musicxml_path=None, midi_path=None):
+        """Load MIDI mappings using context gatherer for enhanced hover tooltips"""
+        try:
+            if not musicxml_path or not midi_path:
+                print("No MusicXML or MIDI paths provided - using basic hover tooltips")
+                return
+
+            # Import context gatherer components
+            import sys
+            import os
+            sys.path.append(os.path.join(os.path.dirname(__file__), 'PRPs-agentic-eng', 'App', 'Synchronizer 19-26-28-342'))
+
+            from context_gatherer import ContextGatherer
+
+            print(f"Loading MIDI mappings from: {midi_path}")
+
+            # Create context gatherer and analyze relationships
+            gatherer = ContextGatherer(
+                musicxml_path=Path(musicxml_path),
+                midi_path=Path(midi_path),
+                svg_path=Path(self.svg_file_path)
+            )
+
+            context_analysis = gatherer.analyze_and_create_relationships()
+
+            # Extract MIDI mappings from synchronized notes
+            for sync_note in context_analysis.synchronized_notes:
+                if sync_note.midi_note and sync_note.svg_noteheads:
+                    midi_data = {
+                        'start_time': sync_note.master_start_time_seconds,
+                        'end_time': sync_note.master_end_time_seconds,
+                        'velocity': sync_note.midi_note.velocity,
+                        'pitch': sync_note.midi_note.pitch,
+                        'confidence': sync_note.match_confidence,
+                        'timing_source': sync_note.timing_source
+                    }
+
+                    # Map to SVG coordinates
+                    for svg_notehead in sync_note.svg_noteheads:
+                        coord_key = f"{int(svg_notehead.coordinates[0])}_{int(svg_notehead.coordinates[1])}"
+                        self.midi_mappings[coord_key] = midi_data
+
+            print(f"✅ Loaded {len(self.midi_mappings)} MIDI mappings for hover tooltips")
+            if self.parent_callback:
+                self.parent_callback(f"🎹 MIDI mappings loaded: {len(self.midi_mappings)} notes")
+
+        except Exception as e:
+            print(f"⚠️ Could not load MIDI mappings: {e}")
+            if self.parent_callback:
+                self.parent_callback(f"⚠️ MIDI mapping error: {e}")
+            self.midi_mappings = {}  # Use empty mappings as fallback
 
     def parse_svg_for_hover(self, svg_path):
         """Parse SVG and extract element data for hover functionality"""
@@ -291,7 +344,17 @@ class SVGViewerWebView:
 
             <script>
                 const elementsData = {json.dumps(elements_data, indent=2)};
+                let midiMappings = {json.dumps(self.midi_mappings, indent=2)};
                 const tooltip = document.getElementById('tooltip');
+
+                // Function to update MIDI mappings without page reload
+                function updateMidiMappings(newMappings) {{
+                    midiMappings = newMappings;
+                    console.log('🎹 MIDI mappings updated:', Object.keys(midiMappings).length, 'notes');
+                }}
+
+                // Expose function globally for external access
+                window.updateMidiMappings = updateMidiMappings;
 
                 // Save position from manual input
                 function saveManualPosition() {{
@@ -743,6 +806,44 @@ class SVGViewerWebView:
                         if (matchingData.coords) {{
                             if (matchingData.coords.type === 'point') {{
                                 content += `Position: (${{Math.round(matchingData.coords.x)}}, ${{Math.round(matchingData.coords.y)}})<br>`;
+
+                                // Check for MIDI mapping based on coordinates
+                                const coordKey = `${{Math.round(matchingData.coords.x)}}_${{Math.round(matchingData.coords.y)}}`;
+                                let midi = midiMappings[coordKey];
+
+                                console.log(`🔍 Searching for MIDI at: ${{coordKey}}`);
+                                console.log(`📊 Available keys:`, Object.keys(midiMappings));
+
+                                // If no exact match, try nearby coordinates for coordinate transformation offset
+                                if (!midi) {{
+                                    console.log(`❌ No exact match, searching nearby...`);
+                                    for (let dx = -5; dx <= 5 && !midi; dx++) {{
+                                        for (let dy = -500; dy <= 500; dy += 5) {{
+                                            const nearKey = `${{Math.round(matchingData.coords.x) + dx}}_${{Math.round(matchingData.coords.y) + dy}}`;
+                                            if (midiMappings[nearKey]) {{
+                                                console.log(`✅ Found match at: ${{nearKey}}`);
+                                                midi = midiMappings[nearKey];
+                                                break;
+                                            }}
+                                        }}
+                                    }}
+                                    if (!midi) {{
+                                        console.log(`❌ No nearby matches found within tolerance`);
+                                    }}
+                                }}
+
+                                if (midi) {{
+                                    content += `<br><strong>🎹 MIDI Data:</strong><br>`;
+                                    content += `Start: ${{midi.start_time.toFixed(2)}}s<br>`;
+                                    if (midi.end_time) {{
+                                        content += `End: ${{midi.end_time.toFixed(2)}}s<br>`;
+                                        content += `Duration: ${{(midi.end_time - midi.start_time).toFixed(2)}}s<br>`;
+                                    }}
+                                    content += `Velocity: ${{midi.velocity}}<br>`;
+                                    content += `Pitch: ${{midi.pitch}}<br>`;
+                                    content += `Confidence: ${{(midi.confidence * 100).toFixed(1)}}%<br>`;
+                                    content += `Source: ${{midi.timing_source}}<br>`;
+                                }}
                             }}
                         }}
 
@@ -765,11 +866,79 @@ class SVGViewerWebView:
                         if (element.textContent && element.textContent.trim()) {{
                             content += `Text: "${{element.textContent.trim()}}"<br>`;
                         }}
+
+                        // For fallback elements, try to find MIDI data by proximity
+                        const svgCoords = getSVGCoordinates(element);
+                        if (svgCoords) {{
+                            content += `SVG coords: (${{Math.round(svgCoords.x)}}, ${{Math.round(svgCoords.y)}})<br>`;
+
+                            // Check for exact match first
+                            const exactKey = `${{Math.round(svgCoords.x)}}_${{Math.round(svgCoords.y)}}`;
+                            let midi = midiMappings[exactKey];
+
+                            // If no exact match, try nearby coordinates (within 500 pixels for coordinate transformation offset)
+                            if (!midi) {{
+                                for (let dx = -5; dx <= 5 && !midi; dx++) {{
+                                    for (let dy = -500; dy <= 500; dy += 5) {{
+                                        const nearKey = `${{Math.round(svgCoords.x) + dx}}_${{Math.round(svgCoords.y) + dy}}`;
+                                        if (midiMappings[nearKey]) {{
+                                            midi = midiMappings[nearKey];
+                                            content += `🎯 MIDI match found nearby<br>`;
+                                            break;
+                                        }}
+                                    }}
+                                }}
+                            }}
+
+                            if (midi) {{
+                                content += `<br><strong>🎹 MIDI Data:</strong><br>`;
+                                content += `Start: ${{midi.start_time.toFixed(2)}}s<br>`;
+                                if (midi.end_time) {{
+                                    content += `End: ${{midi.end_time.toFixed(2)}}s<br>`;
+                                    content += `Duration: ${{(midi.end_time - midi.start_time).toFixed(2)}}s<br>`;
+                                }}
+                                content += `Velocity: ${{midi.velocity}}<br>`;
+                                content += `Pitch: ${{midi.pitch}}<br>`;
+                                content += `Confidence: ${{(midi.confidence * 100).toFixed(1)}}%<br>`;
+                                content += `Source: ${{midi.timing_source}}<br>`;
+                            }} else {{
+                                // Debug: Show available MIDI coordinates for troubleshooting
+                                content += `<br><strong>🔍 Debug Info:</strong><br>`;
+                                content += `Looking for: ${{exactKey}}<br>`;
+                                const availableKeys = Object.keys(midiMappings).slice(0, 5);
+                                if (availableKeys.length > 0) {{
+                                    content += `Available coords: ${{availableKeys.join(', ')}}<br>`;
+                                }}
+                                content += `Total MIDI mappings: ${{Object.keys(midiMappings).length}}<br>`;
+                            }}
+                        }}
                     }}
 
                     tooltip.innerHTML = content;
                     tooltip.style.display = 'block';
                     updateTooltipPosition(event);
+                }}
+
+                // Helper function to get SVG coordinates from any element
+                function getSVGCoordinates(element) {{
+                    try {{
+                        const svg = element.closest('svg');
+                        if (!svg) return null;
+
+                        const rect = element.getBoundingClientRect();
+                        const svgRect = svg.getBoundingClientRect();
+
+                        const svgX = (rect.left + rect.width/2) - svgRect.left;
+                        const svgY = (rect.top + rect.height/2) - svgRect.top;
+
+                        // Account for zoom level
+                        return {{
+                            x: svgX / currentZoom,
+                            y: svgY / currentZoom
+                        }};
+                    }} catch (e) {{
+                        return null;
+                    }}
                 }}
 
                 function findMatchingElementData(element) {{
@@ -948,6 +1117,27 @@ class SVGViewerWebView:
         """Legacy API method - kept for backward compatibility"""
         return self.save_position_with_coords(self.window_x, self.window_y, self.window_width, self.window_height)
 
+    def update_midi_mappings(self, mappings_json):
+        """API method to update MIDI mappings without restarting viewer"""
+        try:
+            import json
+            # Update Python-side mappings
+            self.midi_mappings = json.loads(mappings_json)
+
+            # Update JavaScript-side mappings via evaluate_js
+            if self.window:
+                try:
+                    js_code = f"window.updateMidiMappings({mappings_json});"
+                    self.window.evaluate_js(js_code)
+                except Exception as js_error:
+                    self.log_message(f"⚠️ JS update failed: {js_error}")
+
+            self.log_message(f"🎹 Updated MIDI mappings: {len(self.midi_mappings)} notes")
+            return True
+        except Exception as e:
+            self.log_message(f"❌ Error updating MIDI mappings: {e}")
+            return False
+
     def copy_to_clipboard(self, text):
         """API method for JavaScript to copy text to system clipboard"""
         try:
@@ -989,14 +1179,18 @@ class SVGViewerWebView:
             html_content = self.create_html_content(svg_path)
             self.window.load_html(html_content)
 
-    def show(self, svg_path=None):
-        """Show the SVG viewer window"""
+    def show(self, svg_path=None, musicxml_path=None, midi_path=None):
+        """Show the SVG viewer window with optional MIDI mappings"""
         if svg_path:
             self.svg_file_path = svg_path
 
         if not self.svg_file_path or not os.path.exists(self.svg_file_path):
             print("No valid SVG file specified")
             return
+
+        # Load MIDI mappings if provided
+        if musicxml_path and midi_path:
+            self.load_midi_mappings(musicxml_path, midi_path)
 
         # Create HTML content
         html_content = self.create_html_content(self.svg_file_path)
