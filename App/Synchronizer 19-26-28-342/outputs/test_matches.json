@@ -1,0 +1,96 @@
+{
+  "matcher_config": {
+    "tolerance_seconds": 0.1,
+    "strict_pitch": true
+  },
+  "statistics": {
+    "total_matches": 3,
+    "average_confidence": 0.9400000000000001,
+    "average_timing_error_ms": 0.0,
+    "min_timing_error_ms": 0.0,
+    "max_timing_error_ms": 0.0,
+    "match_types": {
+      "exact": 3
+    },
+    "pitch_accuracy": 1.0,
+    "exact_pitch_matches": 3,
+    "timing_within_tolerance": 3
+  },
+  "matches": [
+    {
+      "xml_note": {
+        "pitch": "B3",
+        "onset_time": 6.0,
+        "measure": 4,
+        "beat_position": 1.0,
+        "part_id": "Violon"
+      },
+      "midi_note": {
+        "pitch": 59,
+        "pitch_name": "B3",
+        "start_time": 6.0,
+        "velocity": 65,
+        "instrument": "Violin",
+        "track_name": "Violon"
+      },
+      "scoring": {
+        "confidence": 0.9400000000000001,
+        "time_difference": 0.0,
+        "timing_score": 1.0,
+        "context_score": 0.7,
+        "match_type": "exact",
+        "pitch_match": true
+      }
+    },
+    {
+      "xml_note": {
+        "pitch": "A4",
+        "onset_time": 7.5,
+        "measure": 5,
+        "beat_position": 1.0,
+        "part_id": "Fl\u00fbte"
+      },
+      "midi_note": {
+        "pitch": 69,
+        "pitch_name": "A4",
+        "start_time": 7.5,
+        "velocity": 76,
+        "instrument": "Flute",
+        "track_name": "Fl\u00fbte"
+      },
+      "scoring": {
+        "confidence": 0.9400000000000001,
+        "time_difference": 0.0,
+        "timing_score": 1.0,
+        "context_score": 0.7,
+        "match_type": "exact",
+        "pitch_match": true
+      }
+    },
+    {
+      "xml_note": {
+        "pitch": "G4",
+        "onset_time": 8.25,
+        "measure": 5,
+        "beat_position": 1.5,
+        "part_id": "Fl\u00fbte"
+      },
+      "midi_note": {
+        "pitch": 67,
+        "pitch_name": "G4",
+        "start_time": 8.25,
+        "velocity": 76,
+        "instrument": "Flute",
+        "track_name": "Fl\u00fbte"
+      },
+      "scoring": {
+        "confidence": 0.9400000000000001,
+        "time_difference": 0.0,
+        "timing_score": 1.0,
+        "context_score": 0.7,
+        "match_type": "exact",
+        "pitch_match": true
+      }
+    }
+  ]
+}
