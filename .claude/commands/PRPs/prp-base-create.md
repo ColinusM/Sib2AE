@@ -2,26 +2,31 @@
 
 ## Feature: $ARGUMENTS
 
-Generate a complete PRP for feature implementation with deep and thorough research. Ensure rich context is passed to the AI through the PRP to enable one pass implementation success through self-validation and iterative refinement.
+## PRP Creation Mission
 
-The AI agent only gets the context you are appending to the PRP and its own training data. Assume the AI agent has access to the codebase and the same knowledge cutoff as you, so its important that your research findings are included or referenced in the PRP. The Agent has Websearch capabilities, so pass urls to documentation and examples. Use specialized subagents when possible in .claude/agents
+Create a comprehensive PRP that enables **one-pass implementation success** through systematic research and context curation.
+
+**Critical Understanding**: The executing AI agent only receives:
+
+- Start by reading and understanding the prp concepts PRPs/README.md
+- The PRP content you create
+- Its training data knowledge
+- Access to codebase files (but needs guidance on which ones)
+
+**Therefore**: Your research and context curation directly determines implementation success. Incomplete context = implementation failure.
 
 ## Research Process
 
 > During the research process, create clear tasks and spawn as many agents and subagents as needed using the batch tools. The deeper research we do here the better the PRP will be. we optminize for chance of success and not for speed.
 
-**🤖 IMPORTANT**: Before creating your research plan, scan `.claude/agents/` to see what specialized subagents are available. Use them to optimize research time without losing quality.
-
 1. **Codebase Analysis in depth**
-   - Check `.claude/agents/` for relevant specialized subagents before starting
-   - Create clear todos and spawn subagents to search the codebase for similar features/patterns
+   - Create clear todos and spawn subagents to search the codebase for similar features/patterns Think hard and plan your approach
    - Identify all the necessary files to reference in the PRP
    - Note all existing conventions to follow
    - Check existing test patterns for validation approach
    - Use the batch tools to spawn subagents to search the codebase for similar features/patterns
 
 2. **External Research at scale**
-   - Check `.claude/agents/` for domain-specific research subagents
    - Create clear todos and spawn with instructions subagents to do deep research for similar features/patterns online and include urls to documentation and examples
    - Library documentation (include specific URLs)
    - For critical pieces of documentation add a .md file to PRPs/ai_docs and reference it in the PRP with clear reasoning and instructions
@@ -32,55 +37,72 @@ The AI agent only gets the context you are appending to the PRP and its own trai
 3. **User Clarification**
    - Ask for clarification if you need it
 
-## PRP Generation
+## PRP Generation Process
 
-Using PRPs/templates/prp_base.md as template:
+### Step 1: Choose Template
 
-### Critical Context at minimum to Include and pass to the AI agent as part of the PRP
+Use `PRPs/templates/prp_base.md` as your template structure - it contains all necessary sections and formatting.
 
-- **Documentation**: URLs with specific sections
-- **Code Examples**: Real snippets from codebase
-- **Gotchas**: Library quirks, version issues
-- **Patterns**: Existing approaches to follow
-- **Best Practices**: Common pitfalls found during research
+### Step 2: Context Completeness Validation
 
-### Implementation Blueprint
+Before writing, apply the **"No Prior Knowledge" test** from the template:
+_"If someone knew nothing about this codebase, would they have everything needed to implement this successfully?"_
 
-- Start with pseudocode showing approach
-- Reference real files for patterns
-- Include error handling strategy
-- List tasks to be completed to fulfill the PRP in the order they should be completed, use the pattern in the PRP with information dense keywords
+### Step 3: Research Integration
 
-### Validation Gates (Must be Executable by the AI agent)
+Transform your research findings into the template sections:
 
-```bash
-# Syntax/Style
-ruff check --fix && mypy .
+**Goal Section**: Use research to define specific, measurable Feature Goal and concrete Deliverable
+**Context Section**: Populate YAML structure with your research findings - specific URLs, file patterns, gotchas
+**Implementation Tasks**: Create dependency-ordered tasks using information-dense keywords from codebase analysis
+**Validation Gates**: Use project-specific validation commands that you've verified work in this codebase
 
-# Unit Tests
-uv run pytest tests/ -v
+### Step 4: Information Density Standards
 
-```
+Ensure every reference is **specific and actionable**:
 
-The more validation gates the better, but make sure they are executable by the AI agent.
-Include tests, mcp servers, and any other relevant validation gates. Get creative with the validation gates.
+- URLs include section anchors, not just domain names
+- File references include specific patterns to follow, not generic mentions
+- Task specifications include exact naming conventions and placement
+- Validation commands are project-specific and executable
 
-**_ CRITICAL AFTER YOU ARE DONE RESEARCHING AND EXPLORING THE CODEBASE BEFORE YOU START WRITING THE PRP _**
+### Step 5: ULTRATHINK Before Writing
 
-**_ ULTRATHINK ABOUT THE PRP AND PLAN YOUR APPROACH IN DETAILED TODOS THEN START WRITING THE PRP _**
+After research completion, create comprehensive PRP writing plan using TodoWrite tool:
+
+- Plan how to structure each template section with your research findings
+- Identify gaps that need additional research
+- Create systematic approach to filling template with actionable context
 
 ## Output
 
 Save as: `PRPs/{feature-name}.md`
 
-## Quality Checklist
+## PRP Quality Gates
 
-- [ ] All necessary context included
-- [ ] Validation gates are executable by AI
-- [ ] References existing patterns
-- [ ] Clear implementation path
-- [ ] Error handling documented
+### Context Completeness Check
 
-Score the PRP on a scale of 1-10 (confidence level to succeed in one-pass implementation using claude codes)
+- [ ] Passes "No Prior Knowledge" test from template
+- [ ] All YAML references are specific and accessible
+- [ ] Implementation tasks include exact naming and placement guidance
+- [ ] Validation commands are project-specific and verified working
 
-Remember: The goal is one-pass implementation success through comprehensive context.
+### Template Structure Compliance
+
+- [ ] All required template sections completed
+- [ ] Goal section has specific Feature Goal, Deliverable, Success Definition
+- [ ] Implementation Tasks follow dependency ordering
+- [ ] Final Validation Checklist is comprehensive
+
+### Information Density Standards
+
+- [ ] No generic references - all are specific and actionable
+- [ ] File patterns point at specific examples to follow
+- [ ] URLs include section anchors for exact guidance
+- [ ] Task specifications use information-dense keywords from codebase
+
+## Success Metrics
+
+**Confidence Score**: Rate 1-10 for one-pass implementation success likelihood
+
+**Validation**: The completed PRP should enable an AI agent unfamiliar with the codebase to implement the feature successfully using only the PRP content and codebase access.
