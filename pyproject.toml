@@ -6,9 +6,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "svgelements>=1.9.0",
-    "cairosvg>=2.7.0", 
+    "cairosvg>=2.7.0",
     "pydantic>=2.0.0",
     "click>=8.0.0",
     "pytest>=7.0.0",
-    "pillow>=10.0.0"
+    "pillow>=10.0.0",
+    "tqdm>=4.60.0"
 ]
