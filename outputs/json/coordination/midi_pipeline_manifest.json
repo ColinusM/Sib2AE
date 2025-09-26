@@ -1,0 +1,86 @@
+[
+  {
+    "universal_id": "5d151ebd-578d-4d90-a138-53503c336d17",
+    "midi_sequence_id": 0,
+    "original_filename": "note_000_Fl\u00fbte_A4_vel76.mid",
+    "audio_filename": "note_000_Fl\u00fbte_A4_vel76.wav",
+    "keyframes_filename": "note_000_Fl\u00fbte_A4_vel76_keyframes.json",
+    "track_name": "Fl\u00fbte",
+    "pitch": "A4",
+    "timing_data": {
+      "start_seconds": 7.5,
+      "duration_seconds": 0.75,
+      "velocity": 76
+    }
+  },
+  {
+    "universal_id": "dec81122-08b1-404a-ae07-923a15a78f78",
+    "midi_sequence_id": 2,
+    "original_filename": "note_002_Fl\u00fbte_G4_vel76.mid",
+    "audio_filename": "note_002_Fl\u00fbte_G4_vel76.wav",
+    "keyframes_filename": "note_002_Fl\u00fbte_G4_vel76_keyframes.json",
+    "track_name": "Fl\u00fbte",
+    "pitch": "G4",
+    "timing_data": {
+      "start_seconds": 8.25,
+      "duration_seconds": 0.5,
+      "velocity": 76
+    }
+  },
+  {
+    "universal_id": "74fb5fa2-29a5-4cbe-acae-7ada188199c6",
+    "midi_sequence_id": 3,
+    "original_filename": "note_003_Violon_B3_vel65.mid",
+    "audio_filename": "note_003_Violon_B3_vel65.wav",
+    "keyframes_filename": "note_003_Violon_B3_vel65_keyframes.json",
+    "track_name": "Violon",
+    "pitch": "B3",
+    "timing_data": {
+      "start_seconds": 6.0,
+      "duration_seconds": 2.294791666666667,
+      "velocity": 65
+    }
+  },
+  {
+    "universal_id": "31d62a5a-4252-46f3-9ed0-4fc0dc1fdc77",
+    "midi_sequence_id": 4,
+    "original_filename": "note_004_Violon_B3_vel64.mid",
+    "audio_filename": "note_004_Violon_B3_vel64.wav",
+    "keyframes_filename": "note_004_Violon_B3_vel64_keyframes.json",
+    "track_name": "Violon",
+    "pitch": "B3",
+    "timing_data": {
+      "start_seconds": 9.0,
+      "duration_seconds": 0.5,
+      "velocity": 64
+    }
+  },
+  {
+    "universal_id": "be5cf55b-17f3-4cb1-a7d1-4b9e58ed947c",
+    "midi_sequence_id": 6,
+    "original_filename": "note_006_Violon_A3_vel66.mid",
+    "audio_filename": "note_006_Violon_A3_vel66.wav",
+    "keyframes_filename": "note_006_Violon_A3_vel66_keyframes.json",
+    "track_name": "Violon",
+    "pitch": "A3",
+    "timing_data": {
+      "start_seconds": 8.25,
+      "duration_seconds": 0.5098958333333333,
+      "velocity": 66
+    }
+  },
+  {
+    "universal_id": "33f77302-4440-44ff-b5ad-c3e4cc062252",
+    "midi_sequence_id": 7,
+    "original_filename": "note_007_Violon_C4_vel65.mid",
+    "audio_filename": "note_007_Violon_C4_vel65.wav",
+    "keyframes_filename": "note_007_Violon_C4_vel65_keyframes.json",
+    "track_name": "Violon",
+    "pitch": "C4",
+    "timing_data": {
+      "start_seconds": 8.75,
+      "duration_seconds": 0.23645833333333333,
+      "velocity": 65
+    }
+  }
+]

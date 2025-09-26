@@ -112,9 +112,10 @@ class Sib2AeSimpleGUI:
         import platform
 
         output_dirs = [
-            "PRPs-agentic-eng/Audio",
-            "PRPs-agentic-eng/instruments_output",
-            "universal_output"
+            "outputs/audio",
+            "outputs/svg",
+            "outputs/json",
+            "outputs/midi"
         ]
 
         for output_dir in output_dirs:

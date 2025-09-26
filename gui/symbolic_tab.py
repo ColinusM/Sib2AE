@@ -17,7 +17,7 @@ class SymbolicTab:
         # Variables for file paths
         self.musicxml_var = tk.StringVar(value=settings.default_musicxml)
         self.svg_var = tk.StringVar(value=settings.default_svg)
-        self.output_var = tk.StringVar(value="instruments_output")
+        self.output_var = tk.StringVar(value="outputs/svg/instruments")
 
         self.setup_ui()
 

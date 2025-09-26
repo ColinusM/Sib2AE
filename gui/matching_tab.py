@@ -133,7 +133,7 @@ class MatchingTab:
         def run_analysis():
             try:
                 # Run Note Coordinator
-                output_dir = "coordinator_output"
+                output_dir = "outputs/json/coordination"
                 cmd = [
                     sys.executable,
                     "PRPs-agentic-eng/note_coordinator.py",
@@ -268,8 +268,8 @@ class MatchingTab:
             self.add_legend_to_svg(annotation_group, matched_count, unmatched_count)
 
             # Save annotated SVG
-            output_file = "output/annotated_coordinator.svg"
-            os.makedirs("output", exist_ok=True)
+            output_file = "outputs/svg/annotated/annotated_coordinator.svg"
+            os.makedirs("outputs/svg/annotated", exist_ok=True)
             tree.write(output_file, encoding='utf-8', xml_declaration=True)
             self.log(f"🎨 Annotated SVG saved: {output_file}")
 
@@ -471,9 +471,9 @@ class MatchingTab:
     def view_annotated_svg(self):
         """Open the annotated SVG for visual verification"""
         # Check for coordinator output first, then fallback to matching analyzer
-        annotated_svg = "output/annotated_coordinator.svg"
+        annotated_svg = "outputs/svg/annotated/annotated_coordinator.svg"
         if not os.path.exists(annotated_svg):
-            annotated_svg = "output/annotated_matching.svg"
+            annotated_svg = "outputs/svg/annotated/annotated_matching.svg"
 
         if not os.path.exists(annotated_svg):
             messagebox.showwarning("Warning", "No annotated SVG found. Run Note Coordinator first.")

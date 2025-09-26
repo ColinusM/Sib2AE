@@ -1,0 +1,185 @@
+{
+  "execution_metadata": {
+    "orchestrator_version": "1.0.0",
+    "execution_timestamp": "2025-09-25T23:25:13.735892",
+    "total_duration_seconds": 0.277834,
+    "working_directory": "/Users/colinmignot/Claude Code/Sib2Ae/PRPs-agentic-eng",
+    "configuration": {
+      "execution_mode": "sequential",
+      "max_workers": 4,
+      "circuit_breaker_enabled": true,
+      "universal_id_preservation": true,
+      "new_filename_pattern": true
+    }
+  },
+  "universal_id_summary": {
+    "total_universal_ids": 9,
+    "registry_statistics": {
+      "total_universal_ids": 9,
+      "matched_to_midi": 6,
+      "match_rate": 0.6666666666666666,
+      "average_confidence": 0.6666666666666666,
+      "total_files_registered": 0,
+      "stage_completion_counts": {
+        "note_coordinator": 9
+      },
+      "file_counts_by_stage": {},
+      "filename_transformations": 21,
+      "last_updated": "2025-09-25 23:25:13.542546"
+    }
+  },
+  "pipeline_execution": {
+    "completed_stages": [
+      "note_coordinator",
+      "noteheads_subtraction",
+      "noteheads_extraction",
+      "instrument_separation",
+      "midi_note_separation",
+      "staff_barlines_extraction",
+      "individual_noteheads_creation"
+    ],
+    "failed_stages": [
+      "midi_to_audio_rendering"
+    ],
+    "total_stages_attempted": 7,
+    "success_rate": 1.0
+  },
+  "output_files": {
+    "universal_notes_registry": "universal_output/universal_notes_registry.json",
+    "coordination_metadata": "universal_output/coordination_metadata.json",
+    "universal_file_registry": "universal_output/universal_file_registry.json",
+    "progress_report": "universal_output/logs/final_progress_report.json"
+  },
+  "validation_results": {
+    "universal_id_integrity": {
+      "valid": true,
+      "issues": {
+        "missing_files": [],
+        "orphaned_files": [],
+        "filename_mismatches": [],
+        "incomplete_stages": [
+          "Universal ID 449dc93f: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 44ce3459: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID ac77a1ca: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 9040839c: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 68bbf79e: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 45b80f55: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 2908064e: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 7baa8b51: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 5a4f9f21: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}"
+        ]
+      }
+    },
+    "file_existence": {
+      "valid": false,
+      "issues": [
+        "Missing output file: SS 9_noteheads_universal.svg",
+        "Missing output file: SS 9 full_without_noteheads.svg",
+        "Missing output file: SS 9 full_staff_barlines.svg",
+        "Missing output file: Saint-Saens Trio No 2_individual_notes"
+      ]
+    },
+    "manifest_consistency": {},
+    "pipeline_completeness": {
+      "expected_stages": 7,
+      "completed_stages": 7,
+      "completion_rate": 1.0,
+      "failed_stages": [
+        "midi_to_audio_rendering"
+      ]
+    },
+    "performance_metrics": {
+      "total_duration_seconds": 0.27782,
+      "universal_ids_processed": 9,
+      "processing_rate": 32.39507594845583,
+      "failure_handler_stats": {
+        "name": "universal_orchestrator",
+        "total_calls": 7,
+        "successful_calls": 7,
+        "failed_calls": 0,
+        "success_rate": 1.0,
+        "uptime_seconds": 0.277786,
+        "circuit_breaker": {
+          "name": "universal_orchestrator",
+          "state": "closed",
+          "failure_count": 0,
+          "success_count": 0,
+          "last_failure_time": null,
+          "total_failures": 0,
+          "recent_failures": 0,
+          "config": {
+            "failure_threshold": 5,
+            "recovery_timeout_seconds": 60,
+            "success_threshold": 3,
+            "timeout_seconds": 300.0
+          }
+        },
+        "retry_config": {
+          "max_attempts": 3,
+          "base_delay_seconds": 1.0,
+          "exponential_backoff": true
+        }
+      }
+    }
+  },
+  "progress_summary": {
+    "total_universal_ids": 9,
+    "completed_universal_ids": 0,
+    "failed_universal_ids": 0,
+    "completion_percentage": 0.0,
+    "elapsed_time_seconds": 0.19336,
+    "estimated_remaining_seconds": null,
+    "stages": {
+      "noteheads_extraction": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "noteheads_subtraction": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "instrument_separation": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "individual_noteheads_creation": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "staff_barlines_extraction": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "midi_note_separation": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "midi_to_audio_rendering": {
+        "completed": 0,
+        "failed": 0,
+        "total": 9,
+        "percentage": 0.0,
+        "current_operation": "Starting midi_to_audio_rendering"
+      }
+    },
+    "active_universal_ids": []
+  }
+}

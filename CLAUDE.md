@@ -32,29 +32,38 @@ python3 launch_gui.py
 
 ## Data Structure
 ```
-PRPs-agentic-eng/
+Brain/                                 # CORE PIPELINE SCRIPTS & INPUT FILES
 ├── Base/                              # INPUT FILES
 │   ├── SS 9.musicxml                  # Source MusicXML score
 │   ├── SS 9 full.svg                  # Complete SVG score
 │   └── Saint-Saens Trio No 2.mid     # Source MIDI file
-├── Audio/                             # OUTPUT: Generated audio files
-│   ├── Flûte/                         # Audio files by instrument
-│   ├── Violon/
-│   └── Keyframes/                     # JSON keyframe data for After Effects
-├── instruments_output/                # OUTPUT: Separated SVGs by instrument
-│   ├── Flûte_P1.svg
-│   └── Violon_P2.svg
-└── universal_output/                  # OUTPUT: Coordination metadata
-    ├── coordination_metadata.json
-    ├── midi_pipeline_manifest.json
-    ├── svg_pipeline_manifest.json
-    └── universal_notes_registry.json
+├── App/                               # Core pipeline scripts
+│   ├── Symbolic Separators/           # SVG processing tools
+│   ├── Audio Separators/              # Audio processing tools
+│   └── Synchronizer*/                 # Advanced sync system
+├── note_coordinator.py                # Universal note coordination
+├── universal_orchestrator.py          # Master pipeline orchestrator
+└── orchestrator/                      # Orchestration framework
+
+outputs/                               # CONSOLIDATED OUTPUT STRUCTURE
+├── svg/                               # All SVG outputs organized by type
+│   ├── instruments/                   # Separated SVGs by instrument (Flûte_P1.svg, etc.)
+│   ├── noteheads/                     # Individual notehead SVGs for After Effects
+│   ├── staff_barlines/                # Staff lines and barlines for backgrounds
+│   └── annotated/                     # SVGs with MIDI timing labels
+├── audio/                             # All audio outputs organized by instrument
+│   ├── Flûte/                         # Flute audio files (.wav)
+│   └── Violon/                        # Violin audio files (.wav)
+├── json/                              # All JSON outputs organized by type
+│   ├── keyframes/                     # After Effects keyframe data
+│   ├── coordination/                  # Universal ID registry and metadata
+│   └── manifests/                     # Pipeline execution manifests
+└── midi/                              # Individual MIDI note files
 
 # Additional project folders:
 ├── docs/                              # Technical documentation
-├── Implementation Summaries/          # Detailed implementation docs
-├── scripts/                           # Utility and analysis scripts
-└── gui/                              # Modular GUI components
+├── gui/                               # Modular GUI components
+└── scripts/                           # Utility and analysis scripts
 ```
 
 ## Core Pipelines
@@ -64,19 +73,19 @@ PRPs-agentic-eng/
 
 ```bash
 # 1. Extract noteheads from MusicXML with pixel-perfect coordinates
-python "PRPs-agentic-eng/App/Symbolic Separators/truly_universal_noteheads_extractor.py" "PRPs-agentic-eng/Base/SS 9.musicxml"
+python "Brain/App/Symbolic Separators/truly_universal_noteheads_extractor.py" "Brain/Base/SS 9.musicxml"
 
 # 2. Remove noteheads from full SVG while preserving other elements
-python "PRPs-agentic-eng/App/Symbolic Separators/truly_universal_noteheads_subtractor.py" "PRPs-agentic-eng/Base/SS 9.musicxml" "PRPs-agentic-eng/Base/SS 9 full.svg"
+python "Brain/App/Symbolic Separators/truly_universal_noteheads_subtractor.py" "Brain/Base/SS 9.musicxml" "Brain/Base/SS 9 full.svg"
 
 # 3. Create individual SVG files per instrument
-python "PRPs-agentic-eng/App/Symbolic Separators/xml_based_instrument_separator.py" "PRPs-agentic-eng/Base/SS 9.musicxml" "PRPs-agentic-eng/Base/SS 9 full.svg" "instruments_output"
+python "Brain/App/Symbolic Separators/xml_based_instrument_separator.py" "Brain/Base/SS 9.musicxml" "Brain/Base/SS 9 full.svg" "outputs/svg/instruments"
 
 # 4. Create one SVG file per notehead for After Effects animation
-python "PRPs-agentic-eng/App/Symbolic Separators/individual_noteheads_creator.py" "PRPs-agentic-eng/Base/SS 9.musicxml"
+python "Brain/App/Symbolic Separators/individual_noteheads_creator.py" "Brain/Base/SS 9.musicxml"
 
 # 5. Extract staff lines and barlines for background elements
-python "PRPs-agentic-eng/App/Symbolic Separators/staff_barlines_extractor.py" "PRPs-agentic-eng/Base/SS 9.musicxml" "PRPs-agentic-eng/Base/SS 9 full.svg"
+python "Brain/App/Symbolic Separators/staff_barlines_extractor.py" "Brain/Base/SS 9.musicxml" "Brain/Base/SS 9 full.svg"
 ```
 
 ### Audio Pipeline
@@ -84,19 +93,19 @@ python "PRPs-agentic-eng/App/Symbolic Separators/staff_barlines_extractor.py" "P
 
 ```bash
 # 1. Split MIDI into individual note files (foundation)
-python "PRPs-agentic-eng/App/Audio Separators/midi_note_separator.py" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2.mid"
+python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Saens Trio No 2.mid"
 
 # 2. Convert to audio - FAST version (parallel, 22kHz, 6 workers)
-python "PRPs-agentic-eng/App/Audio Separators/midi_to_audio_renderer_fast.py" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2_individual_notes"
+python "Brain/App/Audio Separators/midi_to_audio_renderer_fast.py" "outputs/midi"
 
 # 3. Generate keyframes - FAST version (reduced density, essential properties)
-python "PRPs-agentic-eng/App/Audio Separators/audio_to_keyframes_fast.py" "PRPs-agentic-eng/Audio"
+python "Brain/App/Audio Separators/audio_to_keyframes_fast.py" "outputs/audio"
 
 # Alternative: Standard audio rendering (sequential, 44kHz, higher quality)
-python "PRPs-agentic-eng/App/Audio Separators/midi_to_audio_renderer.py" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2_individual_notes"
+python "Brain/App/Audio Separators/midi_to_audio_renderer.py" "outputs/midi"
 
 # Alternative: Standard keyframes (full analysis, comprehensive)
-python "PRPs-agentic-eng/App/Audio Separators/audio_to_keyframes.py" "PRPs-agentic-eng/Audio"
+python "Brain/App/Audio Separators/audio_to_keyframes.py" "outputs/audio"
 ```
 
 ### Note Coordination
@@ -104,7 +113,7 @@ python "PRPs-agentic-eng/App/Audio Separators/audio_to_keyframes.py" "PRPs-agent
 
 ```bash
 # Note Coordinator - Creates Universal ID registry linking all data sources
-python "PRPs-agentic-eng/note_coordinator.py" "PRPs-agentic-eng/Base/SS 9.musicxml" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2.mid" "universal_output"
+python "Brain/note_coordinator.py" "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" "outputs/json/coordination"
 ```
 
 **Features:**
@@ -117,10 +126,15 @@ python "PRPs-agentic-eng/note_coordinator.py" "PRPs-agentic-eng/Base/SS 9.musicx
 **Important:** Run all commands from: `/Users/colinmignot/Claude Code/Sib2Ae/`
 
 ## Output Locations
-- **`PRPs-agentic-eng/Audio/`** - Audio files organized by instrument + keyframes
-- **`PRPs-agentic-eng/instruments_output/`** - Individual SVG files per instrument
-- **`universal_output/`** - Coordination metadata from Note Coordinator
-- **`output/`** - Annotated SVG files with timing labels
+- **`outputs/audio/`** - Audio files organized by instrument
+- **`outputs/svg/instruments/`** - Individual SVG files per instrument
+- **`outputs/svg/noteheads/`** - Individual notehead SVGs for After Effects
+- **`outputs/svg/staff_barlines/`** - Staff lines and barlines for backgrounds
+- **`outputs/svg/annotated/`** - Annotated SVG files with timing labels
+- **`outputs/json/coordination/`** - Coordination metadata from Note Coordinator
+- **`outputs/json/keyframes/`** - After Effects keyframe data
+- **`outputs/json/manifests/`** - Pipeline execution manifests
+- **`outputs/midi/`** - Individual MIDI note files
 
 ## Technical Details
 - **Coordinate System**: Staff 0: Y 950-1100, Staff 1: Y 1250-1500, Staff 2: Y 1650-1800, Staff 3: Y 2050-2200

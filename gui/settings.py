@@ -13,13 +13,13 @@ class GUISettings:
         self.project_root = Path(__file__).parent.parent
         self.settings_file = self.project_root / "gui_settings.json"
 
-        # Default file paths
-        base_dir = self.project_root / "PRPs-agentic-eng" / "Base"
+        # Default file paths - updated for new Brain/ structure and outputs/ organization
+        base_dir = self.project_root / "Brain" / "Base"
         self.default_musicxml = str(base_dir / "SS 9.musicxml")
         self.default_svg = str(base_dir / "SS 9 full.svg")
         self.default_midi = str(base_dir / "Saint-Saens Trio No 2.mid")
-        self.default_midi_notes = str(base_dir / "Saint-Saens Trio No 2_individual_notes")
-        self.default_audio_dir = str(self.project_root / "PRPs-agentic-eng" / "Audio")
+        self.default_midi_notes = str(self.project_root / "outputs" / "midi")
+        self.default_audio_dir = str(self.project_root / "outputs" / "audio")
 
         # Window settings
         self.window_width = 800
