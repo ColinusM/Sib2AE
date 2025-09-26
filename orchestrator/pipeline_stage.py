@@ -220,8 +220,8 @@ class OrchestrationConfig:
 
     def get_working_directory(self) -> Path:
         """Get the working directory for pipeline execution"""
-        # All commands must run from project root per CLAUDE.md
-        return Path("/Users/colinmignot/Claude Code/Sib2Ae/")
+        # All commands must run from PRPs-agentic-eng directory where scripts are located
+        return Path("/Users/colinmignot/Claude Code/Sib2Ae/PRPs-agentic-eng/")
 
     def validate_configuration(self) -> List[str]:
         """Validate configuration and return list of issues"""
@@ -283,7 +283,7 @@ def create_note_coordinator_stage(config: OrchestrationConfig) -> PipelineStage:
         description="Generate Universal ID registry and manifests",
         command=[
             "python",
-            "PRPs-agentic-eng/note_coordinator.py",
+            "note_coordinator.py",
             str(config.musicxml_file),
             str(config.midi_file),
             str(config.output_dir),
@@ -307,7 +307,7 @@ def create_tied_note_processor_stage(config: OrchestrationConfig) -> PipelineSta
         description="Process tied note relationships with timing calculations",
         command=[
             "python",
-            "PRPs-agentic-eng/App/Synchronizer 19-26-28-342/utils/tied_note_processor.py",
+            "App/Synchronizer 19-26-28-342/utils/tied_note_processor.py",
             str(config.musicxml_file),
             str(config.output_dir / "coordination_metadata.json"),
             str(config.output_dir / "universal_notes_registry.json"),
@@ -337,7 +337,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
             description="Extract noteheads from MusicXML with pixel-perfect coordinates",
             command=[
                 "python",
-                "PRPs-agentic-eng/App/Symbolic Separators/truly_universal_noteheads_extractor.py",
+                "App/Symbolic Separators/truly_universal_noteheads_extractor.py",
                 str(config.musicxml_file),
             ],
             input_files=[config.musicxml_file],
@@ -357,7 +357,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
                 description="Remove noteheads from full SVG while preserving other elements",
                 command=[
                     "python",
-                    "PRPs-agentic-eng/App/Symbolic Separators/truly_universal_noteheads_subtractor.py",
+                    "App/Symbolic Separators/truly_universal_noteheads_subtractor.py",
                     str(config.musicxml_file),
                     str(config.svg_file),
                 ],
@@ -375,7 +375,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
             description="Create individual SVG files per instrument",
             command=[
                 "python",
-                "PRPs-agentic-eng/App/Symbolic Separators/xml_based_instrument_separator.py",
+                "App/Symbolic Separators/xml_based_instrument_separator.py",
                 str(config.musicxml_file),
                 str(config.svg_file or ""),
                 "instruments_output",
@@ -395,7 +395,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
             description="Create one SVG file per notehead for After Effects animation",
             command=[
                 "python",
-                "PRPs-agentic-eng/App/Symbolic Separators/individual_noteheads_creator.py",
+                "App/Symbolic Separators/individual_noteheads_creator.py",
                 str(config.musicxml_file),
             ],
             input_files=[config.musicxml_file],
@@ -413,7 +413,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
                 description="Extract staff lines and barlines for background elements",
                 command=[
                     "python",
-                    "PRPs-agentic-eng/App/Symbolic Separators/staff_barlines_extractor.py",
+                    "App/Symbolic Separators/staff_barlines_extractor.py",
                     str(config.musicxml_file),
                     str(config.svg_file),
                 ],
@@ -439,7 +439,7 @@ def create_audio_pipeline_stages(config: OrchestrationConfig) -> List[PipelineSt
             description="Split MIDI into individual note files (foundation)",
             command=[
                 "python",
-                "PRPs-agentic-eng/App/Audio Separators/midi_note_separator.py",
+                "App/Audio Separators/midi_note_separator.py",
                 str(config.midi_file),
             ],
             input_files=[config.midi_file],
@@ -458,7 +458,7 @@ def create_audio_pipeline_stages(config: OrchestrationConfig) -> List[PipelineSt
             description=f"Convert MIDI notes to audio files ({config.audio_renderer_mode} mode)",
             command=[
                 "python",
-                f"PRPs-agentic-eng/App/Audio Separators/{config.get_audio_renderer_script()}",
+                f"App/Audio Separators/{config.get_audio_renderer_script()}",
                 str(midi_notes_dir),
             ],
             input_files=[midi_notes_dir],
@@ -477,7 +477,7 @@ def create_audio_pipeline_stages(config: OrchestrationConfig) -> List[PipelineSt
             description=f"Generate After Effects keyframe data ({config.keyframe_generator_mode} mode)",
             command=[
                 "python",
-                f"PRPs-agentic-eng/App/Audio Separators/{config.get_keyframe_generator_script()}",
+                f"App/Audio Separators/{config.get_keyframe_generator_script()}",
                 "Audio",
             ],
             input_files=[Path("Audio")],

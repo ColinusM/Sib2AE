@@ -466,6 +466,12 @@ class ProcessFailureHandler:
 
             # Check return code
             if result.returncode != 0:
+                error_msg = f"Return code: {result.returncode}"
+                if result.stdout:
+                    error_msg += f"\nSTDOUT:\n{result.stdout}"
+                if result.stderr:
+                    error_msg += f"\nSTDERR:\n{result.stderr}"
+                self.logger.error(f"Subprocess failed: {' '.join(command)}\n{error_msg}")
                 raise subprocess.CalledProcessError(
                     result.returncode, command, result.stdout, result.stderr
                 )

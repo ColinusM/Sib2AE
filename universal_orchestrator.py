@@ -385,8 +385,16 @@ class UniversalOrchestrator:
         if self.progress_tracker:
             self.progress_tracker.start_stage(stage.name, set(self.universal_ids))
 
-        # Execute the stage
-        self._execute_single_stage(stage)
+        # Execute the stage with error handling
+        try:
+            self._execute_single_stage(stage)
+        except Exception as e:
+            # Stage execution failed - status already set to failed in _execute_single_stage
+            if self.config.continue_on_non_critical_failure:
+                self._log(f"⚠️  Stage {stage.name} failed but continuing: {e}")
+                return  # Don't re-raise, just continue
+            else:
+                raise  # Re-raise if we're not continuing on failure
 
         if stage.status.value == "completed":
             # Update progress for all Universal IDs (simplified approach)
