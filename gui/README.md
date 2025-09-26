@@ -49,9 +49,9 @@ python3 launch_gui.py
 ### Default Input Files
 
 The GUI automatically loads these default files if available:
-- **MusicXML**: `PRPs-agentic-eng/Base/SS 9.musicxml`
-- **SVG**: `PRPs-agentic-eng/Base/SS 9 full.svg`
-- **MIDI**: `PRPs-agentic-eng/Base/Saint-Saens Trio No 2.mid`
+- **MusicXML**: `Brain/Base/SS 9.musicxml`
+- **SVG**: `Brain/Base/SS 9 full.svg`
+- **MIDI**: `Brain/Base/Saint-Saens Trio No 2.mid`
 
 ## 🏗️ Core Components
 
@@ -190,9 +190,9 @@ The GUI automatically manages settings in `gui_settings.json`:
   "window_height": 700,
   "window_x": 100,
   "window_y": 100,
-  "default_musicxml": "PRPs-agentic-eng/Base/SS 9.musicxml",
-  "default_svg": "PRPs-agentic-eng/Base/SS 9 full.svg",
-  "default_midi": "PRPs-agentic-eng/Base/Saint-Saens Trio No 2.mid",
+  "default_musicxml": "Brain/Base/SS 9.musicxml",
+  "default_svg": "Brain/Base/SS 9 full.svg",
+  "default_midi": "Brain/Base/Saint-Saens Trio No 2.mid",
   "project_root": "/Users/colinmignot/Claude Code/Sib2Ae"
 }
 ```
@@ -214,7 +214,7 @@ The GUI automatically handles:
 3. Verify MusicXML and SVG files are loaded
 4. Click **"Extract Noteheads"** to start processing
 5. Monitor output log for progress and completion
-6. Check `instruments_output/` for generated SVG files
+6. Check `outputs/svg/instruments/` for generated SVG files
 
 ### Complete Audio Pipeline
 
@@ -224,7 +224,7 @@ The GUI automatically handles:
 4. Click **"Separate MIDI Notes"** (foundation step)
 5. Click **"Render Audio (Fast)"** for parallel conversion
 6. Click **"Generate Keyframes (Fast)"** for After Effects data
-7. Review `PRPs-agentic-eng/Audio/` for organized output
+7. Review `outputs/audio/` for organized output
 
 ### Universal ID Coordination
 
@@ -240,14 +240,14 @@ The GUI automatically handles:
 ### Generated Files by Tab
 
 **Symbolic Pipeline Output:**
-- `instruments_output/` - Individual SVG files per instrument
-- Individual notehead SVG files for After Effects animation
-- Staff lines and barlines SVGs for background elements
+- `outputs/svg/instruments/` - Individual SVG files per instrument
+- `outputs/svg/noteheads/` - Individual notehead SVG files for After Effects animation
+- `outputs/svg/staff_barlines/` - Staff lines and barlines SVGs for background elements
 
 **Audio Pipeline Output:**
-- `PRPs-agentic-eng/Audio/Flûte/` - Flute audio files
-- `PRPs-agentic-eng/Audio/Violon/` - Violin audio files
-- `PRPs-agentic-eng/Audio/Keyframes/` - JSON keyframe data
+- `outputs/audio/Flûte/` - Flute audio files
+- `outputs/audio/Violon/` - Violin audio files
+- `outputs/json/keyframes/` - JSON keyframe data
 
 **Matching Output:**
 - `universal_output/universal_notes_registry.json` - Universal ID database

@@ -136,7 +136,7 @@ class MatchingTab:
                 output_dir = "outputs/json/coordination"
                 cmd = [
                     sys.executable,
-                    "PRPs-agentic-eng/note_coordinator.py",
+                    "Brain/note_coordinator.py",
                     xml_file,
                     midi_file,
                     output_dir

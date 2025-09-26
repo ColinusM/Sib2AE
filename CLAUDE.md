@@ -125,6 +125,27 @@ python "Brain/note_coordinator.py" "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-
 ## Working Directory
 **Important:** Run all commands from: `/Users/colinmignot/Claude Code/Sib2Ae/`
 
+## Universal Pipeline Orchestrator
+**Complete automated pipeline execution with Brain directory structure:**
+
+```bash
+# Full pipeline with SVG processing (recommended)
+python Brain/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --svg "Brain/Base/SS 9 full.svg" --mode sequential
+
+# Audio-only pipeline (without SVG processing)
+python Brain/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --mode sequential
+
+# With custom output directory
+python Brain/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --svg "Brain/Base/SS 9 full.svg" --output custom_output
+```
+
+**Features:**
+- Automated execution of all pipeline stages
+- Universal ID preservation throughout pipeline
+- Error handling with circuit breaker patterns
+- Progress tracking and comprehensive logging
+- Parallel or sequential execution modes
+
 ## Output Locations
 - **`outputs/audio/`** - Audio files organized by instrument
 - **`outputs/svg/instruments/`** - Individual SVG files per instrument
@@ -150,14 +171,14 @@ python "Brain/note_coordinator.py" "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-
 
 ## Script Details
 
-### Symbolic Separators (PRPs-agentic-eng/App/Symbolic Separators/)
+### Symbolic Separators (Brain/App/Symbolic Separators/)
 1. **`truly_universal_noteheads_extractor.py`** - Pixel-perfect coordinate transformation from MusicXML to SVG noteheads
 2. **`truly_universal_noteheads_subtractor.py`** - Removes noteheads from full SVG while preserving other elements
 3. **`xml_based_instrument_separator.py`** - Creates individual SVG files per instrument (supports up to 4 staves)
 4. **`individual_noteheads_creator.py`** - Creates one SVG file per notehead for After Effects animation
 5. **`staff_barlines_extractor.py`** - Extracts staff lines and barlines for background elements
 
-### Audio Separators (PRPs-agentic-eng/App/Audio Separators/)
+### Audio Separators (Brain/App/Audio Separators/)
 1. **`midi_note_separator.py`** - Splits MIDI files into individual note files (foundation script)
 2. **`midi_to_audio_renderer_fast.py`** - Parallel audio renderer (6 workers, 22kHz, fast)
 3. **`audio_to_keyframes_fast.py`** - Parallel keyframe generator (reduced density, essential properties)
@@ -184,7 +205,7 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 ```
 
 ## After Effects Import
-**Import tools located in**: `PRPs-agentic-eng/Extensions/` and `PRPs-agentic-eng/Scripts/`
+**Import tools located in**: `Brain/Extensions/` and `Brain/Scripts/`
 
 - **CEP Extension** (`Sib2Ae-Importer/`) - Professional dockable panel with HTML5 interface
 - **ExtendScript** (`Sib2Ae_Importer.jsx`) - Rapid testing script, no installation required

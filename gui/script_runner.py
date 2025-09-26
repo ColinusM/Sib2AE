@@ -58,12 +58,12 @@ class ScriptRunner:
 
     def run_symbolic_script(self, script_name, args=None):
         """Run a symbolic pipeline script"""
-        script_path = f"PRPs-agentic-eng/App/Symbolic Separators/{script_name}"
+        script_path = f"Brain/App/Symbolic Separators/{script_name}"
         description = f"Symbolic: {script_name.replace('.py', '').replace('_', ' ').title()}"
         return self.run_script_async(script_path, args, description)
 
     def run_audio_script(self, script_name, args=None):
         """Run an audio pipeline script"""
-        script_path = f"PRPs-agentic-eng/App/Audio Separators/{script_name}"
+        script_path = f"Brain/App/Audio Separators/{script_name}"
         description = f"Audio: {script_name.replace('.py', '').replace('_', ' ').title()}"
         return self.run_script_async(script_path, args, description)
