@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="2000" height="3000" viewBox="0 0 2000 3000" xmlns="http://www.w3.org/2000/svg">
+<desc>MEGA SPREAD - Every Helsinki Special Std character with code</desc>
+
+<!-- Title -->
+<text x="50" y="40" font-family="Arial" font-size="20" fill="black" font-weight="bold">MEGA HELSINKI SPECIAL STD CHARACTER MAP</text>
+<text x="50" y="65" font-family="Arial" font-size="14" fill="red">Red = Decimal Code | Black = Character</text>
+
+<!-- ASCII 32-47 (symbols) -->
+<text x="50" y="120" font-family="Arial" font-size="12" fill="red">32</text>
+<text x="50" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#32;</text>
+
+<text x="150" y="120" font-family="Arial" font-size="12" fill="red">33</text>
+<text x="150" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#33;</text>
+
+<text x="250" y="120" font-family="Arial" font-size="12" fill="red">34</text>
+<text x="250" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#34;</text>
+
+<text x="350" y="120" font-family="Arial" font-size="12" fill="red">35</text>
+<text x="350" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#35;</text>
+
+<text x="450" y="120" font-family="Arial" font-size="12" fill="red">36</text>
+<text x="450" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#36;</text>
+
+<text x="550" y="120" font-family="Arial" font-size="12" fill="red">37</text>
+<text x="550" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#37;</text>
+
+<text x="650" y="120" font-family="Arial" font-size="12" fill="red">38</text>
+<text x="650" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#38;</text>
+
+<text x="750" y="120" font-family="Arial" font-size="12" fill="red">39</text>
+<text x="750" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#39;</text>
+
+<text x="850" y="120" font-family="Arial" font-size="12" fill="red">40</text>
+<text x="850" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#40;</text>
+
+<text x="950" y="120" font-family="Arial" font-size="12" fill="red">41</text>
+<text x="950" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#41;</text>
+
+<text x="1050" y="120" font-family="Arial" font-size="12" fill="red">42</text>
+<text x="1050" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#42;</text>
+
+<text x="1150" y="120" font-family="Arial" font-size="12" fill="red">43</text>
+<text x="1150" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#43;</text>
+
+<text x="1250" y="120" font-family="Arial" font-size="12" fill="red">44</text>
+<text x="1250" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#44;</text>
+
+<text x="1350" y="120" font-family="Arial" font-size="12" fill="red">45</text>
+<text x="1350" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#45;</text>
+
+<text x="1450" y="120" font-family="Arial" font-size="12" fill="red">46</text>
+<text x="1450" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#46;</text>
+
+<text x="1550" y="120" font-family="Arial" font-size="12" fill="red">47</text>
+<text x="1550" y="140" font-family="Helsinki Special Std" font-size="40" fill="black">&#47;</text>
+
+<!-- ASCII 48-57 (numbers 0-9) -->
+<text x="50" y="220" font-family="Arial" font-size="12" fill="red">48</text>
+<text x="50" y="240" font-family="Helsinki Special Std" font-size="40" fill="black">&#48;</text>
+
+<text x="150" y="220" font-family="Arial" font-size="12" fill="red">49</text>
+<text x="150" y="240" font-family="Helsinki Special Std" font-size="40" fill="black">&#49;</text>
+
+<text x="250" y="220" font-family="Arial" font-size="12" fill="red">50</text>
+<text x="250" y="240" font-family="Helsinki Special Std" font-size="40" fill="black">&#50;</text>
+
+<text x="350" y="220" font-family="Arial" font-size="12" fill="red">51</text>
+<text x="350" y="240" font-family="Helsinki Special Std" font-size="40" fill="black">&#51;</text>
+
+<text x="450" y="220" font-family="Arial" font-size="12" fill="red">52</text>
+<text x="450" y="240" font-family="Helsinki Special Std" font-size="40" fill="black">&#52;</text>
+
+<text x="550" y="220" font-family="Arial" font-size="12" fill="red">53</text>
+<text x="550" y="240" font-family="Helsinki Special Std" font-size="40" fill="black">&#53;</text>
+
+<text x="650" y="220" font-family="Arial" font-size="12" fill="red">54</text>
+<text x="650" y="240" font-family="Helsinki Special Std" font-size="40" fill="black">&#54;</text>
+
+<text x="750" y="220" font-family="Arial" font-size="12" fill="red">55</text>
+<text x="750" y="240" font-family="Helsinki Special Std" font-size="40" fill="black">&#55;</text>
+
+<text x="850" y="220" font-family="Arial" font-size="12" fill="red">56</text>
+<text x="850" y="240" font-family="Helsinki Special Std" font-size="40" fill="black">&#56;</text>
+
+<text x="950" y="220" font-family="Arial" font-size="12" fill="red">57</text>
+<text x="950" y="240" font-family="Helsinki Special Std" font-size="40" fill="black">&#57;</text>
+
+<!-- ASCII 65-90 (A-Z) -->
+<text x="50" y="320" font-family="Arial" font-size="12" fill="red">65</text>
+<text x="50" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#65;</text>
+
+<text x="150" y="320" font-family="Arial" font-size="12" fill="red">66</text>
+<text x="150" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#66;</text>
+
+<text x="250" y="320" font-family="Arial" font-size="12" fill="red">67</text>
+<text x="250" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#67;</text>
+
+<text x="350" y="320" font-family="Arial" font-size="12" fill="red">68</text>
+<text x="350" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#68;</text>
+
+<text x="450" y="320" font-family="Arial" font-size="12" fill="red">69</text>
+<text x="450" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#69;</text>
+
+<text x="550" y="320" font-family="Arial" font-size="12" fill="red">70</text>
+<text x="550" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#70;</text>
+
+<text x="650" y="320" font-family="Arial" font-size="12" fill="red">71</text>
+<text x="650" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#71;</text>
+
+<text x="750" y="320" font-family="Arial" font-size="12" fill="red">72</text>
+<text x="750" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#72;</text>
+
+<text x="850" y="320" font-family="Arial" font-size="12" fill="red">73</text>
+<text x="850" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#73;</text>
+
+<text x="950" y="320" font-family="Arial" font-size="12" fill="red">74</text>
+<text x="950" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#74;</text>
+
+<text x="1050" y="320" font-family="Arial" font-size="12" fill="red">75</text>
+<text x="1050" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#75;</text>
+
+<text x="1150" y="320" font-family="Arial" font-size="12" fill="red">76</text>
+<text x="1150" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#76;</text>
+
+<text x="1250" y="320" font-family="Arial" font-size="12" fill="red">77</text>
+<text x="1250" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#77;</text>
+
+<text x="1350" y="320" font-family="Arial" font-size="12" fill="red">78</text>
+<text x="1350" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#78;</text>
+
+<text x="1450" y="320" font-family="Arial" font-size="12" fill="red">79</text>
+<text x="1450" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#79;</text>
+
+<text x="1550" y="320" font-family="Arial" font-size="12" fill="red">80</text>
+<text x="1550" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#80;</text>
+
+<text x="1650" y="320" font-family="Arial" font-size="12" fill="red">81</text>
+<text x="1650" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#81;</text>
+
+<text x="1750" y="320" font-family="Arial" font-size="12" fill="red">82</text>
+<text x="1750" y="340" font-family="Helsinki Special Std" font-size="40" fill="black">&#82;</text>
+
+<!-- Continue A-Z on next row -->
+<text x="50" y="420" font-family="Arial" font-size="12" fill="red">83</text>
+<text x="50" y="440" font-family="Helsinki Special Std" font-size="40" fill="black">&#83;</text>
+
+<text x="150" y="420" font-family="Arial" font-size="12" fill="red">84</text>
+<text x="150" y="440" font-family="Helsinki Special Std" font-size="40" fill="black">&#84;</text>
+
+<text x="250" y="420" font-family="Arial" font-size="12" fill="red">85</text>
+<text x="250" y="440" font-family="Helsinki Special Std" font-size="40" fill="black">&#85;</text>
+
+<text x="350" y="420" font-family="Arial" font-size="12" fill="red">86</text>
+<text x="350" y="440" font-family="Helsinki Special Std" font-size="40" fill="black">&#86;</text>
+
+<text x="450" y="420" font-family="Arial" font-size="12" fill="red">87</text>
+<text x="450" y="440" font-family="Helsinki Special Std" font-size="40" fill="black">&#87;</text>
+
+<text x="550" y="420" font-family="Arial" font-size="12" fill="red">88</text>
+<text x="550" y="440" font-family="Helsinki Special Std" font-size="40" fill="black">&#88;</text>
+
+<text x="650" y="420" font-family="Arial" font-size="12" fill="red">89</text>
+<text x="650" y="440" font-family="Helsinki Special Std" font-size="40" fill="black">&#89;</text>
+
+<text x="750" y="420" font-family="Arial" font-size="12" fill="red">90</text>
+<text x="750" y="440" font-family="Helsinki Special Std" font-size="40" fill="black">&#90;</text>
+
+<!-- ASCII 97-122 (a-z) -->
+<text x="50" y="520" font-family="Arial" font-size="12" fill="red">97</text>
+<text x="50" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#97;</text>
+
+<text x="150" y="520" font-family="Arial" font-size="12" fill="red">98</text>
+<text x="150" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#98;</text>
+
+<text x="250" y="520" font-family="Arial" font-size="12" fill="red">99</text>
+<text x="250" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#99;</text>
+
+<text x="350" y="520" font-family="Arial" font-size="12" fill="red">100</text>
+<text x="350" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#100;</text>
+
+<text x="450" y="520" font-family="Arial" font-size="12" fill="red">101</text>
+<text x="450" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#101;</text>
+
+<text x="550" y="520" font-family="Arial" font-size="12" fill="red">102</text>
+<text x="550" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#102;</text>
+
+<text x="650" y="520" font-family="Arial" font-size="12" fill="red">103</text>
+<text x="650" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#103;</text>
+
+<text x="750" y="520" font-family="Arial" font-size="12" fill="red">104</text>
+<text x="750" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#104;</text>
+
+<text x="850" y="520" font-family="Arial" font-size="12" fill="red">105</text>
+<text x="850" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#105;</text>
+
+<text x="950" y="520" font-family="Arial" font-size="12" fill="red">106</text>
+<text x="950" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#106;</text>
+
+<text x="1050" y="520" font-family="Arial" font-size="12" fill="red">107</text>
+<text x="1050" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#107;</text>
+
+<text x="1150" y="520" font-family="Arial" font-size="12" fill="red">108</text>
+<text x="1150" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#108;</text>
+
+<text x="1250" y="520" font-family="Arial" font-size="12" fill="red">109</text>
+<text x="1250" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#109;</text>
+
+<text x="1350" y="520" font-family="Arial" font-size="12" fill="red">110</text>
+<text x="1350" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#110;</text>
+
+<text x="1450" y="520" font-family="Arial" font-size="12" fill="red">111</text>
+<text x="1450" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#111;</text>
+
+<text x="1550" y="520" font-family="Arial" font-size="12" fill="red">112</text>
+<text x="1550" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#112;</text>
+
+<text x="1650" y="520" font-family="Arial" font-size="12" fill="red">113</text>
+<text x="1650" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#113;</text>
+
+<text x="1750" y="520" font-family="Arial" font-size="12" fill="red">114</text>
+<text x="1750" y="540" font-family="Helsinki Special Std" font-size="40" fill="black">&#114;</text>
+
+<!-- Continue a-z on next row -->
+<text x="50" y="620" font-family="Arial" font-size="12" fill="red">115</text>
+<text x="50" y="640" font-family="Helsinki Special Std" font-size="40" fill="black">&#115;</text>
+
+<text x="150" y="620" font-family="Arial" font-size="12" fill="red">116</text>
+<text x="150" y="640" font-family="Helsinki Special Std" font-size="40" fill="black">&#116;</text>
+
+<text x="250" y="620" font-family="Arial" font-size="12" fill="red">117</text>
+<text x="250" y="640" font-family="Helsinki Special Std" font-size="40" fill="black">&#117;</text>
+
+<text x="350" y="620" font-family="Arial" font-size="12" fill="red">118</text>
+<text x="350" y="640" font-family="Helsinki Special Std" font-size="40" fill="black">&#118;</text>
+
+<text x="450" y="620" font-family="Arial" font-size="12" fill="red">119</text>
+<text x="450" y="640" font-family="Helsinki Special Std" font-size="40" fill="black">&#119;</text>
+
+<text x="550" y="620" font-family="Arial" font-size="12" fill="red">120</text>
+<text x="550" y="640" font-family="Helsinki Special Std" font-size="40" fill="black">&#120;</text>
+
+<text x="650" y="620" font-family="Arial" font-size="12" fill="red">121</text>
+<text x="650" y="640" font-family="Helsinki Special Std" font-size="40" fill="black">&#121;</text>
+
+<text x="750" y="620" font-family="Arial" font-size="12" fill="red">122</text>
+<text x="750" y="640" font-family="Helsinki Special Std" font-size="40" fill="black">&#122;</text>
+
+<!-- Extended ASCII 128-255 (spread out more) -->
+<text x="50" y="720" font-family="Arial" font-size="14" fill="blue" font-weight="bold">EXTENDED ASCII 128-255:</text>
+
+<text x="50" y="780" font-family="Arial" font-size="12" fill="red">128</text>
+<text x="50" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#128;</text>
+
+<text x="150" y="780" font-family="Arial" font-size="12" fill="red">129</text>
+<text x="150" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#129;</text>
+
+<text x="250" y="780" font-family="Arial" font-size="12" fill="red">130</text>
+<text x="250" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#130;</text>
+
+<text x="350" y="780" font-family="Arial" font-size="12" fill="red">131</text>
+<text x="350" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#131;</text>
+
+<text x="450" y="780" font-family="Arial" font-size="12" fill="red">132</text>
+<text x="450" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#132;</text>
+
+<text x="550" y="780" font-family="Arial" font-size="12" fill="red">133</text>
+<text x="550" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#133;</text>
+
+<text x="650" y="780" font-family="Arial" font-size="12" fill="red">134</text>
+<text x="650" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#134;</text>
+
+<text x="750" y="780" font-family="Arial" font-size="12" fill="red">135</text>
+<text x="750" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#135;</text>
+
+<text x="850" y="780" font-family="Arial" font-size="12" fill="red">136</text>
+<text x="850" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#136;</text>
+
+<text x="950" y="780" font-family="Arial" font-size="12" fill="red">137</text>
+<text x="950" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#137;</text>
+
+<text x="1050" y="780" font-family="Arial" font-size="12" fill="red">138</text>
+<text x="1050" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#138;</text>
+
+<text x="1150" y="780" font-family="Arial" font-size="12" fill="red">139</text>
+<text x="1150" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#139;</text>
+
+<text x="1250" y="780" font-family="Arial" font-size="12" fill="red">140</text>
+<text x="1250" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#140;</text>
+
+<text x="1350" y="780" font-family="Arial" font-size="12" fill="red">141</text>
+<text x="1350" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#141;</text>
+
+<text x="1450" y="780" font-family="Arial" font-size="12" fill="red">142</text>
+<text x="1450" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#142;</text>
+
+<text x="1550" y="780" font-family="Arial" font-size="12" fill="red">143</text>
+<text x="1550" y="800" font-family="Helsinki Special Std" font-size="40" fill="black">&#143;</text>
+
+<!-- Key potential notehead characters - ENLARGED -->
+<text x="50" y="920" font-family="Arial" font-size="16" fill="green" font-weight="bold">POTENTIAL NOTEHEADS (ENLARGED):</text>
+
+<text x="50" y="980" font-family="Arial" font-size="14" fill="red">111 (o)</text>
+<text x="50" y="1020" font-family="Helsinki Special Std" font-size="60" fill="black">&#111;</text>
+
+<text x="200" y="980" font-family="Arial" font-size="14" fill="red">79 (O)</text>
+<text x="200" y="1020" font-family="Helsinki Special Std" font-size="60" fill="black">&#79;</text>
+
+<text x="350" y="980" font-family="Arial" font-size="14" fill="red">48 (0)</text>
+<text x="350" y="1020" font-family="Helsinki Special Std" font-size="60" fill="black">&#48;</text>
+
+<text x="500" y="980" font-family="Arial" font-size="14" fill="red">56 (8)</text>
+<text x="500" y="1020" font-family="Helsinki Special Std" font-size="60" fill="black">&#56;</text>
+
+<text x="650" y="980" font-family="Arial" font-size="14" fill="red">54 (6)</text>
+<text x="650" y="1020" font-family="Helsinki Special Std" font-size="60" fill="black">&#54;</text>
+
+<text x="800" y="980" font-family="Arial" font-size="14" fill="red">57 (9)</text>
+<text x="800" y="1020" font-family="Helsinki Special Std" font-size="60" fill="black">&#57;</text>
+
+<text x="950" y="980" font-family="Arial" font-size="14" fill="red">68 (D)</text>
+<text x="950" y="1020" font-family="Helsinki Special Std" font-size="60" fill="black">&#68;</text>
+
+<text x="1100" y="980" font-family="Arial" font-size="14" fill="red">81 (Q)</text>
+<text x="1100" y="1020" font-family="Helsinki Special Std" font-size="60" fill="black">&#81;</text>
+
+<text x="1250" y="980" font-family="Arial" font-size="14" fill="red">42 (*)</text>
+<text x="1250" y="1020" font-family="Helsinki Special Std" font-size="60" fill="black">&#42;</text>
+
+<text x="1400" y="980" font-family="Arial" font-size="14" fill="red">46 (.)</text>
+<text x="1400" y="1020" font-family="Helsinki Special Std" font-size="60" fill="black">&#46;</text>
+
+<!-- More extended characters that might be noteheads -->
+<text x="50" y="1120" font-family="Arial" font-size="16" fill="purple" font-weight="bold">MORE EXTENDED CHARACTERS:</text>
+
+<text x="50" y="1180" font-family="Arial" font-size="14" fill="red">160</text>
+<text x="50" y="1220" font-family="Helsinki Special Std" font-size="60" fill="black">&#160;</text>
+
+<text x="200" y="1180" font-family="Arial" font-size="14" fill="red">161</text>
+<text x="200" y="1220" font-family="Helsinki Special Std" font-size="60" fill="black">&#161;</text>
+
+<text x="350" y="1180" font-family="Arial" font-size="14" fill="red">162</text>
+<text x="350" y="1220" font-family="Helsinki Special Std" font-size="60" fill="black">&#162;</text>
+
+<text x="500" y="1180" font-family="Arial" font-size="14" fill="red">163</text>
+<text x="500" y="1220" font-family="Helsinki Special Std" font-size="60" fill="black">&#163;</text>
+
+<text x="650" y="1180" font-family="Arial" font-size="14" fill="red">164</text>
+<text x="650" y="1220" font-family="Helsinki Special Std" font-size="60" fill="black">&#164;</text>
+
+<text x="800" y="1180" font-family="Arial" font-size="14" fill="red">165</text>
+<text x="800" y="1220" font-family="Helsinki Special Std" font-size="60" fill="black">&#165;</text>
+
+<text x="950" y="1180" font-family="Arial" font-size="14" fill="red">166</text>
+<text x="950" y="1220" font-family="Helsinki Special Std" font-size="60" fill="black">&#166;</text>
+
+<text x="1100" y="1180" font-family="Arial" font-size="14" fill="red">167</text>
+<text x="1100" y="1220" font-family="Helsinki Special Std" font-size="60" fill="black">&#167;</text>
+
+<text x="1250" y="1180" font-family="Arial" font-size="14" fill="red">168</text>
+<text x="1250" y="1220" font-family="Helsinki Special Std" font-size="60" fill="black">&#168;</text>
+
+<text x="1400" y="1180" font-family="Arial" font-size="14" fill="red">169</text>
+<text x="1400" y="1220" font-family="Helsinki Special Std" font-size="60" fill="black">&#169;</text>
+
+<!-- Continue with more ranges... -->
+<text x="50" y="1320" font-family="Arial" font-size="16" fill="orange" font-weight="bold">CHARACTER RANGE 170-255:</text>
+
+<!-- 170-179 -->
+<text x="50" y="1380" font-family="Arial" font-size="12" fill="red">170</text>
+<text x="50" y="1420" font-family="Helsinki Special Std" font-size="50" fill="black">&#170;</text>
+
+<text x="180" y="1380" font-family="Arial" font-size="12" fill="red">171</text>
+<text x="180" y="1420" font-family="Helsinki Special Std" font-size="50" fill="black">&#171;</text>
+
+<text x="310" y="1380" font-family="Arial" font-size="12" fill="red">172</text>
+<text x="310" y="1420" font-family="Helsinki Special Std" font-size="50" fill="black">&#172;</text>
+
+<text x="440" y="1380" font-family="Arial" font-size="12" fill="red">173</text>
+<text x="440" y="1420" font-family="Helsinki Special Std" font-size="50" fill="black">&#173;</text>
+
+<text x="570" y="1380" font-family="Arial" font-size="12" fill="red">174</text>
+<text x="570" y="1420" font-family="Helsinki Special Std" font-size="50" fill="black">&#174;</text>
+
+<text x="700" y="1380" font-family="Arial" font-size="12" fill="red">175</text>
+<text x="700" y="1420" font-family="Helsinki Special Std" font-size="50" fill="black">&#175;</text>
+
+<text x="830" y="1380" font-family="Arial" font-size="12" fill="red">176</text>
+<text x="830" y="1420" font-family="Helsinki Special Std" font-size="50" fill="black">&#176;</text>
+
+<text x="960" y="1380" font-family="Arial" font-size="12" fill="red">177</text>
+<text x="960" y="1420" font-family="Helsinki Special Std" font-size="50" fill="black">&#177;</text>
+
+<text x="1090" y="1380" font-family="Arial" font-size="12" fill="red">178</text>
+<text x="1090" y="1420" font-family="Helsinki Special Std" font-size="50" fill="black">&#178;</text>
+
+<text x="1220" y="1380" font-family="Arial" font-size="12" fill="red">179</text>
+<text x="1220" y="1420" font-family="Helsinki Special Std" font-size="50" fill="black">&#179;</text>
+
+<!-- IMPORTANT INSTRUCTION -->
+<text x="50" y="1550" font-family="Arial" font-size="18" fill="red" font-weight="bold">LOOK FOR ROUND NOTEHEADS AND TELL ME THE DECIMAL CODES!</text>
+<text x="50" y="1580" font-family="Arial" font-size="14" fill="black">Example: "Code 111 for filled black notehead, Code 79 for hollow white notehead"</text>
+
+</svg>

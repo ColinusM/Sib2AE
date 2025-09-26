@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sib2Ae Importer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id="main-body">
+    <div class="container">
+        <header>
+            <h1>Sib2Ae Importer</h1>
+            <p>Import pipeline results into After Effects</p>
+        </header>
+
+        <section class="import-section">
+            <h3>Pipeline Output Folder</h3>
+            <div class="folder-selector">
+                <input type="text" id="folderPath" placeholder="Select pipeline output folder..." readonly>
+                <button id="browseFolderBtn">Browse</button>
+            </div>
+        </section>
+
+        <section class="options-section">
+            <h3>Import Options</h3>
+
+            <div class="option-group">
+                <label>
+                    <input type="checkbox" id="importSymbolic" checked>
+                    Import Symbolic Elements (SVG files)
+                </label>
+            </div>
+
+            <div class="option-group">
+                <label>
+                    <input type="checkbox" id="importAudio" checked>
+                    Import Audio Files
+                </label>
+            </div>
+
+            <div class="option-group">
+                <label>
+                    <input type="checkbox" id="importKeyframes" checked>
+                    Import Keyframe Data (JSON)
+                </label>
+            </div>
+
+            <div class="option-group">
+                <label>
+                    <input type="checkbox" id="createComposition">
+                    Create New Composition
+                </label>
+            </div>
+        </section>
+
+        <section class="preview-section">
+            <h3>Preview</h3>
+            <div id="filePreview" class="file-list">
+                <p class="placeholder">Select a folder to preview files...</p>
+            </div>
+        </section>
+
+        <section class="actions-section">
+            <button id="importBtn" class="primary-btn" disabled>Import Files</button>
+            <button id="clearBtn" class="secondary-btn">Clear</button>
+        </section>
+
+        <section class="status-section">
+            <div id="statusLog" class="status-log">
+                <p>Ready to import Sib2Ae pipeline results.</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="CSInterface.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest ExtensionBundleId="com.sib2ae.importer" ExtensionBundleVersion="1.0.0"
+                  ExtensionBundleName="Sib2Ae Importer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Author><![CDATA[Sib2Ae]]></Author>
+  <Contact mailto="info@sib2ae.com"/>
+  <Abstract><![CDATA[Import Sib2Ae pipeline results into After Effects]]></Abstract>
+  <ExtensionList>
+    <Extension Id="com.sib2ae.importer.panel" Version="1.0.0"/>
+  </ExtensionList>
+  <ExecutionEnvironment>
+    <HostList>
+      <Host Name="AEFT" Version="[25.0,99.9]"/>
+    </HostList>
+    <LocaleList>
+      <Locale Code="All"/>
+    </LocaleList>
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="12.0"/>
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+  <DispatchInfoList>
+    <Extension Id="com.sib2ae.importer.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./client/index.html</MainPath>
+          <ScriptPath>./jsx/main.jsx</ScriptPath>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>true</AutoVisible>
+        </Lifecycle>
+        <UI>
+          <Type>Panel</Type>
+          <Menu>Sib2Ae Importer</Menu>
+          <Geometry>
+            <Size>
+              <Height>400</Height>
+              <Width>300</Width>
+            </Size>
+            <MinSize>
+              <Height>300</Height>
+              <Width>250</Width>
+            </MinSize>
+            <MaxSize>
+              <Height>800</Height>
+              <Width>600</Width>
+            </MaxSize>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+  </DispatchInfoList>
+</ExtensionManifest>

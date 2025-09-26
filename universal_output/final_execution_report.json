@@ -1,0 +1,188 @@
+{
+  "execution_metadata": {
+    "orchestrator_version": "1.0.0",
+    "execution_timestamp": "2025-09-26T23:02:27.834065",
+    "total_duration_seconds": 6.610192,
+    "working_directory": "/Users/colinmignot/Claude Code/Sib2Ae",
+    "configuration": {
+      "execution_mode": "sequential",
+      "max_workers": 4,
+      "circuit_breaker_enabled": true,
+      "universal_id_preservation": true,
+      "new_filename_pattern": true
+    }
+  },
+  "universal_id_summary": {
+    "total_universal_ids": 9,
+    "registry_statistics": {
+      "total_universal_ids": 9,
+      "matched_to_midi": 6,
+      "match_rate": 0.6666666666666666,
+      "average_confidence": 0.6666666666666666,
+      "total_files_registered": 0,
+      "stage_completion_counts": {
+        "note_coordinator": 9
+      },
+      "file_counts_by_stage": {},
+      "filename_transformations": 21,
+      "last_updated": "2025-09-26 23:02:21.310337"
+    }
+  },
+  "pipeline_execution": {
+    "completed_stages": [
+      "midi_note_separation",
+      "midi_to_audio_rendering",
+      "noteheads_subtraction",
+      "audio_to_keyframes",
+      "tied_note_processor",
+      "noteheads_extraction",
+      "note_coordinator",
+      "individual_noteheads_creation",
+      "staff_barlines_extraction",
+      "instrument_separation"
+    ],
+    "failed_stages": [],
+    "total_stages_attempted": 10,
+    "success_rate": 1.0
+  },
+  "output_files": {
+    "universal_notes_registry": "universal_output/universal_notes_registry.json",
+    "coordination_metadata": "universal_output/coordination_metadata.json",
+    "universal_file_registry": "universal_output/universal_file_registry.json",
+    "progress_report": "universal_output/logs/final_progress_report.json"
+  },
+  "validation_results": {
+    "universal_id_integrity": {
+      "valid": true,
+      "issues": {
+        "missing_files": [],
+        "orphaned_files": [],
+        "filename_mismatches": [],
+        "incomplete_stages": [
+          "Universal ID b8936aed: missing stages {'audio_rendering', 'tied_note_processor', 'midi_note_separation'}",
+          "Universal ID 157ccc85: missing stages {'audio_rendering', 'tied_note_processor', 'midi_note_separation'}",
+          "Universal ID a8abb3d6: missing stages {'audio_rendering', 'tied_note_processor', 'midi_note_separation'}",
+          "Universal ID a37136c1: missing stages {'audio_rendering', 'tied_note_processor', 'midi_note_separation'}",
+          "Universal ID 6374c8c3: missing stages {'audio_rendering', 'tied_note_processor', 'midi_note_separation'}",
+          "Universal ID 137658b2: missing stages {'audio_rendering', 'tied_note_processor', 'midi_note_separation'}",
+          "Universal ID 4e8b1f9f: missing stages {'audio_rendering', 'tied_note_processor', 'midi_note_separation'}",
+          "Universal ID e36421ee: missing stages {'audio_rendering', 'tied_note_processor', 'midi_note_separation'}",
+          "Universal ID 488d27a6: missing stages {'audio_rendering', 'tied_note_processor', 'midi_note_separation'}"
+        ]
+      }
+    },
+    "file_existence": {
+      "valid": false,
+      "issues": [
+        "Missing output file: outputs/svg/staff_barlines/SS 9 full_staff_barlines.svg"
+      ]
+    },
+    "manifest_consistency": {},
+    "pipeline_completeness": {
+      "expected_stages": 10,
+      "completed_stages": 10,
+      "completion_rate": 1.0,
+      "failed_stages": []
+    },
+    "performance_metrics": {
+      "total_duration_seconds": 6.61017,
+      "universal_ids_processed": 9,
+      "processing_rate": 1.3615383568047417,
+      "failure_handler_stats": {
+        "name": "universal_orchestrator",
+        "total_calls": 10,
+        "successful_calls": 10,
+        "failed_calls": 0,
+        "success_rate": 1.0,
+        "uptime_seconds": 6.610125,
+        "circuit_breaker": {
+          "name": "universal_orchestrator",
+          "state": "closed",
+          "failure_count": 0,
+          "success_count": 0,
+          "last_failure_time": null,
+          "total_failures": 0,
+          "recent_failures": 0,
+          "config": {
+            "failure_threshold": 5,
+            "recovery_timeout_seconds": 60,
+            "success_threshold": 3,
+            "timeout_seconds": 300.0
+          }
+        },
+        "retry_config": {
+          "max_attempts": 3,
+          "base_delay_seconds": 1.0,
+          "exponential_backoff": true
+        }
+      }
+    }
+  },
+  "progress_summary": {
+    "total_universal_ids": 9,
+    "completed_universal_ids": 9,
+    "failed_universal_ids": 0,
+    "completion_percentage": 100.0,
+    "elapsed_time_seconds": 6.523801,
+    "estimated_remaining_seconds": null,
+    "stages": {
+      "noteheads_extraction": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "noteheads_subtraction": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "instrument_separation": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "individual_noteheads_creation": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "staff_barlines_extraction": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "midi_note_separation": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "midi_to_audio_rendering": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      },
+      "audio_to_keyframes": {
+        "completed": 9,
+        "failed": 0,
+        "total": 9,
+        "percentage": 100.0,
+        "current_operation": "Completed"
+      }
+    },
+    "active_universal_ids": []
+  }
+}
