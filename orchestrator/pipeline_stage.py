@@ -162,7 +162,7 @@ class OrchestrationConfig:
     musicxml_file: Path
     midi_file: Path
     svg_file: Optional[Path] = None  # SVG file for symbolic processing
-    output_dir: Path = Path("universal_output")
+    output_dir: Path = Path("outputs/json/coordination")
 
     # Execution configuration
     execution_mode: ExecutionMode = ExecutionMode.SEQUENTIAL
@@ -220,21 +220,23 @@ class OrchestrationConfig:
 
     def get_working_directory(self) -> Path:
         """Get the working directory for pipeline execution"""
-        # All commands must run from PRPs-agentic-eng directory where scripts are located
-        return Path("/Users/colinmignot/Claude Code/Sib2Ae/PRPs-agentic-eng/")
+        # All commands must run from Sib2Ae directory to access outputs/ and Brain/ subdirectories
+        return Path("/Users/colinmignot/Claude Code/Sib2Ae/")
 
     def validate_configuration(self) -> List[str]:
         """Validate configuration and return list of issues"""
         issues = []
 
-        # Validate required input files
-        if not self.musicxml_file.exists():
+        # Validate required input files (check from working directory)
+        working_dir = self.get_working_directory()
+
+        if not (working_dir / self.musicxml_file).exists():
             issues.append(f"MusicXML file not found: {self.musicxml_file}")
 
-        if not self.midi_file.exists():
+        if not (working_dir / self.midi_file).exists():
             issues.append(f"MIDI file not found: {self.midi_file}")
 
-        if self.svg_file and not self.svg_file.exists():
+        if self.svg_file and not (working_dir / self.svg_file).exists():
             issues.append(f"SVG file not found: {self.svg_file}")
 
         # Validate configuration values
@@ -283,7 +285,7 @@ def create_note_coordinator_stage(config: OrchestrationConfig) -> PipelineStage:
         description="Generate Universal ID registry and manifests",
         command=[
             "python",
-            "note_coordinator.py",
+            "Brain/note_coordinator.py",
             str(config.musicxml_file),
             str(config.midi_file),
             str(config.output_dir),
@@ -307,7 +309,7 @@ def create_tied_note_processor_stage(config: OrchestrationConfig) -> PipelineSta
         description="Process tied note relationships with timing calculations",
         command=[
             "python",
-            "App/Synchronizer 19-26-28-342/utils/tied_note_processor.py",
+            "Brain/App/Synchronizer 19-26-28-342/utils/tied_note_processor.py",
             str(config.musicxml_file),
             str(config.output_dir / "coordination_metadata.json"),
             str(config.output_dir / "universal_notes_registry.json"),
@@ -337,11 +339,11 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
             description="Extract noteheads from MusicXML with pixel-perfect coordinates",
             command=[
                 "python",
-                "App/Symbolic Separators/truly_universal_noteheads_extractor.py",
+                "Brain/App/Symbolic Separators/truly_universal_noteheads_extractor.py",
                 str(config.musicxml_file),
             ],
             input_files=[config.musicxml_file],
-            output_files=[Path(f"{config.musicxml_file.stem}_noteheads_universal.svg")],
+            output_files=[Path(f"outputs/svg/noteheads/{config.musicxml_file.stem}_noteheads_universal.svg")],
             depends_on=["tied_note_processor"]
             if not config.skip_tied_note_processing
             else ["note_coordinator"],
@@ -357,12 +359,12 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
                 description="Remove noteheads from full SVG while preserving other elements",
                 command=[
                     "python",
-                    "App/Symbolic Separators/truly_universal_noteheads_subtractor.py",
+                    "Brain/App/Symbolic Separators/truly_universal_noteheads_subtractor.py",
                     str(config.musicxml_file),
                     str(config.svg_file),
                 ],
                 input_files=[config.musicxml_file, config.svg_file],
-                output_files=[Path(f"{config.svg_file.stem}_without_noteheads.svg")],
+                output_files=[Path(f"outputs/svg/{config.svg_file.stem}_without_noteheads.svg")],
                 depends_on=["noteheads_extraction"],
                 estimated_duration_seconds=8.0,
             )
@@ -375,14 +377,14 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
             description="Create individual SVG files per instrument",
             command=[
                 "python",
-                "App/Symbolic Separators/xml_based_instrument_separator.py",
+                "Brain/App/Symbolic Separators/xml_based_instrument_separator.py",
                 str(config.musicxml_file),
                 str(config.svg_file or ""),
-                "instruments_output",
+                "outputs/svg/instruments",
             ],
             input_files=[config.musicxml_file]
             + ([config.svg_file] if config.svg_file else []),
-            output_files=[Path("instruments_output")],
+            output_files=[Path("outputs/svg/instruments")],
             depends_on=["noteheads_extraction"],
             estimated_duration_seconds=12.0,
         )
@@ -395,11 +397,11 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
             description="Create one SVG file per notehead for After Effects animation",
             command=[
                 "python",
-                "App/Symbolic Separators/individual_noteheads_creator.py",
+                "Brain/App/Symbolic Separators/individual_noteheads_creator.py",
                 str(config.musicxml_file),
             ],
             input_files=[config.musicxml_file],
-            output_files=[Path("individual_noteheads")],
+            output_files=[Path("outputs/svg/noteheads")],
             depends_on=["instrument_separation"],
             estimated_duration_seconds=15.0,
         )
@@ -413,12 +415,12 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
                 description="Extract staff lines and barlines for background elements",
                 command=[
                     "python",
-                    "App/Symbolic Separators/staff_barlines_extractor.py",
+                    "Brain/App/Symbolic Separators/staff_barlines_extractor.py",
                     str(config.musicxml_file),
                     str(config.svg_file),
                 ],
                 input_files=[config.musicxml_file, config.svg_file],
-                output_files=[Path(f"{config.svg_file.stem}_staff_barlines.svg")],
+                output_files=[Path(f"outputs/svg/staff_barlines/{config.svg_file.stem}_staff_barlines.svg")],
                 depends_on=["individual_noteheads_creation"],
                 estimated_duration_seconds=5.0,
             )
@@ -432,18 +434,18 @@ def create_audio_pipeline_stages(config: OrchestrationConfig) -> List[PipelineSt
     stages = []
 
     # Stage 1: MIDI Note Separation
-    midi_notes_dir = Path(f"{config.midi_file.stem}_individual_notes")
+    midi_notes_dir = Path("outputs/midi")
     stages.append(
         PipelineStage(
             name="midi_note_separation",
             description="Split MIDI into individual note files (foundation)",
             command=[
                 "python",
-                "App/Audio Separators/midi_note_separator.py",
+                "Brain/App/Audio Separators/midi_note_separator.py",
                 str(config.midi_file),
             ],
             input_files=[config.midi_file],
-            output_files=[midi_notes_dir],
+            output_files=[Path("outputs/midi")],
             depends_on=["tied_note_processor"]
             if not config.skip_tied_note_processing
             else ["note_coordinator"],
@@ -458,11 +460,11 @@ def create_audio_pipeline_stages(config: OrchestrationConfig) -> List[PipelineSt
             description=f"Convert MIDI notes to audio files ({config.audio_renderer_mode} mode)",
             command=[
                 "python",
-                f"App/Audio Separators/{config.get_audio_renderer_script()}",
+                f"Brain/App/Audio Separators/{config.get_audio_renderer_script()}",
                 str(midi_notes_dir),
             ],
             input_files=[midi_notes_dir],
-            output_files=[Path("Audio")],
+            output_files=[Path("outputs/audio")],
             depends_on=["midi_note_separation"],
             estimated_duration_seconds=45.0
             if config.audio_renderer_mode == "fast"
@@ -477,11 +479,11 @@ def create_audio_pipeline_stages(config: OrchestrationConfig) -> List[PipelineSt
             description=f"Generate After Effects keyframe data ({config.keyframe_generator_mode} mode)",
             command=[
                 "python",
-                f"App/Audio Separators/{config.get_keyframe_generator_script()}",
-                "Audio",
+                f"Brain/App/Audio Separators/{config.get_keyframe_generator_script()}",
+                "outputs/audio",
             ],
-            input_files=[Path("Audio")],
-            output_files=[Path("Audio/Keyframes")],
+            input_files=[Path("outputs/audio")],
+            output_files=[Path("outputs/json/keyframes")],
             depends_on=["midi_to_audio_rendering"],
             estimated_duration_seconds=20.0
             if config.keyframe_generator_mode == "fast"

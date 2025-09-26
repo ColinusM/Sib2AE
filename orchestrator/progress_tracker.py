@@ -233,7 +233,7 @@ class ProgressTracker:
                     }
                 )
 
-            self._log(f"Universal ID {universal_id[:8]} completed stage: {stage_name}")
+            # Individual Universal ID logging disabled - use stage completion summaries instead
 
     def fail_universal_id(
         self,
@@ -316,6 +316,24 @@ class ProgressTracker:
                 self.stage_metrics[stage_name].end_time = datetime.now()
                 self.stage_metrics[stage_name].current_operation = "Completed"
 
+                # Calculate stage performance metrics
+                metrics = self.stage_metrics[stage_name]
+                elapsed_seconds = metrics.elapsed_time.total_seconds()
+                items_per_second = metrics.completed_items / elapsed_seconds if elapsed_seconds > 0 else 0
+
+                # Enhanced stage completion summary
+                stage_summary = (
+                    f"Stage completed: {stage_name} "
+                    f"({metrics.completed_items}/{metrics.total_items} Universal IDs, "
+                    f"{items_per_second:.1f} notes/s, "
+                    f"{elapsed_seconds:.1f}s"
+                )
+
+                if metrics.failed_items > 0:
+                    stage_summary += f", {metrics.failed_items} failed"
+
+                stage_summary += ")"
+
             # Close progress bar
             if stage_name in self.progress_bars:
                 self.progress_bars[stage_name].close()
@@ -332,7 +350,11 @@ class ProgressTracker:
                     }
                 )
 
-            self._log(f"Stage completed: {stage_name}")
+            # Log enhanced stage summary instead of simple completion message
+            if stage_name in self.stage_metrics:
+                self._log(stage_summary)
+            else:
+                self._log(f"Stage completed: {stage_name}")
 
     def _update_overall_metrics(self):
         """Update overall progress metrics"""

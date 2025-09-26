@@ -347,10 +347,11 @@ class UniversalOrchestrator:
         stage.start_execution()
 
         try:
-            # Validate input files
+            # Validate input files (check from working directory where scripts will run)
+            working_dir = self.config.get_working_directory()
             for input_file in stage.input_files:
-                if not input_file.exists():
-                    raise FileNotFoundError(f"Required input file not found: {input_file}")
+                if not (working_dir / input_file).exists():
+                    raise FileNotFoundError(f"Required input file not found: {input_file} (checked from {working_dir})")
 
             # Execute command with failure handling
             result = self.failure_handler.execute_subprocess(
@@ -590,16 +591,16 @@ def main():
         epilog="""
 Examples:
   # Sequential execution (default)
-  python universal_orchestrator.py "PRPs-agentic-eng/Base/SS 9.musicxml" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2.mid"
+  python universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid"
 
   # Parallel execution with SVG
-  python universal_orchestrator.py "PRPs-agentic-eng/Base/SS 9.musicxml" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2.mid" --svg "PRPs-agentic-eng/Base/SS 9 full.svg" --mode parallel
+  python universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --svg "Brain/Base/SS 9 full.svg" --mode parallel
 
   # Custom output directory
-  python universal_orchestrator.py "PRPs-agentic-eng/Base/SS 9.musicxml" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2.mid" --output "my_universal_output"
+  python universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --output "my_universal_output"
 
   # Disable circuit breaker
-  python universal_orchestrator.py "PRPs-agentic-eng/Base/SS 9.musicxml" "PRPs-agentic-eng/Base/Saint-Saens Trio No 2.mid" --no-circuit-breaker
+  python universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --no-circuit-breaker
         """
     )
 
@@ -619,21 +620,32 @@ Examples:
 
     args = parser.parse_args()
 
-    # Validate input files
-    musicxml_path = Path(args.musicxml_file)
-    midi_path = Path(args.midi_file)
-    svg_path = Path(args.svg) if args.svg else None
+    # Validate input files and normalize paths relative to Sib2Ae working directory
+    sib2ae_dir = Path("/Users/colinmignot/Claude Code/Sib2Ae/")
 
-    if not musicxml_path.exists():
-        print(f"❌ ERROR: MusicXML file not found: {musicxml_path}")
+    def normalize_path_for_brain_execution(file_path: str) -> Path:
+        """Convert file path to be relative to Sib2Ae directory for execution"""
+        path = Path(file_path)
+        if path.is_absolute():
+            return path
+        # Keep path as-is since we now run from Sib2Ae parent directory
+        return path
+
+    musicxml_path = normalize_path_for_brain_execution(args.musicxml_file)
+    midi_path = normalize_path_for_brain_execution(args.midi_file)
+    svg_path = normalize_path_for_brain_execution(args.svg) if args.svg else None
+
+    # Check file existence from Brain directory (the execution working directory)
+    if not (sib2ae_dir / musicxml_path).exists():
+        print(f"❌ ERROR: MusicXML file not found: {musicxml_path} (checked from Sib2Ae directory)")
         sys.exit(1)
 
-    if not midi_path.exists():
-        print(f"❌ ERROR: MIDI file not found: {midi_path}")
+    if not (sib2ae_dir / midi_path).exists():
+        print(f"❌ ERROR: MIDI file not found: {midi_path} (checked from Sib2Ae directory)")
         sys.exit(1)
 
-    if svg_path and not svg_path.exists():
-        print(f"❌ ERROR: SVG file not found: {svg_path}")
+    if svg_path and not (sib2ae_dir / svg_path).exists():
+        print(f"❌ ERROR: SVG file not found: {svg_path} (checked from Sib2Ae directory)")
         sys.exit(1)
 
     try:
