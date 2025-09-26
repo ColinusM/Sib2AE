@@ -1,8 +1,8 @@
 {
   "execution_metadata": {
     "orchestrator_version": "1.0.0",
-    "execution_timestamp": "2025-09-26T23:17:19.151908",
-    "total_duration_seconds": 6.558508,
+    "execution_timestamp": "2025-09-27T00:08:42.595963",
+    "total_duration_seconds": 7.157988,
     "working_directory": "/Users/colinmignot/Claude Code/Sib2Ae",
     "configuration": {
       "execution_mode": "sequential",
@@ -25,21 +25,21 @@
       },
       "file_counts_by_stage": {},
       "filename_transformations": 21,
-      "last_updated": "2025-09-26 23:17:12.770815"
+      "last_updated": "2025-09-27 00:08:35.538516"
     }
   },
   "pipeline_execution": {
     "completed_stages": [
-      "midi_note_separation",
-      "tied_note_processor",
-      "note_coordinator",
-      "staff_barlines_extraction",
       "noteheads_subtraction",
+      "tied_note_processor",
       "audio_to_keyframes",
+      "note_coordinator",
       "noteheads_extraction",
       "individual_noteheads_creation",
+      "midi_to_audio_rendering",
+      "midi_note_separation",
       "instrument_separation",
-      "midi_to_audio_rendering"
+      "staff_barlines_extraction"
     ],
     "failed_stages": [],
     "total_stages_attempted": 10,
@@ -59,15 +59,15 @@
         "orphaned_files": [],
         "filename_mismatches": [],
         "incomplete_stages": [
-          "Universal ID 53cded1e: missing stages {'tied_note_processor', 'audio_rendering', 'midi_note_separation'}",
-          "Universal ID ac0c5985: missing stages {'tied_note_processor', 'audio_rendering', 'midi_note_separation'}",
-          "Universal ID d2ebd33a: missing stages {'tied_note_processor', 'audio_rendering', 'midi_note_separation'}",
-          "Universal ID 911b7c90: missing stages {'tied_note_processor', 'audio_rendering', 'midi_note_separation'}",
-          "Universal ID 094a1264: missing stages {'tied_note_processor', 'audio_rendering', 'midi_note_separation'}",
-          "Universal ID 4ffcd8a8: missing stages {'tied_note_processor', 'audio_rendering', 'midi_note_separation'}",
-          "Universal ID f4c72d08: missing stages {'tied_note_processor', 'audio_rendering', 'midi_note_separation'}",
-          "Universal ID 16c92d24: missing stages {'tied_note_processor', 'audio_rendering', 'midi_note_separation'}",
-          "Universal ID 5865ef0e: missing stages {'tied_note_processor', 'audio_rendering', 'midi_note_separation'}"
+          "Universal ID b4ff069f: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID c8964791: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 65019803: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 203aa287: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID caad3c9b: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID b80db416: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 3115d3ee: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID 867f3b4a: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}",
+          "Universal ID be7985d4: missing stages {'midi_note_separation', 'tied_note_processor', 'audio_rendering'}"
         ]
       }
     },
@@ -85,16 +85,16 @@
       "failed_stages": []
     },
     "performance_metrics": {
-      "total_duration_seconds": 6.55848,
+      "total_duration_seconds": 7.157961,
       "universal_ids_processed": 9,
-      "processing_rate": 1.3722691843231967,
+      "processing_rate": 1.257341301524275,
       "failure_handler_stats": {
         "name": "universal_orchestrator",
-        "total_calls": 10,
-        "successful_calls": 10,
+        "total_calls": 9,
+        "successful_calls": 9,
         "failed_calls": 0,
         "success_rate": 1.0,
-        "uptime_seconds": 6.558432,
+        "uptime_seconds": 7.157927,
         "circuit_breaker": {
           "name": "universal_orchestrator",
           "state": "closed",
@@ -123,7 +123,7 @@
     "completed_universal_ids": 9,
     "failed_universal_ids": 0,
     "completion_percentage": 100.0,
-    "elapsed_time_seconds": 6.381189,
+    "elapsed_time_seconds": 7.057517,
     "estimated_remaining_seconds": null,
     "stages": {
       "noteheads_extraction": {

@@ -181,7 +181,7 @@ class OrchestrationConfig:
     log_file: Optional[Path] = None  # Log file path
 
     # Performance and reliability
-    stage_timeout_seconds: float = 600.0  # 10 minute timeout per stage
+    stage_timeout_seconds: float = 30.0  # 30 second timeout per stage (reduced to fix audio-to-keyframes hanging)
     enable_performance_tracking: bool = True
     backup_existing_outputs: bool = True
 

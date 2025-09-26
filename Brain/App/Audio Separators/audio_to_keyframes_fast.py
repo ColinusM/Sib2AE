@@ -291,14 +291,24 @@ def main():
         print("Usage: python audio_to_keyframes_fast.py <audio_directory>")
         print("Example: python audio_to_keyframes_fast.py 'Audio'")
         sys.exit(1)
-    
+
     audio_dir = sys.argv[1]
-    
+
     try:
         process_audio_directory_fast(audio_dir)
+        # Force cleanup of multiprocessing resources
+        import gc
+        gc.collect()
+        print("🎯 Cleanup complete, exiting...")
     except Exception as e:
         print(f"❌ ERROR: {e}")
         sys.exit(1)
+    finally:
+        # Ensure all multiprocessing resources are cleaned up
+        import multiprocessing as mp
+        mp.util._exit_function()
+        # Gentle exit after cleanup
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()

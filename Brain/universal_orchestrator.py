@@ -353,12 +353,43 @@ class UniversalOrchestrator:
                 if not (working_dir / input_file).exists():
                     raise FileNotFoundError(f"Required input file not found: {input_file} (checked from {working_dir})")
 
-            # Execute command with failure handling
-            result = self.failure_handler.execute_subprocess(
-                stage.command,
-                cwd=self.config.get_working_directory(),
-                timeout=self.config.stage_timeout_seconds
-            )
+            # Execute command with direct subprocess for better timeout control
+            import subprocess
+            import signal
+            import os
+            try:
+                # Special handling for audio-to-keyframes to prevent hanging
+                if "audio_to_keyframes" in " ".join(stage.command):
+                    # Use direct subprocess with aggressive timeout
+                    result = subprocess.run(
+                        stage.command,
+                        cwd=self.config.get_working_directory(),
+                        capture_output=True,
+                        text=True,
+                        timeout=20.0,  # Shorter timeout for audio-to-keyframes
+                        preexec_fn=os.setsid if hasattr(os, 'setsid') else None
+                    )
+                else:
+                    # Use failure handler for other stages
+                    result = self.failure_handler.execute_subprocess(
+                        stage.command,
+                        cwd=self.config.get_working_directory(),
+                        timeout=self.config.stage_timeout_seconds
+                    )
+
+                # Check return code
+                if result.returncode != 0:
+                    error_msg = f"Return code: {result.returncode}"
+                    if result.stdout:
+                        error_msg += f"\nSTDOUT:\n{result.stdout}"
+                    if result.stderr:
+                        error_msg += f"\nSTDERR:\n{result.stderr}"
+                    raise subprocess.CalledProcessError(result.returncode, stage.command, result.stdout, result.stderr)
+
+            except subprocess.TimeoutExpired:
+                # Force kill the process group if timeout
+                self._log(f"⏰ Stage {stage.name} timed out, forcing termination")
+                raise
 
             stage.complete_successfully()
 
@@ -400,14 +431,20 @@ class UniversalOrchestrator:
         if stage.status.value == "completed":
             # Update progress for all Universal IDs (simplified approach)
             if self.progress_tracker:
-                for universal_id in self.universal_ids:
-                    self.progress_tracker.complete_universal_id(
-                        universal_id, stage.name, metadata={'stage_duration': stage.actual_duration_seconds}
-                    )
+                try:
+                    for universal_id in self.universal_ids:
+                        self.progress_tracker.complete_universal_id(
+                            universal_id, stage.name, metadata={'stage_duration': stage.actual_duration_seconds}
+                        )
+                except Exception as e:
+                    self._log(f"⚠️  Progress tracking error (non-critical): {e}")
 
             # Complete stage tracking
             if self.progress_tracker:
-                self.progress_tracker.complete_stage(stage.name)
+                try:
+                    self.progress_tracker.complete_stage(stage.name)
+                except Exception as e:
+                    self._log(f"⚠️  Stage completion tracking error (non-critical): {e}")
 
     def _perform_final_validation(self) -> Dict[str, any]:
         """Perform comprehensive final validation"""
