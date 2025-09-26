@@ -309,7 +309,7 @@ def create_tied_note_processor_stage(config: OrchestrationConfig) -> PipelineSta
         description="Process tied note relationships with timing calculations",
         command=[
             "python",
-            "Brain/App/Synchronizer 19-26-28-342/utils/tied_note_processor.py",
+            "Brain/orchestrator/tied_note_processor.py",
             str(config.musicxml_file),
             str(config.output_dir / "coordination_metadata.json"),
             str(config.output_dir / "universal_notes_registry.json"),
