@@ -216,3 +216,5 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 - **Core**: svgelements, pydantic, click, pytest
 - **Audio**: mido, librosa, soundfile, fluidsynth (`brew install fluidsynth`)
 - **After Effects**: CEP 12, ExtendScript support
+- after each log read you must do a wait 10s command
+- never read the full shell outpout, always use filters

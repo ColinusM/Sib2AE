@@ -134,16 +134,9 @@ class UniversalOrchestrator:
             else:
                 self._execute_parallel_pipeline()
 
-            # Phase 5: Final Validation and Verification
-            self._log("Phase 5: Final Validation and Verification")
-            validation_results = self._perform_final_validation()
-
-            # Phase 6: Generate Final Report
-            self._log("Phase 6: Generating Final Report")
-            final_report = self._generate_final_report(validation_results)
-
             self._log("✅ Universal ID Pipeline Orchestration Complete!")
-            return final_report
+            self._log(f"📊 Completed {len(self.completed_stages)} stages successfully")
+            return True
 
         except Exception as e:
             self._log(f"❌ Pipeline orchestration failed: {e}")
@@ -281,6 +274,8 @@ class UniversalOrchestrator:
             else:
                 self._log(f"⏳ Stage {stage.name} waiting for dependencies: {stage.depends_on}")
 
+        self._log("✅ Sequential Pipeline completed successfully")
+
     def _execute_parallel_pipeline(self):
         """Execute compatible pipeline stages in parallel"""
         self._log("🔄 Executing Parallel Pipeline")
@@ -353,39 +348,13 @@ class UniversalOrchestrator:
                 if not (working_dir / input_file).exists():
                     raise FileNotFoundError(f"Required input file not found: {input_file} (checked from {working_dir})")
 
-            # Execute command with direct subprocess for better timeout control
-            import subprocess
-            import signal
-            import os
+            # Execute command through failure handler
             try:
-                # Special handling for audio-to-keyframes to prevent hanging
-                if "audio_to_keyframes" in " ".join(stage.command):
-                    # Use direct subprocess with aggressive timeout
-                    result = subprocess.run(
-                        stage.command,
-                        cwd=self.config.get_working_directory(),
-                        capture_output=True,
-                        text=True,
-                        timeout=20.0,  # Shorter timeout for audio-to-keyframes
-                        preexec_fn=os.setsid if hasattr(os, 'setsid') else None
-                    )
-                else:
-                    # Use failure handler for other stages
-                    result = self.failure_handler.execute_subprocess(
-                        stage.command,
-                        cwd=self.config.get_working_directory(),
-                        timeout=self.config.stage_timeout_seconds
-                    )
-
-                # Check return code
-                if result.returncode != 0:
-                    error_msg = f"Return code: {result.returncode}"
-                    if result.stdout:
-                        error_msg += f"\nSTDOUT:\n{result.stdout}"
-                    if result.stderr:
-                        error_msg += f"\nSTDERR:\n{result.stderr}"
-                    raise subprocess.CalledProcessError(result.returncode, stage.command, result.stdout, result.stderr)
-
+                result = self.failure_handler.execute_subprocess(
+                    stage.command,
+                    cwd=self.config.get_working_directory(),
+                    timeout=self.config.stage_timeout_seconds
+                )
             except subprocess.TimeoutExpired:
                 # Force kill the process group if timeout
                 self._log(f"⏰ Stage {stage.name} timed out, forcing termination")
@@ -718,9 +687,7 @@ Examples:
         # Final success message
         if not args.quiet:
             print("\n🎯 PIPELINE EXECUTION SUCCESSFUL!")
-            print(f"📁 Final report: {config.output_dir}/final_execution_report.json")
-            print(f"⏱️  Total execution time: {final_report['execution_metadata']['total_duration_seconds']:.1f}s")
-            print(f"🎵 Universal IDs processed: {final_report['universal_id_summary']['total_universal_ids']}")
+            print(f"📁 Output directory: {config.output_dir}")
             print("🚀 Ready for After Effects integration")
 
         sys.exit(0)

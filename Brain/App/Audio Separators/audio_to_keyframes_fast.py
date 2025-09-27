@@ -231,22 +231,23 @@ def process_audio_directory_fast(audio_dir: str):
     total_processed = 0
     failed_files = []
     
-    # Process files in parallel
-    with ProcessPoolExecutor(max_workers=max_workers) as executor:
+    # Process files in parallel with explicit shutdown
+    executor = ProcessPoolExecutor(max_workers=max_workers)
+    try:
         # Submit all tasks
         future_to_task = {executor.submit(process_single_audio_file, task): task for task in tasks}
-        
+
         # Process results as they complete
         for future in as_completed(future_to_task):
             task = future_to_task[future]
             audio_file, _ = task
-            
+
             try:
                 result = future.result()
                 success, processed_file, output_info, duration, keyframes = result
-                
+
                 filename = os.path.basename(processed_file)
-                
+
                 if success:
                     print(f"✅ {filename}")
                     print(f"   Duration: {duration:.2f}s, Keyframes: {keyframes}")
@@ -254,10 +255,14 @@ def process_audio_directory_fast(audio_dir: str):
                 else:
                     print(f"❌ {filename} → {output_info}")
                     failed_files.append(processed_file)
-                    
+
             except Exception as e:
                 print(f"❌ {os.path.basename(audio_file)} → Exception: {e}")
                 failed_files.append(audio_file)
+    finally:
+        # Force shutdown and cleanup
+        executor.shutdown(wait=True)
+        del executor
     
     print()
     print(f"🎯 FAST KEYFRAME GENERATION COMPLETE!")
