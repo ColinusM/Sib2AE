@@ -285,7 +285,7 @@ def create_note_coordinator_stage(config: OrchestrationConfig) -> PipelineStage:
         description="Generate Universal ID registry and manifests",
         command=[
             "python",
-            "Brain/note_coordinator.py",
+            "Brain/orchestrator/note_coordinator.py",
             str(config.musicxml_file),
             str(config.midi_file),
             str(config.output_dir),

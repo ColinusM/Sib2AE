@@ -13,6 +13,7 @@ preservation, atomic manifest operations, and comprehensive error recovery.
 import argparse
 import json
 import logging
+import subprocess
 import sys
 import traceback
 from datetime import datetime
@@ -21,7 +22,7 @@ from typing import Dict, List, Optional, Set
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Import orchestrator components
-from orchestrator import (
+from . import (
     PipelineStage, OrchestrationConfig, ExecutionMode,
     UniversalFileRegistry, AtomicManifestManager, ProgressTracker,
     create_process_failure_handler, create_manifest_manager,

@@ -41,8 +41,9 @@ Brain/                                 # CORE PIPELINE SCRIPTS & INPUT FILES
 │   ├── Symbolic Separators/           # SVG processing tools
 │   ├── Audio Separators/              # Audio processing tools
 │   └── Synchronizer*/                 # Advanced sync system
-├── note_coordinator.py                # Universal note coordination
-├── universal_orchestrator.py          # Master pipeline orchestrator
+└── orchestrator/                      # Orchestration framework
+    ├── note_coordinator.py             # Universal note coordination
+    ├── universal_orchestrator.py       # Master pipeline orchestrator
 └── orchestrator/                      # Orchestration framework
 
 outputs/                               # CONSOLIDATED OUTPUT STRUCTURE
@@ -113,7 +114,7 @@ python "Brain/App/Audio Separators/audio_to_keyframes.py" "outputs/audio"
 
 ```bash
 # Note Coordinator - Creates Universal ID registry linking all data sources
-python "Brain/note_coordinator.py" "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" "outputs/json/coordination"
+python "Brain/orchestrator/note_coordinator.py" "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" "outputs/json/coordination"
 ```
 
 **Features:**
@@ -130,13 +131,13 @@ python "Brain/note_coordinator.py" "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-
 
 ```bash
 # Full pipeline with SVG processing (recommended)
-python Brain/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --svg "Brain/Base/SS 9 full.svg" --mode sequential
+python Brain/orchestrator/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --svg "Brain/Base/SS 9 full.svg" --mode sequential
 
 # Audio-only pipeline (without SVG processing)
-python Brain/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --mode sequential
+python Brain/orchestrator/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --mode sequential
 
 # With custom output directory
-python Brain/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --svg "Brain/Base/SS 9 full.svg" --output custom_output
+python Brain/orchestrator/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --svg "Brain/Base/SS 9 full.svg" --output custom_output
 ```
 
 **Features:**
@@ -145,6 +146,23 @@ python Brain/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Sa
 - Error handling with circuit breaker patterns
 - Progress tracking and comprehensive logging
 - Parallel or sequential execution modes
+
+**⚠️ Context Management for Claude Code:**
+When running the orchestrator, use background execution to avoid context pollution from verbose logs:
+
+```bash
+# Run in background to prevent verbose output from flooding context
+python Brain/orchestrator/universal_orchestrator.py "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --svg "Brain/Base/SS 9 full.svg" --mode sequential > /dev/null 2>&1 &
+
+# Check completion and verify outputs
+ls -la universal_output/
+ls -la outputs/
+```
+
+**Alternative: Python module syntax (cleaner for context):**
+```bash
+python -m Brain.orchestrator.universal_orchestrator "Brain/Base/SS 9.musicxml" "Brain/Base/Saint-Saens Trio No 2.mid" --svg "Brain/Base/SS 9 full.svg" --mode sequential --quiet
+```
 
 ## Output Locations
 - **`outputs/audio/`** - Audio files organized by instrument
