@@ -24,10 +24,6 @@ import json
 import math
 
 # Import our established data models
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'App', 'Synchronizer 19-26-28-342', 'utils'))
 from xml_temporal_parser import MusicXMLNote, XMLTemporalParser
 from midi_matcher import MIDINote, MIDIMatcher, NoteMatch
 
