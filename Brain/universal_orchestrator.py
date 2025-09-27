@@ -682,7 +682,7 @@ Examples:
 
         # Initialize and run orchestrator
         orchestrator = UniversalOrchestrator(config)
-        final_report = orchestrator.orchestrate_complete_pipeline()
+        success = orchestrator.orchestrate_complete_pipeline()
 
         # Final success message
         if not args.quiet:
