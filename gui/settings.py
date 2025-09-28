@@ -11,7 +11,7 @@ from pathlib import Path
 class GUISettings:
     def __init__(self):
         self.project_root = Path(__file__).parent.parent
-        self.settings_file = self.project_root / "gui_settings.json"
+        self.settings_file = Path(__file__).parent / "gui_settings.json"
 
         # Default file paths - updated for new Brain/ structure and outputs/ organization
         base_dir = self.project_root / "Brain" / "Base"

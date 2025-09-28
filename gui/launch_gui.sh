@@ -11,7 +11,7 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
-# Launch the GUI
+# Launch the GUI (now in same directory)
 python3 sib2ae_gui.py
 
 echo "GUI closed."

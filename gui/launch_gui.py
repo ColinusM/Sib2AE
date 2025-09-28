@@ -7,8 +7,8 @@ import sys
 import os
 from pathlib import Path
 
-# Add current directory to Python path
-sys.path.insert(0, str(Path(__file__).parent))
+# Add parent directory to Python path for module imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Import and launch GUI
 from gui.sib2ae_gui import main

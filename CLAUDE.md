@@ -15,7 +15,7 @@ uv sync
 
 ```bash
 # Launch the GUI (recommended)
-python3 launch_gui.py
+python3 gui/launch_gui.py
 ```
 
 **GUI Features:**
