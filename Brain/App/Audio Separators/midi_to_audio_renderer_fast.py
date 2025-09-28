@@ -13,13 +13,13 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 def find_soundfont():
     """Find available soundfont files on the system."""
 
-    # Priority order: local project soundfont first, then system locations
+    # Priority order: working soundfonts first
     soundfont_paths = [
-        # Local project soundfont (highest priority)
+        # Working soundfont from homebrew (highest priority)
+        "/opt/homebrew/Cellar/fluid-synth/2.4.8/share/fluid-synth/sf2/VintageDreamsWaves-v2.sf2",
+        # Local project soundfont fallbacks
         "FluidR3_GM.sf2",
         "soundfonts/FluidR3_GM.sf2",
-        # Working soundfont from homebrew
-        "/opt/homebrew/share/soundfonts/VintageDreamsWaves-v2.sf2",
         # System locations
         "/usr/share/soundfonts/*.sf2",
         "/usr/local/share/soundfonts/*.sf2",
@@ -30,10 +30,10 @@ def find_soundfont():
 
     # Also check for FluidSynth's default soundfont
     default_soundfonts = [
+        "/opt/homebrew/Cellar/fluid-synth/2.4.8/share/fluid-synth/sf2/VintageDreamsWaves-v2.sf2",
         "/usr/share/soundfonts/FluidR3_GM.sf2",
         "/usr/local/share/soundfonts/FluidR3_GM.sf2",
-        "/opt/homebrew/share/soundfonts/FluidR3_GM.sf2",
-        "/opt/homebrew/share/soundfonts/VintageDreamsWaves-v2.sf2"
+        "/opt/homebrew/share/soundfonts/FluidR3_GM.sf2"
     ]
 
     soundfont_paths.extend(default_soundfonts)
