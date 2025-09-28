@@ -99,41 +99,19 @@ def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -
     # Create simplified keyframe arrays
     keyframes = {}
     
-    # Only essential properties for speed
-    keyframes['scale'] = []
-    keyframes['opacity'] = []
-    keyframes['hue'] = []
-    keyframes['position_x'] = []
-    
-    # Sample fewer keyframes for speed
-    for i in range(0, len(times), frame_step):  # Skip frames for speed
+    # Only amplitude over time
+    keyframes['amplitude'] = []
+
+    # Generate amplitude keyframes for every frame
+    for i in range(0, len(times)):
         if i >= len(features['amplitude']):
             break
-            
+
         time = times[i]
         frame = time_to_frame(time)
-        
-        # Scale: 50-150% based on amplitude
-        scale_val = 50 + (features['amplitude'][i] * 1.0)
-        keyframes['scale'].append([frame, scale_val])
-        
-        # Opacity: 20-100% based on amplitude
-        opacity_val = 20 + (features['amplitude'][i] * 0.8)
-        keyframes['opacity'].append([frame, opacity_val])
-        
-        # Hue: simplified color mapping
-        hue_val = (features['brightness'][i] * 3.6) % 360  # Map to 0-360
-        keyframes['hue'].append([frame, hue_val])
-        
-        # Position X: based on roughness
-        pos_x = (features['roughness'][i] - 50) * 2  # -100 to +100
-        keyframes['position_x'].append([frame, pos_x])
-    
-    # Add onset markers (simplified)
-    keyframes['onset_markers'] = []
-    for onset_time in analysis['events']['onsets'][:5]:  # Limit to first 5 onsets
-        frame = time_to_frame(onset_time)
-        keyframes['onset_markers'].append([frame, 100])
+        amplitude_val = features['amplitude'][i]  # 0-100 normalized
+
+        keyframes['amplitude'].append([frame, amplitude_val])
     
     return {
         'audio_file': audio_filename,
@@ -143,10 +121,10 @@ def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -
         'tempo': analysis['events']['tempo'],
         'keyframes': keyframes,
         'metadata': {
-            'total_keyframes': len(keyframes['scale']),
+            'total_keyframes': len(keyframes['amplitude']),
             'onset_count': len(analysis['events']['onsets']),
-            'analysis_features': list(features.keys()),
-            'optimization': 'fast_mode'
+            'analysis_features': ['amplitude'],
+            'optimization': 'amplitude_only'
         }
     }
 
