@@ -20,7 +20,7 @@ python3 gui/launch_gui.py
 
 **GUI Features:**
 - **Symbolic Pipeline Tab**: Run 5 symbolic processing scripts with file browsers
-- **Audio Pipeline Tab**: Execute 4 audio rendering and keyframe generation scripts
+- **Audio Pipeline Tab**: Execute 3 audio rendering and keyframe generation scripts
 - **Matching Tab**: MIDI-XML-SVG coordination with annotated SVG output
 - **Real-time output**: View script output directly in GUI
 
@@ -154,10 +154,10 @@ python "Brain/App/Symbolic Separators/staff_barlines_extractor.py" "Brain/Base/S
 # 1. Split MIDI into individual note files (foundation)
 python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Saens Trio No 2.mid"
 
-# 2. Convert to audio - FAST version (parallel, 22kHz, 6 workers)
+# 2. Convert to audio - High-quality 247MB SGM-V2.01 soundfont (parallel, realistic instruments)
 python "Brain/App/Audio Separators/midi_to_audio_renderer_fast.py" "outputs/midi"
 
-# 3. Generate keyframes - FAST version (reduced density, essential properties)
+# 3. Generate keyframes - Amplitude-only (clean AE integration, no over-engineering)
 python "Brain/App/Audio Separators/audio_to_keyframes_fast.py" "outputs/audio"
 ```
 

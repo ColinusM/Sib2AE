@@ -209,14 +209,14 @@ class OrchestrationConfig:
         if self.audio_renderer_mode == "fast":
             return "midi_to_audio_renderer_fast.py"
         else:
-            return "midi_to_audio_renderer.py"
+            return "midi_to_audio_renderer_fast.py"
 
     def get_keyframe_generator_script(self) -> str:
         """Get the appropriate keyframe generator script name"""
         if self.keyframe_generator_mode == "fast":
             return "audio_to_keyframes_fast.py"
         else:
-            return "audio_to_keyframes.py"
+            return "audio_to_keyframes_fast.py"
 
     def get_working_directory(self) -> Path:
         """Get the working directory for pipeline execution"""

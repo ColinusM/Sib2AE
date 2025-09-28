@@ -52,9 +52,9 @@ class AudioTab:
         scripts = [
             ("Split MIDI Notes", "midi_note_separator.py", self.run_midi_separator),
             ("Render Audio (Fast)", "midi_to_audio_renderer_fast.py", self.run_audio_fast),
-            ("Render Audio (Quality)", "midi_to_audio_renderer.py", self.run_audio_quality),
+            ("Render Audio (Quality)", "midi_to_audio_renderer_fast.py", self.run_audio_quality),
             ("Generate Keyframes (Fast)", "audio_to_keyframes_fast.py", self.run_keyframes_fast),
-            ("Generate Keyframes (Full)", "audio_to_keyframes.py", self.run_keyframes_full),
+            ("Generate Keyframes (Amplitude)", "audio_to_keyframes_fast.py", self.run_keyframes_full),
         ]
 
         for i, (name, script, command) in enumerate(scripts):
@@ -92,7 +92,7 @@ class AudioTab:
 
     def run_audio_quality(self):
         args = [self.midi_notes_var.get()]
-        self.runner.run_audio_script("midi_to_audio_renderer.py", args)
+        self.runner.run_audio_script("midi_to_audio_renderer_fast.py", args)
 
     def run_keyframes_fast(self):
         args = [self.audio_dir_var.get()]
@@ -100,4 +100,4 @@ class AudioTab:
 
     def run_keyframes_full(self):
         args = [self.audio_dir_var.get()]
-        self.runner.run_audio_script("audio_to_keyframes.py", args)
+        self.runner.run_audio_script("audio_to_keyframes_fast.py", args)

@@ -21,11 +21,9 @@ Brain/App/
 │   ├── xml_based_instrument_separator.py
 │   ├── individual_noteheads_creator.py
 │   └── staff_barlines_extractor.py
-├── Audio Separators/           # MIDI and audio processing (5 scripts)
+├── Audio Separators/           # MIDI and audio processing (3 scripts)
 │   ├── midi_note_separator.py
-│   ├── midi_to_audio_renderer.py
 │   ├── midi_to_audio_renderer_fast.py
-│   ├── audio_to_keyframes.py
 │   └── audio_to_keyframes_fast.py
 └── README.md                   # This file
 ```
@@ -100,45 +98,27 @@ python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Sae
 - **Naming**: `note_000_Flûte_A4_vel76.mid`
 - **Foundation**: Required for all subsequent audio processing
 
-#### 2. `midi_to_audio_renderer.py` (Standard Quality)
-**Purpose**: Convert MIDI notes to high-quality audio files
-```bash
-python "Brain/App/Audio Separators/midi_to_audio_renderer.py" "outputs/midi"
-```
-- **Mode**: Sequential processing, 44kHz sample rate
-- **Quality**: High-quality audio for final production
-- **Output**: WAV files organized by instrument in `outputs/audio/`
-- **Performance**: ~3-5 seconds per file
-
-#### 3. `midi_to_audio_renderer_fast.py` (Fast Mode)
-**Purpose**: Parallel audio rendering with optimized performance
+#### 2. `midi_to_audio_renderer_fast.py` (High-Quality Audio Rendering)
+**Purpose**: Convert MIDI notes to audio using 247MB SGM-V2.01 soundfont
 ```bash
 python "Brain/App/Audio Separators/midi_to_audio_renderer_fast.py" "outputs/midi"
 ```
+- **Soundfont**: High-quality 247MB SGM-V2.01 for realistic instruments
 - **Mode**: Parallel processing, 22kHz sample rate, 6 workers
-- **Quality**: Optimized for development and testing
+- **Quality**: Realistic violin and flute sounds (no more noise/synthetic)
+- **Output**: WAV files organized by instrument in `outputs/audio/`
 - **Performance**: ~1 second total for 6 files
-- **Use Case**: Development workflows, rapid iteration
 
-#### 4. `audio_to_keyframes.py` (Comprehensive Analysis)
-**Purpose**: Generate detailed After Effects keyframe data from audio
-```bash
-python "Brain/App/Audio Separators/audio_to_keyframes.py" "outputs/audio"
-```
-- **Analysis**: Full spectral analysis, comprehensive properties
-- **Keyframes**: 72 keyframes per file (30 FPS, detailed)
-- **Properties**: Amplitude, frequency, spectral centroid, RMS
-- **Performance**: ~2-3 seconds per file
-
-#### 5. `audio_to_keyframes_fast.py` (Essential Properties)
-**Purpose**: Generate essential keyframe data with reduced processing time
+#### 3. `audio_to_keyframes_fast.py` (Amplitude-Only Keyframes)
+**Purpose**: Generate simplified amplitude-only keyframes for After Effects
 ```bash
 python "Brain/App/Audio Separators/audio_to_keyframes_fast.py" "outputs/audio"
 ```
-- **Analysis**: Essential properties only, reduced density
-- **Keyframes**: Optimized keyframe count, essential animation data
-- **Performance**: ~0.5-1 second per file
-- **Use Case**: Development workflows, basic animation needs
+- **Output**: Only amplitude over time (0-100 normalized)
+- **Format**: `[frame, amplitude_value]` pairs for clean AE integration
+- **No complexity**: Removed scale, opacity, hue, position properties
+- **Performance**: ~0.5-1 second per file, full temporal resolution
+- **Clean**: Perfect for direct After Effects amplitude animation
 
 ## 🔄 Pipeline Integration
 
