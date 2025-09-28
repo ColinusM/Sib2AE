@@ -147,20 +147,23 @@ def separate_midi_notes(midi_file: str):
     # Analyze MIDI structure
     analysis = analyze_midi_structure(midi_file)
     
-    # Create output directory in new location
+    # Create base output directory
     base_name = Path(midi_file).stem
-    output_dir = "outputs/midi"
-    os.makedirs(output_dir, exist_ok=True)
-    
-    print(f"\n📁 Creating individual note files in: {output_dir}")
+    base_output_dir = "outputs/midi"
+    os.makedirs(base_output_dir, exist_ok=True)
+
+    print(f"\n📁 Creating individual note files in: {base_output_dir}")
     print()
-    
+
     # Create individual MIDI files for each note
     for note in analysis['notes']:
-        # Generate filename
+        # Generate filename and instrument directory
         track_name = note['track_name'].replace(' ', '_').replace('/', '_')
+        instrument_dir = os.path.join(base_output_dir, track_name)
+        os.makedirs(instrument_dir, exist_ok=True)
+
         filename = f"note_{note['id']:03d}_{track_name}_{note['note_name']}_vel{note['velocity']}.mid"
-        output_file = os.path.join(output_dir, filename)
+        output_file = os.path.join(instrument_dir, filename)
         
         # Create single-note MIDI file
         create_single_note_midi(analysis['midi_file'], note, output_file)
@@ -174,7 +177,7 @@ def separate_midi_notes(midi_file: str):
         print()
     
     print(f"🎯 SUCCESS! Created {len(analysis['notes'])} individual note files")
-    print(f"📁 Output directory: {output_dir}")
+    print(f"📁 Output directory: {base_output_dir}")
     
     # Summary by track
     track_summary = {}

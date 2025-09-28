@@ -81,8 +81,9 @@ def render_single_midi(args):
 
 def analyze_midi_directory_fast(midi_dir: str) -> Dict:
     """Quickly analyze MIDI files in directory and organize by instrument."""
-    
-    midi_files = glob.glob(os.path.join(midi_dir, "*.mid"))
+
+    # Search for MIDI files recursively in subdirectories
+    midi_files = glob.glob(os.path.join(midi_dir, "**", "*.mid"), recursive=True)
     instruments = {}
     
     for midi_file in midi_files:

@@ -240,8 +240,8 @@ def process_audio_directory(audio_dir: str):
                 instrument = "Unknown"
             
             # Create instrument directory
-            # All keyframes go directly in keyframes directory
-            instrument_keyframes_dir = keyframes_base_dir
+            instrument_keyframes_dir = os.path.join(keyframes_base_dir, instrument)
+            os.makedirs(instrument_keyframes_dir, exist_ok=True)
             
             # Analyze audio
             analysis = analyze_audio_features(audio_file)

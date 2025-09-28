@@ -3,7 +3,33 @@
 import xml.etree.ElementTree as ET
 import sys
 import os
+import re
 from typing import List, Dict
+
+def extract_instrument_mapping(musicxml_file: str) -> Dict[str, str]:
+    """Extract part_id to instrument name mapping from MusicXML."""
+    tree = ET.parse(musicxml_file)
+    root = tree.getroot()
+
+    mapping = {}
+
+    # Find part-list section
+    part_list = root.find('part-list')
+    if part_list is not None:
+        for score_part in part_list.findall('score-part'):
+            part_id = score_part.get('id')
+
+            # Get instrument name
+            part_name_elem = score_part.find('part-name')
+            part_name = part_name_elem.text if part_name_elem is not None else f"Part_{part_id}"
+
+            # Clean the instrument name for folder naming
+            clean_name = re.sub(r'[^\w\s-]', '', part_name).strip()
+            clean_name = re.sub(r'\s+', '_', clean_name)
+
+            mapping[part_id] = clean_name
+
+    return mapping
 
 def extract_xml_notes(musicxml_file: str) -> List[Dict]:
     """Extract notes with coordinates using EXACT same system as extractor."""
@@ -148,12 +174,14 @@ def create_individual_notehead_svgs(musicxml_file: str, output_dir: str):
     print(f"Output Directory: {output_dir}")
     print()
     
-    # Extract notes from MusicXML and convert to exact SVG coordinates
+    # Extract instrument mapping and notes from MusicXML
+    instrument_mapping = extract_instrument_mapping(musicxml_file)
     xml_notes = extract_xml_notes(musicxml_file)
     svg_notes = convert_to_svg_coordinates(xml_notes)
     print(f"🎵 Found {len(svg_notes)} notes")
-    
-    # Create output directory
+    print(f"🎼 Instrument mapping: {instrument_mapping}")
+
+    # Create base output directory
     os.makedirs(output_dir, exist_ok=True)
     
     # SVG template for individual noteheads (EXACT same structure as extractor)
@@ -189,9 +217,15 @@ def create_individual_notehead_svgs(musicxml_file: str, output_dir: str):
             unicode=unicode_char
         )
         
+        # Get instrument name and create instrument directory
+        part_id = note['part_id']
+        instrument_name = instrument_mapping.get(part_id, f"Part_{part_id}")
+        instrument_dir = os.path.join(output_dir, instrument_name)
+        os.makedirs(instrument_dir, exist_ok=True)
+
         # Generate filename
         filename = f"notehead_{i:03d}_{note['part_id']}_{note['note_name']}_M{note['measure']}.svg"
-        filepath = os.path.join(output_dir, filename)
+        filepath = os.path.join(instrument_dir, filename)
         
         # Write SVG file
         with open(filepath, 'w', encoding='utf-8') as f:

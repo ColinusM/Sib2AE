@@ -164,19 +164,20 @@ def process_single_audio_file(args):
         else:
             instrument = "Unknown"
         
-        # Create keyframes output directory
+        # Create keyframes output directory with instrument subdirectory
         keyframes_base_dir = "outputs/json/keyframes"
-        os.makedirs(keyframes_base_dir, exist_ok=True)
-        
+        instrument_keyframes_dir = os.path.join(keyframes_base_dir, instrument)
+        os.makedirs(instrument_keyframes_dir, exist_ok=True)
+
         # Analyze audio (fast mode)
         analysis = analyze_audio_features_fast(audio_file)
-        
+
         # Generate keyframes (fast mode)
         keyframe_data = generate_after_effects_keyframes_fast(analysis, os.path.basename(audio_file))
-        
+
         # Save keyframe data
         audio_basename = Path(audio_file).stem
-        keyframe_file = os.path.join(keyframes_base_dir, f"{audio_basename}_keyframes.json")
+        keyframe_file = os.path.join(instrument_keyframes_dir, f"{audio_basename}_keyframes.json")
         
         with open(keyframe_file, 'w', encoding='utf-8') as f:
             json.dump(keyframe_data, f, indent=2)

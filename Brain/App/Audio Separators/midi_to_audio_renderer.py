@@ -79,7 +79,8 @@ def render_midi_to_audio(midi_file: str, output_file: str, soundfont: str = None
 def analyze_midi_directory(midi_dir: str) -> Dict:
     """Analyze MIDI files in directory and organize by instrument."""
     
-    midi_files = glob.glob(os.path.join(midi_dir, "*.mid"))
+    # Search for MIDI files recursively in subdirectories
+    midi_files = glob.glob(os.path.join(midi_dir, "**", "*.mid"), recursive=True)
     
     instruments = {}
     
