@@ -12,24 +12,27 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 
 def find_soundfont():
     """Find available soundfont files on the system."""
-    
-    # Common soundfont locations on macOS
+
+    # Priority order: local project soundfont first, then system locations
     soundfont_paths = [
+        # Local project soundfont (highest priority)
+        "FluidR3_GM.sf2",
+        "soundfonts/FluidR3_GM.sf2",
+        # System locations
         "/usr/share/soundfonts/*.sf2",
-        "/usr/local/share/soundfonts/*.sf2", 
+        "/usr/local/share/soundfonts/*.sf2",
         "/opt/homebrew/share/soundfonts/*.sf2",
-        "/System/Library/Components/CoreAudio.component/Contents/Resources/gs_instruments.dls",
         "~/Library/Audio/Sounds/Banks/*.sf2",
         "/Library/Audio/Sounds/Banks/*.sf2"
     ]
-    
+
     # Also check for FluidSynth's default soundfont
     default_soundfonts = [
         "/usr/share/soundfonts/FluidR3_GM.sf2",
         "/usr/local/share/soundfonts/FluidR3_GM.sf2",
         "/opt/homebrew/share/soundfonts/FluidR3_GM.sf2"
     ]
-    
+
     soundfont_paths.extend(default_soundfonts)
     
     for pattern in soundfont_paths:
