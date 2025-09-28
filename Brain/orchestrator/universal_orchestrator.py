@@ -29,6 +29,7 @@ from . import (
     create_note_coordinator_stage, create_tied_note_processor_stage,
     create_symbolic_pipeline_stages, create_audio_pipeline_stages
 )
+from .smart_log_aggregator import SmartLogAggregator
 
 
 class UniversalOrchestrator:
@@ -57,6 +58,7 @@ class UniversalOrchestrator:
 
         # Shell output capture
         self.output_file = self.config.output_dir / "shell_output" / "execution_output.log"
+        self.smart_aggregator = SmartLogAggregator(self.output_file)
         self.failure_handler = create_process_failure_handler(
             name="universal_orchestrator",
             enable_circuit_breaker=config.enable_circuit_breaker,
@@ -292,6 +294,12 @@ class UniversalOrchestrator:
 
                     # IMMEDIATE TERMINATION: If this is the last stage, force exit now
                     if stage.name == "audio_to_keyframes":
+                        # Generate final summary before nuclear exit
+                        try:
+                            self.smart_aggregator.generate_final_summary()
+                        except Exception as e:
+                            self._log(f"⚠️  Final summary generation error (non-critical): {e}")
+
                         self._print_and_log("🔥 NUCLEAR EXIT: Last stage completed, forcing immediate termination!")
                         import os
                         os._exit(0)
@@ -398,11 +406,15 @@ class UniversalOrchestrator:
 
             # ALWAYS capture subprocess output to file (regardless of verbose)
             if result.stdout:
-                # Show last few lines of output
+                # Capture full stdout for smart aggregator analysis
                 lines = result.stdout.strip().split('\n')
-                for line in lines[-3:]:
+                for line in lines:
                     if line.strip():
                         self._print_and_log(f"      {line}")
+
+                # Show only last few lines for console if verbose
+                if self.config.verbose and len(lines) > 3:
+                    self._print_and_log(f"      ... ({len(lines) - 3} additional lines captured)")
 
             if self.config.verbose:
                 self._print_and_log("")
@@ -449,6 +461,17 @@ class UniversalOrchestrator:
                     self.progress_tracker.complete_stage(stage.name)
                 except Exception as e:
                     self._log(f"⚠️  Stage completion tracking error (non-critical): {e}")
+
+            # Trigger smart aggregator stage completion
+            try:
+                stage_metrics = {
+                    'duration': stage.actual_duration_seconds,
+                    'universal_ids': len(self.universal_ids),
+                    'success': stage.status == 'completed'
+                }
+                self.smart_aggregator.complete_stage(stage.name, stage_metrics)
+            except Exception as e:
+                self._log(f"⚠️  Smart aggregation error (non-critical): {e}")
 
     def _perform_final_validation(self) -> Dict[str, any]:
         """Perform comprehensive final validation"""
@@ -661,18 +684,23 @@ class UniversalOrchestrator:
             self.progress_tracker.close_all_progress_bars()
 
     def _log(self, message: str):
-        """Log message with timestamp"""
+        """Log message with timestamp - routes through smart aggregator"""
         timestamp = datetime.now().strftime("%H:%M:%S")
         log_entry = f"[{timestamp}] {message}"
         self.execution_log.append(log_entry)
 
-        # Write to shell output file
+        # Route through smart aggregator for intelligent file output
         try:
-            with open(self.output_file, 'a') as f:
-                f.write(log_entry + "\n")
+            self.smart_aggregator.process_message(log_entry)
         except Exception:
-            pass  # Don't let file writing break the pipeline
+            # Fallback to direct file writing if aggregator fails
+            try:
+                with open(self.output_file, 'a') as f:
+                    f.write(log_entry + "\n")
+            except Exception:
+                pass  # Don't let file writing break the pipeline
 
+        # Only print to console if verbose mode is enabled
         if self.config.verbose:
             print(log_entry)
 
@@ -681,14 +709,18 @@ class UniversalOrchestrator:
 
     def _print_and_log(self, message: str):
         """ALWAYS log to shell output file, print to console only if verbose"""
-        # ALWAYS write to shell output file regardless of verbose setting
+        # Route message through smart aggregator for intelligent file output
         try:
-            with open(self.output_file, 'a') as f:
-                f.write(message + "\n")
+            self.smart_aggregator.process_message(message)
         except Exception:
-            pass  # Don't let file writing break the pipeline
+            # Fallback to direct file writing if aggregator fails
+            try:
+                with open(self.output_file, 'a') as f:
+                    f.write(message + "\n")
+            except Exception:
+                pass  # Don't let file writing break the pipeline
 
-        # Only print to console if verbose mode is enabled
+        # Only print to console if verbose mode is enabled (unchanged behavior)
         if self.config.verbose:
             print(message)
 

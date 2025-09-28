@@ -6,6 +6,8 @@ A comprehensive orchestration system for the Sib2Ae pipeline, maintaining Univer
 
 The Universal ID Pipeline Orchestrator coordinates the complete Sib2Ae pipeline execution with:
 
+- **Smart Verbose Logging**: Intelligent aggregation with pattern recognition and anomaly detection
+- **Zero Console Pollution**: Rich file logs without Claude Code context contamination
 - **Universal ID Preservation**: Maintains unique identifiers across all pipeline stages
 - **Atomic Operations**: Safe manifest updates with backup and recovery
 - **Circuit Breaker Pattern**: Robust error handling and failure recovery
@@ -22,6 +24,7 @@ orchestrator/
 ├── manifest_manager.py        # Atomic manifest operations with backup/recovery
 ├── progress_tracker.py        # Real-time progress tracking with tqdm integration
 ├── error_handlers.py          # Circuit breaker pattern and retry mechanisms
+├── smart_log_aggregator.py    # Smart verbose logging with pattern recognition
 ├── note_coordinator.py        # Universal note coordination and registry creation
 ├── tied_note_processor.py     # Tied note relationship processing
 ├── universal_orchestrator.py  # Main orchestrator script

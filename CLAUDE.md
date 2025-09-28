@@ -87,16 +87,25 @@ universal_output/                      # ORCHESTRATOR COORDINATION HUB
 ├── midi_pipeline_manifest.json        # Audio processing tracking
 ├── svg_pipeline_manifest.json         # Visual processing tracking
 ├── tied_note_assignments.json         # Tied note relationships
-└── logs/                              # Execution logs and progress tracking
+├── logs/                              # Execution logs and progress tracking
+└── shell_output/                      # Smart verbose logging with intelligent aggregation
+    └── execution_output.log           # Rich execution logs with pattern recognition
 ```
 
 ## Pipeline Execution
 
 ### Universal ID Pipeline Orchestrator (Recommended)
-**Complete automated pipeline execution with Universal ID preservation:**
+**Complete automated pipeline execution with Universal ID preservation and Smart Verbose Logging:**
 
 ```bash
-# Full pipeline with SVG processing (recommended)
+# RECOMMENDED: Smart Verbose Mode - Zero console pollution, rich file logs
+python -m Brain.orchestrator.universal_orchestrator \
+    "Brain/Base/SS 9.musicxml" \
+    "Brain/Base/Saint-Saens Trio No 2.mid" \
+    --svg "Brain/Base/SS 9 full.svg" \
+    --mode sequential --quiet > /dev/null 2>&1
+
+# Full pipeline with verbose console output (for debugging)
 python -m Brain.orchestrator.universal_orchestrator \
     "Brain/Base/SS 9.musicxml" \
     "Brain/Base/Saint-Saens Trio No 2.mid" \
@@ -107,17 +116,12 @@ python -m Brain.orchestrator.universal_orchestrator \
 python -m Brain.orchestrator.universal_orchestrator \
     "Brain/Base/SS 9.musicxml" \
     "Brain/Base/Saint-Saens Trio No 2.mid" \
-    --mode sequential
-
-# Background execution (avoids verbose logs in Claude Code)
-python -m Brain.orchestrator.universal_orchestrator \
-    "Brain/Base/SS 9.musicxml" \
-    "Brain/Base/Saint-Saens Trio No 2.mid" \
-    --svg "Brain/Base/SS 9 full.svg" \
-    --mode sequential > /dev/null 2>&1 &
+    --mode sequential --quiet > /dev/null 2>&1
 ```
 
 **Orchestrator Features:**
+- **Smart Verbose Logging**: Intelligent aggregation with pattern recognition and anomaly detection
+- **Zero Console Pollution**: Rich file logs without Claude Code context contamination
 - **Universal ID Preservation**: Maintains unique identifiers across all pipeline stages
 - **Atomic Operations**: Safe manifest updates with backup and recovery
 - **Circuit Breaker Pattern**: Robust error handling and failure recovery
@@ -177,7 +181,10 @@ find outputs/ -name "*keyframes*.json" | wc -l # Count keyframes
 ls -la universal_output/                     # Coordination hub
 ls -la outputs/                              # Main outputs
 
-# Monitor progress (for background execution)
+# Monitor smart verbose logs (recommended)
+tail -f universal_output/shell_output/execution_output.log
+
+# Monitor basic progress logs
 tail -f universal_output/logs/progress.log | grep "Stage completed"
 ```
 
@@ -291,9 +298,10 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 - **After Effects**: CEP 12, ExtendScript support
 
 ## Claude Code Usage Notes
-- **Context Management**: Use background execution (`> /dev/null 2>&1 &`) to avoid verbose log pollution
+- **CRITICAL**: Always use `--quiet > /dev/null 2>&1` for zero console pollution with rich file logs
+- **Smart Logging**: Execution logs saved to `universal_output/shell_output/execution_output.log`
 - **Verification**: Use quick commands (`find outputs/ -name "*.wav" | wc -l`) to check completion
-- **Monitoring**: Use filtered logs (`grep "Stage completed"`) for progress tracking
+- **Monitoring**: Monitor `universal_output/shell_output/execution_output.log` for intelligent summaries
 - **Module Execution**: Prefer `python -m Brain.orchestrator.universal_orchestrator` syntax
 
 ---
