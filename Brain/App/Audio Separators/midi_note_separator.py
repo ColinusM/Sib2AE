@@ -152,7 +152,7 @@ def create_single_note_midi(original_midi: mido.MidiFile, note_info: Dict, outpu
     program_number = get_instrument_program_from_track(note_info['track_name'])
     track.append(mido.Message('program_change',
                              channel=note_info['channel'],
-                             program=program_number - 1,  # MIDI programs are 0-127, GM is 1-128
+                             program=program_number - 1,  # MIDI uses 0-based: Flute=73, Violin=40
                              time=0))
     
     # Add the note on event at time 0 (remove leading silence)

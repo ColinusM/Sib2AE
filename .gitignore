@@ -31,3 +31,7 @@ test.log
 # Temporary files
 *.tmp
 *.temp
+
+# Large binary files
+*.sf2
+*.soundfont

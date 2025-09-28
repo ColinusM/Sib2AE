@@ -34,11 +34,15 @@ INSTRUMENT_PROGRAM_MAP = {
 def find_soundfont():
     """Find available soundfont files on the system."""
 
-    # Priority order: working soundfonts first
+    # Priority order: working soundfonts first (largest to smallest)
     soundfont_paths = [
-        # Working soundfont from homebrew (highest priority)
+        # High-quality 247MB SGM soundfont (highest priority)
+        "SGM_V2_final.sf2",
+        # Working soundfont from homebrew
         "/opt/homebrew/Cellar/fluid-synth/2.4.8/share/fluid-synth/sf2/VintageDreamsWaves-v2.sf2",
-        # Local project soundfont fallbacks
+        # Local project soundfonts (if downloaded)
+        "SGM_V2_complete.sf2",
+        "archive_soundfont.sf2",
         "FluidR3_GM.sf2",
         "soundfonts/FluidR3_GM.sf2",
         # System locations
@@ -115,7 +119,7 @@ def render_single_midi(args):
             # Verify file was created with minimum size
             if os.path.exists(output_file) and os.path.getsize(output_file) > 500:
                 file_size = os.path.getsize(output_file)
-                return (True, midi_file, f"{file_size} bytes ({instrument_name} GM{program_number})")
+                return (True, midi_file, str(file_size) + " bytes (" + instrument_name + " GM" + str(program_number) + ")")
             else:
                 return (False, midi_file, "File too small or missing")
         else:
