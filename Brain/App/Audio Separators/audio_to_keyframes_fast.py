@@ -100,7 +100,7 @@ def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -
     keyframes = {}
     
     # Only amplitude over time
-    keyframes['amplitude'] = []
+    raw_keyframes = []
 
     # Generate amplitude keyframes for every frame
     for i in range(0, len(times)):
@@ -111,7 +111,12 @@ def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -
         frame = time_to_frame(time)
         amplitude_val = features['amplitude'][i]  # 0-100 normalized
 
-        keyframes['amplitude'].append([frame, amplitude_val])
+        raw_keyframes.append([frame, amplitude_val])
+
+    # Sequential reindexing: ensure frames are 0,1,2,3... with no duplicates
+    keyframes['amplitude'] = []
+    for i, (_, amplitude_val) in enumerate(raw_keyframes):
+        keyframes['amplitude'].append([i, amplitude_val])
     
     return {
         'audio_file': audio_filename,

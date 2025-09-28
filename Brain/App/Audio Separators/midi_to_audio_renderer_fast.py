@@ -37,14 +37,12 @@ def find_soundfont():
     # Priority order: working soundfonts first (largest to smallest)
     soundfont_paths = [
         # High-quality 247MB SGM soundfont (highest priority)
-        "SGM_V2_final.sf2",
+        "soundfonts/SGM_V2_final.sf2",
         # Working soundfont from homebrew
         "/opt/homebrew/Cellar/fluid-synth/2.4.8/share/fluid-synth/sf2/VintageDreamsWaves-v2.sf2",
         # Local project soundfonts (if downloaded)
         "SGM_V2_complete.sf2",
         "archive_soundfont.sf2",
-        "FluidR3_GM.sf2",
-        "soundfonts/FluidR3_GM.sf2",
         # System locations
         "/usr/share/soundfonts/*.sf2",
         "/usr/local/share/soundfonts/*.sf2",
