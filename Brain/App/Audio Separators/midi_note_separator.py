@@ -6,6 +6,19 @@ import os
 from pathlib import Path
 from typing import List, Dict, Tuple
 
+# General MIDI Instrument Program Numbers for track-based detection
+TRACK_INSTRUMENT_MAP = {
+    "Flûte": 74,        # Flute
+    "Violon": 41,       # Violin
+    "Piano": 1,         # Acoustic Grand Piano
+    "Viola": 42,        # Viola
+    "Cello": 43,        # Cello
+    "Contrebasse": 44,  # Contrabass
+    "Clarinette": 72,   # Clarinet
+    "Trompette": 57,    # Trumpet
+    "Trombone": 58,     # Trombone
+}
+
 def analyze_midi_structure(midi_file: str) -> Dict:
     """Analyze MIDI file structure and extract note information."""
     print(f"MIDI NOTE SEPARATOR")
@@ -94,18 +107,34 @@ def note_to_name(note_number: int) -> str:
     note = notes[note_number % 12]
     return f"{note}{octave}"
 
+def get_instrument_program_from_track(track_name):
+    """Get General MIDI program number from track name."""
+    # Clean track name and look for instrument match
+    clean_track_name = track_name.replace(' ', '_').replace('/', '_')
+
+    # Direct match
+    if clean_track_name in TRACK_INSTRUMENT_MAP:
+        return TRACK_INSTRUMENT_MAP[clean_track_name]
+
+    # Partial match
+    for instrument, program in TRACK_INSTRUMENT_MAP.items():
+        if instrument.lower() in clean_track_name.lower():
+            return program
+
+    return 1  # Default to Piano
+
 def create_single_note_midi(original_midi: mido.MidiFile, note_info: Dict, output_file: str):
     """Create a MIDI file containing only one specific note."""
     
     # Create new MIDI file with same settings
     new_mid = mido.MidiFile(type=original_midi.type, ticks_per_beat=original_midi.ticks_per_beat)
-    
+
     # Create a new track for this note
     track = mido.MidiTrack()
-    
+
     # Add track name
     track.append(mido.MetaMessage('track_name', name=f"Note_{note_info['id']}_{note_info['note_name']}", time=0))
-    
+
     # Set tempo (copy from original if available)
     for original_track in original_midi.tracks:
         for msg in original_track:
@@ -118,6 +147,13 @@ def create_single_note_midi(original_midi: mido.MidiFile, note_info: Dict, outpu
     else:
         # Default tempo if none found
         track.append(mido.MetaMessage('set_tempo', tempo=500000, time=0))  # 120 BPM
+
+    # Add program change for instrument-specific sound
+    program_number = get_instrument_program_from_track(note_info['track_name'])
+    track.append(mido.Message('program_change',
+                             channel=note_info['channel'],
+                             program=program_number - 1,  # MIDI programs are 0-127, GM is 1-128
+                             time=0))
     
     # Add the note on event at time 0 (remove leading silence)
     track.append(mido.Message('note_on',
@@ -167,9 +203,12 @@ def separate_midi_notes(midi_file: str):
         
         # Create single-note MIDI file
         create_single_note_midi(analysis['midi_file'], note, output_file)
-        
+
+        # Get program change info for output
+        program_number = get_instrument_program_from_track(note['track_name'])
+
         print(f"✅ Created: {filename}")
-        print(f"   Track: {note['track_name']}")
+        print(f"   Track: {note['track_name']} → GM Program #{program_number}")
         print(f"   Note: {note['note_name']} (MIDI {note['note']})")
         print(f"   Velocity: {note['velocity']}")
         print(f"   Duration: {note['duration_ticks']} ticks")

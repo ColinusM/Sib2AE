@@ -10,6 +10,27 @@ import json
 import multiprocessing as mp
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
+# General MIDI Instrument Program Numbers
+INSTRUMENT_PROGRAM_MAP = {
+    "Flûte": 74,        # Flute
+    "Violon": 41,       # Violin
+    "Piano": 1,         # Acoustic Grand Piano
+    "Viola": 42,        # Viola
+    "Cello": 43,        # Cello
+    "Contrebasse": 44,  # Contrabass
+    "Clarinette": 72,   # Clarinet
+    "Trompette": 57,    # Trumpet
+    "Trombone": 58,     # Trombone
+    "Cor": 61,          # French Horn
+    "Tuba": 59,         # Tuba
+    "Piccolo": 73,      # Piccolo
+    "Hautbois": 69,     # Oboe
+    "Basson": 71,       # Bassoon
+    "Saxophone": 65,    # Soprano Sax (default)
+    "Harpe": 47,        # Orchestral Harp
+    "Timpani": 48,      # Timpani
+}
+
 def find_soundfont():
     """Find available soundfont files on the system."""
 
@@ -46,40 +67,60 @@ def find_soundfont():
     
     return None
 
+def extract_instrument_from_filename(filename):
+    """Extract instrument name from MIDI filename."""
+    # Example: "note_001_Flûte_G4_vel76.mid"
+    basename = os.path.basename(filename)
+    parts = basename.replace('.mid', '').split('_')
+
+    if len(parts) >= 3:
+        instrument = parts[2]  # "Flûte"
+        return instrument
+    return "Piano"  # Default fallback
+
+def get_instrument_program(instrument_name):
+    """Get General MIDI program number for instrument."""
+    return INSTRUMENT_PROGRAM_MAP.get(instrument_name, 1)  # Default to Piano
+
 def render_single_midi(args):
     """Render a single MIDI file to audio (for parallel processing)."""
     midi_file, output_file, soundfont = args
-    
+
     try:
+        # Extract instrument for logging (program change will be added to MIDI in future)
+        instrument_name = extract_instrument_from_filename(midi_file)
+        program_number = get_instrument_program(instrument_name)
+
         # Build optimized FluidSynth command for speed
-        cmd = ["fluidsynth", 
+        cmd = ["fluidsynth",
                "-ni"]           # No interactive mode, quiet
-        
+
         if soundfont:
             cmd.append(soundfont)
-        
+
         cmd.extend([
             midi_file,
             "-F", output_file,
             "-r", "22050",      # Lower sample rate (22kHz vs 44kHz) = 2x faster
-            "-g", "0.3"         # Lower gain to prevent clipping
+            "-g", "0.5"         # Increased gain for instrument clarity
         ])
         
         # Run FluidSynth with optimized settings
-        result = subprocess.run(cmd, 
-                              capture_output=True, 
-                              text=True, 
+        result = subprocess.run(cmd,
+                              capture_output=True,
+                              text=True,
                               timeout=10)  # Shorter timeout
-        
+
         if result.returncode == 0:
             # Verify file was created with minimum size
             if os.path.exists(output_file) and os.path.getsize(output_file) > 500:
-                return (True, midi_file, os.path.getsize(output_file))
+                file_size = os.path.getsize(output_file)
+                return (True, midi_file, f"{file_size} bytes ({instrument_name} GM{program_number})")
             else:
                 return (False, midi_file, "File too small or missing")
         else:
             return (False, midi_file, result.stderr)
-            
+
     except subprocess.TimeoutExpired:
         return (False, midi_file, "Timeout")
     except Exception as e:
@@ -144,7 +185,8 @@ def render_midi_collection_to_audio_fast(midi_dir: str):
     total_files = sum(len(files) for files in instruments.values())
     print(f"🎼 Found {len(instruments)} instruments, {total_files} files total:")
     for instrument, files in instruments.items():
-        print(f"  {instrument}: {len(files)} notes")
+        program = get_instrument_program(instrument)
+        print(f"  {instrument}: {len(files)} notes → GM Program #{program}")
     print()
     
     # Create Audio output directory in new location
@@ -222,7 +264,7 @@ def render_midi_collection_to_audio_fast(midi_dir: str):
             if file.endswith('.wav'):
                 file_path = os.path.join(root, file)
                 file_size = os.path.getsize(file_path)
-                print(f"{subindent}{file} ({file_size:,} bytes)")
+                print(f"{subindent}{file} ({file_size} bytes)")
 
 def main():
     if len(sys.argv) < 2:
