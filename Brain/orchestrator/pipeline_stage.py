@@ -273,6 +273,7 @@ class OrchestrationConfig:
         (self.output_dir / "manifests").mkdir(exist_ok=True)
         (self.output_dir / "logs").mkdir(exist_ok=True)
         (self.output_dir / "backups").mkdir(exist_ok=True)
+        (self.output_dir / "shell_output").mkdir(exist_ok=True)
 
 
 # Factory functions for creating common pipeline stages

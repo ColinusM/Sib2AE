@@ -54,6 +54,9 @@ class UniversalOrchestrator:
         self.universal_registry: Optional[UniversalFileRegistry] = None
         self.manifest_manager: Optional[AtomicManifestManager] = None
         self.progress_tracker: Optional[ProgressTracker] = None
+
+        # Shell output capture
+        self.output_file = self.config.output_dir / "shell_output" / "execution_output.log"
         self.failure_handler = create_process_failure_handler(
             name="universal_orchestrator",
             enable_circuit_breaker=config.enable_circuit_breaker,
@@ -91,19 +94,19 @@ class UniversalOrchestrator:
 
     def _display_initialization_banner(self):
         """Display initialization banner"""
-        print("UNIVERSAL ID PIPELINE ORCHESTRATOR")
-        print("=" * 60)
-        print(f"🎼 MusicXML: {self.config.musicxml_file.name}")
-        print(f"🎹 MIDI: {self.config.midi_file.name}")
+        self._print_and_log("UNIVERSAL ID PIPELINE ORCHESTRATOR")
+        self._print_and_log("=" * 60)
+        self._print_and_log(f"🎼 MusicXML: {self.config.musicxml_file.name}")
+        self._print_and_log(f"🎹 MIDI: {self.config.midi_file.name}")
         if self.config.svg_file:
-            print(f"🎨 SVG: {self.config.svg_file.name}")
-        print(f"📁 Output: {self.config.output_dir}")
-        print(f"🚀 Mode: {self.config.execution_mode.value}")
-        print(f"🔄 Workers: {self.config.max_workers}")
-        print(f"🛡️  Circuit Breaker: {'Enabled' if self.config.enable_circuit_breaker else 'Disabled'}")
-        print(f"🎯 Universal ID Preservation: {'Enabled' if self.config.preserve_universal_ids else 'Disabled'}")
-        print(f"📝 New Filename Pattern: {'Enabled' if self.config.apply_new_filename_pattern else 'Disabled'}")
-        print()
+            self._print_and_log(f"🎨 SVG: {self.config.svg_file.name}")
+        self._print_and_log(f"📁 Output: {self.config.output_dir}")
+        self._print_and_log(f"🚀 Mode: {self.config.execution_mode.value}")
+        self._print_and_log(f"🔄 Workers: {self.config.max_workers}")
+        self._print_and_log(f"🛡️  Circuit Breaker: {'Enabled' if self.config.enable_circuit_breaker else 'Disabled'}")
+        self._print_and_log(f"🎯 Universal ID Preservation: {'Enabled' if self.config.preserve_universal_ids else 'Disabled'}")
+        self._print_and_log(f"📝 New Filename Pattern: {'Enabled' if self.config.apply_new_filename_pattern else 'Disabled'}")
+        self._print_and_log("")
 
     def orchestrate_complete_pipeline(self) -> Dict[str, any]:
         """
@@ -135,19 +138,19 @@ class UniversalOrchestrator:
             else:
                 self._execute_parallel_pipeline()
 
-            print("🔥 DEBUG: Pipeline stages completed, moving to Phase 5...")
+            self._print_and_log("🔥 DEBUG: Pipeline stages completed, moving to Phase 5...")
 
             # Phase 5: Final Validation
             self._log("Phase 5: Performing Final Validation")
-            print("🔥 DEBUG: About to start final validation...")
+            self._print_and_log("🔥 DEBUG: About to start final validation...")
             validation_results = self._perform_final_validation()
-            print("🔥 DEBUG: Final validation completed!")
+            self._print_and_log("🔥 DEBUG: Final validation completed!")
 
             # Phase 6: Generate Final Report
             self._log("Phase 6: Generating Final Execution Report")
-            print("🔥 DEBUG: About to generate final report...")
+            self._print_and_log("🔥 DEBUG: About to generate final report...")
             final_report = self._generate_final_report(validation_results)
-            print("🔥 DEBUG: Final report generated!")
+            self._print_and_log("🔥 DEBUG: Final report generated!")
 
             # Close progress bars immediately to prevent hanging
             if self.progress_tracker:
@@ -289,7 +292,7 @@ class UniversalOrchestrator:
 
                     # IMMEDIATE TERMINATION: If this is the last stage, force exit now
                     if stage.name == "audio_to_keyframes":
-                        print("🔥 NUCLEAR EXIT: Last stage completed, forcing immediate termination!")
+                        self._print_and_log("🔥 NUCLEAR EXIT: Last stage completed, forcing immediate termination!")
                         import os
                         os._exit(0)
                 elif stage.status.value == "failed":
@@ -363,9 +366,9 @@ class UniversalOrchestrator:
     def _execute_single_stage(self, stage: PipelineStage):
         """Execute a single pipeline stage with basic error handling"""
         if self.config.verbose:
-            print(f"🔄 Executing: {stage.name}")
-            print(f"   📝 {stage.description}")
-            print(f"   💻 Command: {' '.join(stage.command)}")
+            self._print_and_log(f"🔄 Executing: {stage.name}")
+            self._print_and_log(f"   📝 {stage.description}")
+            self._print_and_log(f"   💻 Command: {' '.join(stage.command)}")
 
         stage.start_execution()
 
@@ -391,20 +394,20 @@ class UniversalOrchestrator:
             stage.complete_successfully()
 
             if self.config.verbose:
-                print(f"   ✅ Completed in {stage.actual_duration_seconds:.1f}s")
+                self._print_and_log(f"   ✅ Completed in {stage.actual_duration_seconds:.1f}s")
                 if result.stdout:
                     # Show last few lines of output
                     lines = result.stdout.strip().split('\n')
                     for line in lines[-3:]:
                         if line.strip():
-                            print(f"      {line}")
-                print()
+                            self._print_and_log(f"      {line}")
+                self._print_and_log("")
 
         except Exception as e:
             stage.fail_with_error(str(e))
             if self.config.verbose:
-                print(f"   ❌ Failed after {stage.actual_duration_seconds:.1f}s: {e}")
-                print()
+                self._print_and_log(f"   ❌ Failed after {stage.actual_duration_seconds:.1f}s: {e}")
+                self._print_and_log("")
             raise
 
         self.stages.append(stage)
@@ -659,11 +662,30 @@ class UniversalOrchestrator:
         log_entry = f"[{timestamp}] {message}"
         self.execution_log.append(log_entry)
 
+        # Write to shell output file
+        try:
+            with open(self.output_file, 'a') as f:
+                f.write(log_entry + "\n")
+        except Exception:
+            pass  # Don't let file writing break the pipeline
+
         if self.config.verbose:
             print(log_entry)
 
         if hasattr(self, 'logger'):
             self.logger.info(message)
+
+    def _print_and_log(self, message: str):
+        """Print message and also log to shell output file"""
+        # Write to shell output file
+        try:
+            with open(self.output_file, 'a') as f:
+                f.write(message + "\n")
+        except Exception:
+            pass  # Don't let file writing break the pipeline
+
+        if self.config.verbose:
+            print(message)
 
 
 def main():
