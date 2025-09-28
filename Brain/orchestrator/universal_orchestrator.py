@@ -395,12 +395,16 @@ class UniversalOrchestrator:
 
             if self.config.verbose:
                 self._print_and_log(f"   ✅ Completed in {stage.actual_duration_seconds:.1f}s")
-                if result.stdout:
-                    # Show last few lines of output
-                    lines = result.stdout.strip().split('\n')
-                    for line in lines[-3:]:
-                        if line.strip():
-                            self._print_and_log(f"      {line}")
+
+            # ALWAYS capture subprocess output to file (regardless of verbose)
+            if result.stdout:
+                # Show last few lines of output
+                lines = result.stdout.strip().split('\n')
+                for line in lines[-3:]:
+                    if line.strip():
+                        self._print_and_log(f"      {line}")
+
+            if self.config.verbose:
                 self._print_and_log("")
 
         except Exception as e:
@@ -676,14 +680,15 @@ class UniversalOrchestrator:
             self.logger.info(message)
 
     def _print_and_log(self, message: str):
-        """Print message and also log to shell output file"""
-        # Write to shell output file
+        """ALWAYS log to shell output file, print to console only if verbose"""
+        # ALWAYS write to shell output file regardless of verbose setting
         try:
             with open(self.output_file, 'a') as f:
                 f.write(message + "\n")
         except Exception:
             pass  # Don't let file writing break the pipeline
 
+        # Only print to console if verbose mode is enabled
         if self.config.verbose:
             print(message)
 
