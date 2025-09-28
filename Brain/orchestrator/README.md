@@ -368,8 +368,8 @@ The orchestrator coordinates the complete Sib2Ae pipeline with these stages:
 
 ### Audio Pipeline (3 stages)
 8. **MIDI Note Separation**: Split MIDI files into individual note files
-9. **Audio Rendering**: Convert MIDI notes to audio files (fast/standard modes)
-10. **Keyframe Generation**: Generate After Effects keyframes from audio analysis
+9. **Audio Rendering**: Convert MIDI notes to audio files using SGM-V2.01 soundfont
+10. **Keyframe Generation**: Generate 60Hz amplitude-only keyframes for After Effects
 
 ## 🔗 Universal ID System
 
@@ -421,7 +421,7 @@ This ensures every file can be traced back to its source Universal ID throughout
 
 - **Sequential Mode**: Reliable, predictable execution order
 - **Parallel Mode**: Faster execution with dependency management
-- **Fast Modes**: Optimized audio rendering (22kHz) and keyframe generation
+- **Fast Modes**: Optimized audio rendering (22kHz, SGM-V2.01 soundfont) and 60Hz keyframe generation
 - **Circuit Breakers**: Automatic failure detection and recovery
 
 ### Monitoring in Production
@@ -498,6 +498,36 @@ uv run mypy orchestrator/
 4. Add comprehensive tests
 5. Update documentation
 
+## 🚀 Recent Performance Optimizations (September 2025)
+
+### 60Hz Keyframe Generation (Commit 0bdd3a4)
+- **Before**: 30 FPS with ~43 data points/second
+- **After**: True 60 data points/second (60.2 Hz) for YouTube compatibility
+- **Implementation**: Dynamic hop_length calculation (sr/60 = 367 samples)
+- **Result**: Consecutive frame numbers (0,1,2,3...) with perfect temporal resolution
+
+### Audio Quality Breakthrough (Commit df00644)
+- **Soundfont Upgrade**: SGM-V2.01 (247MB) replaces FluidR3_GM
+- **Quality Improvements**: Violin no longer sounds like noise, flute no longer synthetic
+- **Organization**: Soundfonts moved to `soundfonts/` directory
+- **File Management**: *.sf2 files excluded from git due to size
+
+### Simplified Keyframe Output (Commit 46d9d5a)
+- **Removed**: Over-engineered scale, opacity, hue, position_x properties
+- **Focus**: Amplitude-only output (0-100 normalized) for clean AE integration
+- **Format**: Simple `[frame, amplitude_value]` pairs
+- **Benefit**: Eliminates complexity, perfect for direct After Effects use
+
+### Codebase Cleanup (Commit 551298a)
+- **Scripts Reduced**: Audio pipeline now has 3 scripts (down from 5)
+- **Duplicates Removed**: Eliminated audio_to_keyframes.py and midi_to_audio_renderer.py
+- **Consistency**: All references updated to use *_fast.py versions exclusively
+
+### Sequential Frame Reindexing (Commit 0da2c48)
+- **Issue**: Duplicate frame conflicts in keyframe data
+- **Solution**: Sequential reindexing ensures frames are consecutive (0,1,2,3...)
+- **Benefit**: Eliminates After Effects keyframe conflicts at frame boundaries
+
 ## 🔧 Known Issues & Solutions
 
 ### Critical Process Hanging Issue (Resolved)
@@ -539,11 +569,15 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 
 ## 🎯 Version
 
-**Version**: 1.0.0
+**Version**: 1.4.0
 **Status**: Production Ready
 **Last Updated**: September 2025
 
 ### Recent Updates
+- **v1.4.0**: Sequential frame reindexing eliminates keyframe conflicts
+- **v1.3.0**: 60Hz keyframe generation for YouTube compatibility
+- **v1.2.0**: SGM-V2.01 soundfont integration for realistic audio
+- **v1.1.0**: Simplified amplitude-only keyframe output
 - **v1.0.0**: Nuclear process termination fix for hanging issue (PRP-001)
 - **Performance**: 8x development workflow improvement
 - **Reliability**: Immediate process termination after pipeline completion

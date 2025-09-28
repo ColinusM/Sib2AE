@@ -218,9 +218,10 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 ### Audio Specifications
 - **Standard Mode**: 44kHz sample rate, sequential processing, high quality
 - **Fast Mode**: 22kHz sample rate, 6 parallel workers, optimized for development
-- **Keyframe Rate**: 30 FPS for After Effects compatibility
-- **Format**: WAV files, JSON keyframe data
+- **Keyframe Rate**: 60 FPS for YouTube compatibility (upgraded from 30 FPS)
+- **Format**: WAV files, simplified JSON keyframe data (amplitude-only)
 - **Audio Engine**: FluidSynth + librosa processing
+- **Soundfont**: SGM-V2.01 (247MB) located in `soundfonts/SGM_V2_final.sf2`
 
 ### File Naming Conventions
 - **MIDI**: `note_XXX_Instrument_Pitch_velYY.mid`
@@ -238,9 +239,15 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 
 ### Pipeline Execution Times
 - **Symbolic Pipeline**: ~0.5s total (5 stages, pixel-perfect coordinate processing)
-- **Audio Pipeline**: 0.7-1s (fast mode), 3-5s (standard mode)
+- **Audio Pipeline**: 0.7-1s (fast mode with SGM-V2.01 soundfont)
 - **Note Coordination**: ~0.1s (Universal ID registry creation)
 - **Complete Pipeline**: ~6-8s total execution time
+
+### Recent Optimizations (September 2025)
+- **60Hz Keyframes**: True 60 data points/second for YouTube compatibility
+- **Audio Quality**: SGM-V2.01 soundfont eliminates synthetic/noise artifacts
+- **Simplified Output**: Amplitude-only keyframes for clean After Effects integration
+- **Sequential Frames**: Eliminates keyframe conflicts with consecutive frame indexing
 
 ### Scalability
 - **Note Count**: Linear scaling with number of musical notes
@@ -252,8 +259,9 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 ### Output Generation
 - **SVG Files**: 10-15 files (instruments, noteheads, staff elements)
 - **Audio Files**: 1 per MIDI-matched note (6-10 typical)
-- **Keyframe Files**: 30 FPS data, 72 keyframes per audio file
+- **Keyframe Files**: 60 FPS data, ~160 keyframes per 2.7s audio file
 - **Coordination Files**: Universal ID registry and manifests
+- **Soundfont Files**: High-quality SGM-V2.01 (247MB, stored in `soundfonts/`)
 
 ## After Effects Integration
 
@@ -269,7 +277,7 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 ### Integration Points
 - **SVG Files**: Vector graphics with precise positioning for animation layers
 - **Audio Files**: Synchronized waveforms for timing reference and analysis
-- **Keyframe Data**: Automated animation properties (amplitude, frequency, spectral data)
+- **Keyframe Data**: Automated animation properties (amplitude-only, 60 FPS)
 - **Universal ID System**: Maintains frame-accurate synchronization relationships
 
 ## Documentation
@@ -296,6 +304,13 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 - **GUI**: tkinter (built-in Python), threading
 - **Orchestrator**: tqdm (progress bars), pathlib, dataclasses
 - **After Effects**: CEP 12, ExtendScript support
+- **Soundfont**: SGM-V2.01 (247MB, must be downloaded separately)
+
+## Soundfont Setup
+- **Required File**: `soundfonts/SGM_V2_final.sf2` (247MB)
+- **Download**: Must be obtained separately due to file size
+- **Fallback**: System FluidSynth paths available as backup
+- **Organization**: All soundfonts stored in `soundfonts/` directory
 
 ## Claude Code Usage Notes
 - **CRITICAL**: Always use `--quiet > /dev/null 2>&1` for zero console pollution with rich file logs
@@ -303,6 +318,8 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 - **Verification**: Use quick commands (`find outputs/ -name "*.wav" | wc -l`) to check completion
 - **Monitoring**: Monitor `universal_output/shell_output/execution_output.log` for intelligent summaries
 - **Module Execution**: Prefer `python -m Brain.orchestrator.universal_orchestrator` syntax
+- **Audio Quality**: Ensure SGM-V2.01 soundfont is present in `soundfonts/` for realistic instrument sounds
+- **Keyframe Rate**: Pipeline now generates 60 FPS keyframes for YouTube compatibility
 
 ---
 

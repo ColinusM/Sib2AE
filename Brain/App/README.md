@@ -103,21 +103,22 @@ python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Sae
 ```bash
 python "Brain/App/Audio Separators/midi_to_audio_renderer_fast.py" "outputs/midi"
 ```
-- **Soundfont**: High-quality 247MB SGM-V2.01 for realistic instruments
+- **Soundfont**: High-quality 247MB SGM-V2.01 for realistic instruments (located in `soundfonts/SGM_V2_final.sf2`)
 - **Mode**: Parallel processing, 22kHz sample rate, 6 workers
-- **Quality**: Realistic violin and flute sounds (no more noise/synthetic)
+- **Quality**: Realistic violin and flute sounds (resolved: violin no longer sounds like noise, flute no longer synthetic)
 - **Output**: WAV files organized by instrument in `outputs/audio/`
 - **Performance**: ~1 second total for 6 files
 
-#### 3. `audio_to_keyframes_fast.py` (Amplitude-Only Keyframes)
-**Purpose**: Generate simplified amplitude-only keyframes for After Effects
+#### 3. `audio_to_keyframes_fast.py` (60Hz Amplitude-Only Keyframes)
+**Purpose**: Generate simplified 60Hz amplitude-only keyframes for YouTube compatibility
 ```bash
 python "Brain/App/Audio Separators/audio_to_keyframes_fast.py" "outputs/audio"
 ```
-- **Output**: Only amplitude over time (0-100 normalized)
-- **Format**: `[frame, amplitude_value]` pairs for clean AE integration
-- **No complexity**: Removed scale, opacity, hue, position properties
-- **Performance**: ~0.5-1 second per file, full temporal resolution
+- **Output**: Only amplitude over time (0-100 normalized) at true 60 data points/second
+- **Format**: `[frame, amplitude_value]` pairs with sequential frame indexing (0,1,2,3...)
+- **Frame Rate**: 60 FPS for YouTube compatibility (upgraded from 30 FPS)
+- **Simplified**: Removed over-engineered scale, opacity, hue, position properties
+- **Performance**: ~0.5-1 second per file, eliminates keyframe conflicts
 - **Clean**: Perfect for direct After Effects amplitude animation
 
 ## 🔄 Pipeline Integration
@@ -180,8 +181,8 @@ json/
 ### Audio Specifications
 - **Standard Mode**: 44kHz sample rate, sequential processing
 - **Fast Mode**: 22kHz sample rate, 6 parallel workers
-- **Keyframe Rate**: 30 FPS for After Effects compatibility
-- **Format**: WAV files, JSON keyframe data
+- **Keyframe Rate**: 60 FPS for YouTube compatibility (upgraded from 30 FPS)
+- **Format**: WAV files, simplified JSON keyframe data (amplitude-only)
 
 ### File Naming Conventions
 - **MIDI**: `note_XXX_Instrument_Pitch_velYY.mid`
@@ -232,8 +233,8 @@ python "Brain/App/Audio Separators/audio_to_keyframes_fast.py" "outputs/audio"
 
 ### Audio Pipeline Performance
 - **MIDI Separation**: ~0.1s (foundation for audio processing)
-- **Audio Rendering**: 0.7-1s (fast mode), 3-5s (standard mode)
-- **Keyframe Generation**: 1-2s (fast mode), 2-3s (standard mode)
+- **Audio Rendering**: 0.7-1s (fast mode with SGM-V2.01 soundfont)
+- **Keyframe Generation**: 0.5-1s (60Hz amplitude-only, sequential frame indexing)
 
 ### Scalability
 - **Note Count**: Linear scaling with number of notes
@@ -259,6 +260,40 @@ python "Brain/App/Audio Separators/audio_to_keyframes_fast.py" "outputs/audio"
 - Error handling and retry mechanisms
 - Progress tracking and logging
 
+## ⚙️ Soundfont Requirements
+
+### SGM-V2.01 Soundfont Setup
+- **File**: `soundfonts/SGM_V2_final.sf2` (247MB)
+- **Download**: Must be obtained separately due to file size
+- **Fallback**: System FluidSynth paths available as backup
+- **Organization**: All soundfonts stored in `soundfonts/` directory
+- **Git**: *.sf2 files excluded from version control
+
+## 🚀 Recent Performance Optimizations (September 2025)
+
+### 60Hz Keyframe Generation
+- **Before**: 30 FPS with ~43 data points/second
+- **After**: True 60 data points/second (60.2 Hz) for YouTube compatibility
+- **Implementation**: Dynamic hop_length calculation (sr/60 = 367 samples)
+- **Result**: Consecutive frame numbers (0,1,2,3...) with perfect temporal resolution
+
+### Audio Quality Breakthrough
+- **Soundfont Upgrade**: SGM-V2.01 (247MB) replaces FluidR3_GM
+- **Quality Improvements**: Violin no longer sounds like noise, flute no longer synthetic
+- **Organization**: Soundfonts moved to `soundfonts/` directory
+- **File Management**: *.sf2 files excluded from git due to size
+
+### Simplified Keyframe Output
+- **Removed**: Over-engineered scale, opacity, hue, position_x properties
+- **Focus**: Amplitude-only output (0-100 normalized) for clean AE integration
+- **Format**: Simple `[frame, amplitude_value]` pairs
+- **Benefit**: Eliminates complexity, perfect for direct After Effects use
+
+### Codebase Cleanup
+- **Scripts Reduced**: Audio pipeline now has 3 scripts (down from 5)
+- **Duplicates Removed**: Eliminated audio_to_keyframes.py and midi_to_audio_renderer.py
+- **Consistency**: All references updated to use *_fast.py versions exclusively
+
 ## 📄 License
 
 Part of the Sib2Ae project - Music notation to After Effects synchronization pipeline.
@@ -268,6 +303,12 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 **Status**: Production Ready
 **Last Updated**: September 2025
 **Pipeline Compatibility**: Universal ID Pipeline Orchestrator 1.0.0
+
+### Recent Updates
+- **v1.3.0**: 60Hz keyframe generation for YouTube compatibility
+- **v1.2.0**: SGM-V2.01 soundfont integration for realistic audio
+- **v1.1.0**: Simplified amplitude-only keyframe output
+- **v1.0.0**: Codebase cleanup with fast-only versions
 
 ---
 
