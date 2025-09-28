@@ -119,18 +119,18 @@ def create_single_note_midi(original_midi: mido.MidiFile, note_info: Dict, outpu
         # Default tempo if none found
         track.append(mido.MetaMessage('set_tempo', tempo=500000, time=0))  # 120 BPM
     
-    # Add the note on event at the correct time
-    track.append(mido.Message('note_on', 
+    # Add the note on event at time 0 (remove leading silence)
+    track.append(mido.Message('note_on',
                              channel=note_info['channel'],
-                             note=note_info['note'], 
-                             velocity=note_info['velocity'], 
-                             time=note_info['start_ticks']))
-    
-    # Add the note off event
-    track.append(mido.Message('note_off', 
+                             note=note_info['note'],
+                             velocity=note_info['velocity'],
+                             time=0))
+
+    # Add the note off event after the note duration
+    track.append(mido.Message('note_off',
                              channel=note_info['channel'],
-                             note=note_info['note'], 
-                             velocity=0, 
+                             note=note_info['note'],
+                             velocity=0,
                              time=note_info['duration_ticks']))
     
     # End of track
