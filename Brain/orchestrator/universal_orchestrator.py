@@ -135,9 +135,24 @@ class UniversalOrchestrator:
             else:
                 self._execute_parallel_pipeline()
 
+            # Phase 5: Final Validation
+            self._log("Phase 5: Performing Final Validation")
+            validation_results = self._perform_final_validation()
+
+            # Phase 6: Generate Final Report
+            self._log("Phase 6: Generating Final Execution Report")
+            final_report = self._generate_final_report(validation_results)
+
+            # Close progress bars immediately to prevent hanging
+            if self.progress_tracker:
+                self.progress_tracker.close_all_progress_bars()
+                # Force clear any lingering tqdm instances
+                import tqdm
+                tqdm.tqdm._instances.clear() if hasattr(tqdm.tqdm, '_instances') else None
+
             self._log("✅ Universal ID Pipeline Orchestration Complete!")
             self._log(f"📊 Completed {len(self.completed_stages)} stages successfully")
-            return True
+            return final_report
 
         except Exception as e:
             self._log(f"❌ Pipeline orchestration failed: {e}")

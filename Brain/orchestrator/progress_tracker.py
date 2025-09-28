@@ -495,15 +495,31 @@ class ProgressTracker:
             self.main_progress_bar.refresh()
 
     def close_all_progress_bars(self):
-        """Close all progress bars"""
-        for progress_bar in self.progress_bars.values():
-            progress_bar.close()
+        """Close all progress bars aggressively"""
+        try:
+            # Close individual stage progress bars
+            for progress_bar in self.progress_bars.values():
+                if progress_bar:
+                    progress_bar.close()
 
-        if self.main_progress_bar:
-            self.main_progress_bar.close()
+            # Close main progress bar
+            if self.main_progress_bar:
+                self.main_progress_bar.close()
 
-        self.progress_bars.clear()
-        self.main_progress_bar = None
+            # Clear references
+            self.progress_bars.clear()
+            self.main_progress_bar = None
+
+            # Force flush stdout/stderr to clear any lingering progress displays
+            import sys
+            sys.stdout.flush()
+            sys.stderr.flush()
+
+        except Exception as e:
+            # If cleanup fails, just log and continue - don't break the pipeline
+            if hasattr(self, 'logger'):
+                self.logger.warning(f"Progress bar cleanup warning: {e}")
+            pass
 
     def _log(self, message: str):
         """Log message to console and file"""
