@@ -89,14 +89,15 @@ Transform MIDI data into audio files and After Effects keyframe data, maintainin
 ### Scripts
 
 #### 1. `midi_note_separator.py` (Foundation)
-**Purpose**: Split MIDI files into individual note files
+**Purpose**: Split MIDI files into individual note files with Universal ID preservation
 ```bash
-python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Saens Trio No 2.mid"
+python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Saens Trio No 2.mid" --registry "universal_output/universal_notes_registry.json"
 ```
-- **Input**: Complete MIDI file
+- **Input**: Complete MIDI file + Universal ID registry (optional)
 - **Output**: Individual MIDI files per note in `outputs/midi/`
-- **Naming**: `note_000_Flûte_A4_vel76.mid`
+- **Naming**: `note_000_Flûte_A4_vel76_4ea7.mid` (with Universal ID suffix)
 - **Foundation**: Required for all subsequent audio processing
+- **Universal ID**: When registry provided, preserves note relationships for After Effects
 
 #### 2. `midi_to_audio_renderer_fast.py` (High-Quality Audio Rendering)
 **Purpose**: Convert MIDI notes to audio using 247MB SGM-V2.01 soundfont
@@ -302,9 +303,22 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 
 **Status**: Production Ready
 **Last Updated**: September 2025
-**Pipeline Compatibility**: Universal ID Pipeline Orchestrator 1.0.0
+**Pipeline Compatibility**: Universal ID Pipeline Orchestrator 1.5.0
 
 ### Recent Updates
+- **v1.4.0**: Universal ID preservation implemented (CRITICAL ENHANCEMENT)
+  - **Core Issue**: Scripts created sequential IDs (000, 001, 002) disconnected from Note Coordinator's Universal IDs
+  - **Root Cause**: MIDI separator, audio renderer, and keyframe generator operated independently without registry awareness
+  - **Integration Fix**: Scripts now load Note Coordinator's registry to map MIDI notes to original XML Universal IDs
+  - **ID Retrieval**: MIDI notes matched to registry entries via pitch+track lookup to recover source Universal IDs
+  - **Registry Parsing Logic**: JSON registry deserialization with lookup table construction for efficient note matching
+  - **Multi-Tier Matching**: Hierarchical lookup system prioritizing exact pitch+track matches over pitch-only fallbacks
+  - **UUID Extraction Algorithm**: Regex-based filename parsing to extract and preserve 4-character UUID suffixes
+  - **Cross-Pipeline Propagation**: Filename transformation preservation through MIDI→Audio→Keyframe conversion chain
+  - **Metadata Integration**: Note attribute extraction from filenames with UUID embedding in output JSON structures
+  - **Confidence-Based Selection**: Weighted scoring system preventing duplicate ID assignment across pipeline stages
+  - **Conditional Registry Integration**: Parameter injection logic based on orchestrator configuration flags
+  - **Graceful Fallback**: Sequential ID generation when registry unavailable with transparent mode switching
 - **v1.3.0**: 60Hz keyframe generation for YouTube compatibility
 - **v1.2.0**: SGM-V2.01 soundfont integration for realistic audio
 - **v1.1.0**: Simplified amplitude-only keyframe output

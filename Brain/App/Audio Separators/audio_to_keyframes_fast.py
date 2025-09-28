@@ -6,10 +6,54 @@ import os
 import sys
 import json
 import glob
+import re
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
 import multiprocessing as mp
 from concurrent.futures import ProcessPoolExecutor, as_completed
+
+def extract_universal_id_from_filename(filename: str) -> Optional[str]:
+    """Extract Universal ID suffix from filename if present"""
+    # Pattern: name_XXXX.ext where XXXX is 4-character UUID suffix
+    basename = os.path.basename(filename)
+    match = re.search(r'_([a-f0-9]{4})\.\w+$', basename)
+    return match.group(1) if match else None
+
+def extract_note_metadata_from_filename(filename: str) -> Dict[str, str]:
+    """Extract note metadata from audio filename"""
+    # Example: "note_001_Flûte_G4_vel76_2584.wav"
+    basename = os.path.basename(filename)
+    name_without_ext = basename.replace('.wav', '').replace('.mp3', '').replace('.flac', '')
+
+    # Remove Universal ID suffix if present
+    name_without_id = re.sub(r'_[a-f0-9]{4}$', '', name_without_ext)
+
+    parts = name_without_id.split('_')
+
+    metadata = {
+        'note_name': 'Unknown',
+        'instrument': 'Unknown',
+        'velocity': 'Unknown'
+    }
+
+    if len(parts) >= 3:
+        metadata['instrument'] = parts[2]  # e.g., "Flûte"
+
+    if len(parts) >= 4:
+        # Extract note name (e.g., "G4") and velocity (e.g., "vel76") from remaining parts
+        remaining = '_'.join(parts[3:])
+
+        # Find note name pattern (letter + number)
+        note_match = re.search(r'([A-G][#b]?\d+)', remaining)
+        if note_match:
+            metadata['note_name'] = note_match.group(1)
+
+        # Find velocity pattern
+        vel_match = re.search(r'vel(\d+)', remaining)
+        if vel_match:
+            metadata['velocity'] = vel_match.group(1)
+
+    return metadata
 
 def analyze_audio_features_fast(audio_file: str, sr: int = 22050) -> Dict:
     """Extract audio features optimized for speed."""
@@ -85,20 +129,20 @@ def analyze_audio_features_fast(audio_file: str, sr: int = 22050) -> Dict:
 
 def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -> Dict:
     """Generate simplified After Effects keyframes for speed."""
-    
+
     features = analysis['features']
     times = analysis['times']
     fps = 60
-    
+
     # Reduce keyframe density for speed (every 3rd frame instead of every frame)
     frame_step = 3
-    
+
     def time_to_frame(time_sec):
         return int(time_sec * fps)
-    
+
     # Create simplified keyframe arrays
     keyframes = {}
-    
+
     # Only amplitude over time
     raw_keyframes = []
 
@@ -117,8 +161,13 @@ def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -
     keyframes['amplitude'] = []
     for i, (_, amplitude_val) in enumerate(raw_keyframes):
         keyframes['amplitude'].append([i, amplitude_val])
-    
-    return {
+
+    # Extract Universal ID and note metadata from filename
+    universal_id = extract_universal_id_from_filename(audio_filename)
+    note_metadata = extract_note_metadata_from_filename(audio_filename)
+
+    # Build enhanced keyframe data with Universal ID
+    keyframe_data = {
         'audio_file': audio_filename,
         'duration_seconds': analysis['duration'],
         'duration_frames': time_to_frame(analysis['duration']),
@@ -129,9 +178,22 @@ def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -
             'total_keyframes': len(keyframes['amplitude']),
             'onset_count': len(analysis['events']['onsets']),
             'analysis_features': ['amplitude'],
-            'optimization': 'amplitude_only'
+            'optimization': 'amplitude_only',
+            'note_name': note_metadata['note_name'],
+            'instrument': note_metadata['instrument'],
+            'velocity': note_metadata['velocity']
         }
     }
+
+    # Add Universal ID if present (critical for After Effects synchronization)
+    if universal_id:
+        keyframe_data['universal_id'] = universal_id
+        keyframe_data['metadata']['universal_id'] = universal_id
+        keyframe_data['metadata']['id_type'] = 'Universal'
+    else:
+        keyframe_data['metadata']['id_type'] = 'Sequential'
+
+    return keyframe_data
 
 def process_single_audio_file(args):
     """Process a single audio file (for parallel processing)."""
@@ -165,11 +227,15 @@ def process_single_audio_file(args):
         with open(keyframe_file, 'w', encoding='utf-8') as f:
             json.dump(keyframe_data, f, indent=2)
         
-        return (True, audio_file, keyframe_file, analysis['duration'], 
-                keyframe_data['metadata']['total_keyframes'])
+        # Include Universal ID info in return for reporting
+        universal_id = keyframe_data.get('universal_id')
+        id_info = f" [UUID:{universal_id[:4]}]" if universal_id else " [Sequential]"
+
+        return (True, audio_file, keyframe_file, analysis['duration'],
+                keyframe_data['metadata']['total_keyframes'], id_info)
         
     except Exception as e:
-        return (False, audio_file, str(e), 0, 0)
+        return (False, audio_file, str(e), 0, 0, " [Error]")
 
 def process_audio_directory_fast(audio_dir: str):
     """Process all audio files using parallel processing for speed."""
@@ -228,17 +294,29 @@ def process_audio_directory_fast(audio_dir: str):
 
             try:
                 result = future.result()
-                success, processed_file, output_info, duration, keyframes = result
 
-                filename = os.path.basename(processed_file)
+                filename = os.path.basename(audio_file)
 
-                if success:
-                    print(f"✅ {filename}")
-                    print(f"   Duration: {duration:.2f}s, Keyframes: {keyframes}")
-                    total_processed += 1
+                if len(result) == 6:
+                    # New format with Universal ID info
+                    success, processed_file, output_info, duration, keyframes, id_info = result
+                    if success:
+                        print(f"✅ {filename}")
+                        print(f"   Duration: {duration:.2f}s, Keyframes: {keyframes}{id_info}")
+                        total_processed += 1
+                    else:
+                        print(f"❌ {filename} → {output_info}")
+                        failed_files.append(processed_file)
                 else:
-                    print(f"❌ {filename} → {output_info}")
-                    failed_files.append(processed_file)
+                    # Legacy format (fallback for errors)
+                    success, processed_file, output_info, duration, keyframes = result[:5]
+                    if success:
+                        print(f"✅ {filename}")
+                        print(f"   Duration: {duration:.2f}s, Keyframes: {keyframes}")
+                        total_processed += 1
+                    else:
+                        print(f"❌ {filename} → {output_info}")
+                        failed_files.append(processed_file)
 
             except Exception as e:
                 print(f"❌ {os.path.basename(audio_file)} → Exception: {e}")

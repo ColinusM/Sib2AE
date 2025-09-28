@@ -3,8 +3,10 @@
 import mido
 import sys
 import os
+import json
+import re
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 
 # General MIDI Instrument Program Numbers for track-based detection
 TRACK_INSTRUMENT_MAP = {
@@ -19,22 +21,119 @@ TRACK_INSTRUMENT_MAP = {
     "Trombone": 58,     # Trombone
 }
 
-def analyze_midi_structure(midi_file: str) -> Dict:
+def load_universal_registry(registry_path: Optional[str]) -> Optional[Dict]:
+    """Load Universal ID registry for note matching"""
+    if not registry_path or not os.path.exists(registry_path):
+        print(f"⚠️  Universal ID registry not found: {registry_path or 'None'}")
+        print("   Proceeding with sequential ID generation")
+        return None
+
+    try:
+        with open(registry_path, 'r') as f:
+            registry_data = json.load(f)
+
+        print(f"✅ Loaded Universal ID registry: {len(registry_data.get('notes', []))} notes")
+        return registry_data
+    except Exception as e:
+        print(f"⚠️  Failed to load Universal ID registry: {e}")
+        return None
+
+def create_id_lookup_tables(registry_data: Dict) -> Dict:
+    """Create lookup tables for efficient Universal ID matching"""
+    if not registry_data:
+        return {}
+
+    lookup = {
+        'by_pitch_and_track': {},  # (pitch_name, track_index) -> universal_id
+        'by_pitch_only': {},       # pitch_name -> [universal_ids]
+        'all_notes': {}            # universal_id -> note_data
+    }
+
+    for note in registry_data.get('notes', []):
+        universal_id = note.get('universal_id')
+        xml_data = note.get('xml_data', {})
+        midi_data = note.get('midi_data')
+
+        if not universal_id or not midi_data:
+            continue
+
+        # Store complete note data
+        lookup['all_notes'][universal_id] = note
+
+        # Create pitch-based lookups
+        pitch_name = xml_data.get('note_name')  # e.g., "A4"
+        track_index = midi_data.get('track_index', 0)
+
+        if pitch_name:
+            # Pitch + track lookup (most specific)
+            key = (pitch_name, track_index)
+            if key not in lookup['by_pitch_and_track']:
+                lookup['by_pitch_and_track'][key] = []
+            lookup['by_pitch_and_track'][key].append(universal_id)
+
+            # Pitch-only lookup (fallback)
+            if pitch_name not in lookup['by_pitch_only']:
+                lookup['by_pitch_only'][pitch_name] = []
+            lookup['by_pitch_only'][pitch_name].append(universal_id)
+
+    return lookup
+
+def find_universal_id_for_note(note_info: Dict, lookup: Dict, used_ids: set) -> Tuple[Optional[str], float]:
+    """Find best matching Universal ID for a MIDI note"""
+    if not lookup:
+        return None, 0.0
+
+    pitch_name = note_info['note_name']
+    track_index = note_info['track']
+
+    # Strategy 1: Exact pitch + track match
+    key = (pitch_name, track_index)
+    candidates = lookup.get('by_pitch_and_track', {}).get(key, [])
+
+    for universal_id in candidates:
+        if universal_id not in used_ids:
+            used_ids.add(universal_id)
+            return universal_id, 0.95  # High confidence for exact match
+
+    # Strategy 2: Pitch-only match (different track)
+    candidates = lookup.get('by_pitch_only', {}).get(pitch_name, [])
+
+    for universal_id in candidates:
+        if universal_id not in used_ids:
+            used_ids.add(universal_id)
+            return universal_id, 0.75  # Medium confidence for pitch-only match
+
+    # No match found
+    return None, 0.0
+
+def analyze_midi_structure(midi_file: str, registry_data: Optional[Dict] = None) -> Dict:
     """Analyze MIDI file structure and extract note information."""
     print(f"MIDI NOTE SEPARATOR")
     print("=" * 50)
     print(f"Input MIDI: {midi_file}")
+
+    # Initialize Universal ID system
+    lookup = {}
+    used_universal_ids = set()
+
+    if registry_data:
+        print(f"🔗 Universal ID Mode: Registry-based matching")
+        lookup = create_id_lookup_tables(registry_data)
+        print(f"   Lookup tables: {len(lookup.get('by_pitch_and_track', {}))} pitch+track, {len(lookup.get('by_pitch_only', {}))} pitch-only")
+    else:
+        print(f"🔢 Sequential ID Mode: Registry not available")
+
     print()
-    
+
     # Load MIDI file
     mid = mido.MidiFile(midi_file)
-    
+
     # Extract basic info
     print(f"🎵 MIDI Type: {mid.type}")
     print(f"⏱️  Ticks per beat: {mid.ticks_per_beat}")
     print(f"🎼 Number of tracks: {len(mid.tracks)}")
     print()
-    
+
     # Analyze each track
     all_notes = []
     note_id = 0
@@ -70,6 +169,11 @@ def analyze_midi_structure(midi_file: str) -> Dict:
                         'duration_ticks': duration,
                         'channel': msg.channel
                     }
+
+                    # Try to find Universal ID for this note
+                    universal_id, confidence = find_universal_id_for_note(note_info, lookup, used_universal_ids)
+                    note_info['universal_id'] = universal_id
+                    note_info['match_confidence'] = confidence
                     
                     track_notes.append(note_info)
                     all_notes.append(note_info)
@@ -177,11 +281,14 @@ def create_single_note_midi(original_midi: mido.MidiFile, note_info: Dict, outpu
     # Save the file
     new_mid.save(output_file)
 
-def separate_midi_notes(midi_file: str):
+def separate_midi_notes(midi_file: str, registry_path: Optional[str] = None):
     """Separate MIDI file into individual note files."""
-    
-    # Analyze MIDI structure
-    analysis = analyze_midi_structure(midi_file)
+
+    # Load Universal ID registry if provided
+    registry_data = load_universal_registry(registry_path)
+
+    # Analyze MIDI structure with Universal ID integration
+    analysis = analyze_midi_structure(midi_file, registry_data)
     
     # Create base output directory
     base_name = Path(midi_file).stem
@@ -198,7 +305,17 @@ def separate_midi_notes(midi_file: str):
         instrument_dir = os.path.join(base_output_dir, track_name)
         os.makedirs(instrument_dir, exist_ok=True)
 
-        filename = f"note_{note['id']:03d}_{track_name}_{note['note_name']}_vel{note['velocity']}.mid"
+        # Generate filename with Universal ID suffix if available
+        base_filename = f"note_{note['id']:03d}_{track_name}_{note['note_name']}_vel{note['velocity']}"
+
+        if note.get('universal_id'):
+            # Add 4-character UUID suffix for Universal ID preservation
+            uuid_suffix = note['universal_id'][:4]
+            filename = f"{base_filename}_{uuid_suffix}.mid"
+        else:
+            # Fallback to standard naming without Universal ID
+            filename = f"{base_filename}.mid"
+
         output_file = os.path.join(instrument_dir, filename)
         
         # Create single-note MIDI file
@@ -213,6 +330,14 @@ def separate_midi_notes(midi_file: str):
         print(f"   Velocity: {note['velocity']}")
         print(f"   Duration: {note['duration_ticks']} ticks")
         print(f"   Start: {note['start_ticks']} ticks")
+
+        # Show Universal ID information if available
+        if note.get('universal_id'):
+            confidence = note.get('match_confidence', 0.0)
+            print(f"   🔗 Universal ID: {note['universal_id'][:8]}... (confidence: {confidence:.1%})")
+        else:
+            print(f"   🔢 Sequential ID: {note['id']:03d} (no Universal ID match)")
+
         print()
     
     print(f"🎯 SUCCESS! Created {len(analysis['notes'])} individual note files")
@@ -231,19 +356,32 @@ def separate_midi_notes(midi_file: str):
         print(f"  {track_name}: {count} notes")
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python midi_note_separator.py <midi_file>")
-        print("Example: python midi_note_separator.py 'Base/Saint-Saens Trio No 2.mid'")
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="MIDI Note Separator with Universal ID Support",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Basic usage (sequential IDs)
+  python midi_note_separator.py "Base/Saint-Saens Trio No 2.mid"
+
+  # With Universal ID registry (preserves note relationships)
+  python midi_note_separator.py "Base/Saint-Saens Trio No 2.mid" --registry "universal_output/universal_notes_registry.json"
+        """
+    )
+
+    parser.add_argument("midi_file", help="Path to MIDI file")
+    parser.add_argument("--registry", help="Path to Universal ID registry JSON file (optional)")
+
+    args = parser.parse_args()
+
+    if not os.path.exists(args.midi_file):
+        print(f"❌ ERROR: MIDI file not found: {args.midi_file}")
         sys.exit(1)
-    
-    midi_file = sys.argv[1]
-    
-    if not os.path.exists(midi_file):
-        print(f"❌ ERROR: MIDI file not found: {midi_file}")
-        sys.exit(1)
-    
+
     try:
-        separate_midi_notes(midi_file)
+        separate_midi_notes(args.midi_file, args.registry)
     except Exception as e:
         print(f"❌ ERROR: {e}")
         sys.exit(1)

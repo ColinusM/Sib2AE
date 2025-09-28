@@ -4,8 +4,9 @@ import os
 import sys
 import subprocess
 import glob
+import re
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Optional
 import json
 import multiprocessing as mp
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -69,11 +70,25 @@ def find_soundfont():
     
     return None
 
+def extract_universal_id_from_filename(filename: str) -> Optional[str]:
+    """Extract Universal ID suffix from filename if present"""
+    # Pattern: name_XXXX.ext where XXXX is 4-character UUID suffix
+    basename = os.path.basename(filename)
+    match = re.search(r'_([a-f0-9]{4})\.\w+$', basename)
+    return match.group(1) if match else None
+
 def extract_instrument_from_filename(filename):
     """Extract instrument name from MIDI filename."""
-    # Example: "note_001_Flûte_G4_vel76.mid"
+    # Example: "note_001_Flûte_G4_vel76.mid" or "note_001_Flûte_G4_vel76_2584.mid"
     basename = os.path.basename(filename)
-    parts = basename.replace('.mid', '').split('_')
+
+    # Remove extension first
+    name_without_ext = basename.replace('.mid', '').replace('.wav', '')
+
+    # Remove Universal ID suffix if present (4-char hex at end)
+    name_without_id = re.sub(r'_[a-f0-9]{4}$', '', name_without_ext)
+
+    parts = name_without_id.split('_')
 
     if len(parts) >= 3:
         instrument = parts[2]  # "Flûte"
@@ -117,7 +132,12 @@ def render_single_midi(args):
             # Verify file was created with minimum size
             if os.path.exists(output_file) and os.path.getsize(output_file) > 500:
                 file_size = os.path.getsize(output_file)
-                return (True, midi_file, str(file_size) + " bytes (" + instrument_name + " GM" + str(program_number) + ")")
+
+                # Check for Universal ID preservation
+                universal_id = extract_universal_id_from_filename(output_file)
+                id_info = f" [UUID:{universal_id}]" if universal_id else " [Sequential]"
+
+                return (True, midi_file, f"{file_size} bytes ({instrument_name} GM{program_number}){id_info}")
             else:
                 return (False, midi_file, "File too small or missing")
         else:
@@ -142,16 +162,21 @@ def analyze_midi_directory_fast(midi_dir: str) -> Dict:
         parts = filename.replace('.mid', '').split('_')
         
         if len(parts) >= 3:
-            instrument_name = parts[2]  # e.g., "Flûte", "Violon"
-            
+            # Extract Universal ID from filename if present
+            universal_id = extract_universal_id_from_filename(filename)
+
+            # Get instrument name (handles both new and old filename patterns)
+            instrument_name = extract_instrument_from_filename(filename)
+
             if instrument_name not in instruments:
                 instruments[instrument_name] = []
-            
+
             instruments[instrument_name].append({
                 'midi_file': midi_file,
                 'filename': filename,
                 'note_id': parts[1] if len(parts) > 1 else 'unknown',
-                'note_info': '_'.join(parts[3:]) if len(parts) > 3 else 'unknown'
+                'note_info': '_'.join(parts[3:]) if len(parts) > 3 else 'unknown',
+                'universal_id': universal_id  # Preserve Universal ID for audio file naming
             })
     
     return instruments
@@ -206,11 +231,11 @@ def render_midi_collection_to_audio_fast(midi_dir: str):
         for midi_info in midi_files:
             midi_file = midi_info['midi_file']
             filename = midi_info['filename']
-            
-            # Generate audio filename
+
+            # Generate audio filename (preserves Universal ID if present)
             audio_filename = filename.replace('.mid', '.wav')
             audio_file = os.path.join(instrument_dir, audio_filename)
-            
+
             render_tasks.append((midi_file, audio_file, soundfont))
     
     # Use parallel processing for much faster rendering

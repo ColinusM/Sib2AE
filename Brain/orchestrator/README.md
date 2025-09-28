@@ -569,18 +569,29 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 
 ## 🎯 Version
 
-**Version**: 1.4.0
+**Version**: 1.5.0
 **Status**: Production Ready
 **Last Updated**: September 2025
 
 ### Recent Updates
+- **v1.5.0**: Universal ID preservation through complete pipeline (CRITICAL FIX)
+  - **Problem**: Audio pipeline scripts ignored Note Coordinator's Universal ID registry, using sequential numbering instead
+  - **Solution**: Scripts now read registry to match MIDI notes back to original XML/MIDI Universal IDs
+  - **ID Source**: Note Coordinator creates UUID per note; audio scripts retrieve these UUIDs via pitch/track matching
+  - **Breaking Change**: MIDI separator adds `--registry` parameter to read Universal ID mappings before processing
+  - **Registry Loading**: Audio pipeline scripts parse universal notes registry at startup for UUID-to-note mappings
+  - **Matching Algorithm**: Two-tier lookup system: primary exact pitch+track match, secondary pitch-only fallback
+  - **Filename Transformation**: UUID suffix appending via first 4 characters of full Universal ID
+  - **Confidence Scoring**: Weighted matching confidence to prefer exact over partial matches with duplicate prevention
+  - **Registry Parameter Injection**: Orchestrator conditionally passes registry path based on preservation config flag
+  - **Cross-Stage Preservation**: UUID extraction and re-application through filename parsing at each pipeline stage
+  - **JSON Metadata Enhancement**: Universal ID embedded in keyframe output for After Effects synchronization
+  - **Backward Compatibility Logic**: Registry-aware processing with graceful degradation to sequential numbering
 - **v1.4.0**: Sequential frame reindexing eliminates keyframe conflicts
 - **v1.3.0**: 60Hz keyframe generation for YouTube compatibility
 - **v1.2.0**: SGM-V2.01 soundfont integration for realistic audio
 - **v1.1.0**: Simplified amplitude-only keyframe output
 - **v1.0.0**: Nuclear process termination fix for hanging issue (PRP-001)
-- **Performance**: 8x development workflow improvement
-- **Reliability**: Immediate process termination after pipeline completion
 
 ---
 

@@ -434,17 +434,24 @@ def create_audio_pipeline_stages(config: OrchestrationConfig) -> List[PipelineSt
     """Create all audio pipeline stages"""
     stages = []
 
-    # Stage 1: MIDI Note Separation
+    # Stage 1: MIDI Note Separation (with Universal ID registry integration)
     midi_notes_dir = Path("outputs/midi")
+    midi_command = [
+        "python",
+        "Brain/App/Audio Separators/midi_note_separator.py",
+        str(config.midi_file),
+    ]
+
+    # Add Universal ID registry path if preserving Universal IDs
+    if config.preserve_universal_ids:
+        registry_path = config.output_dir / "universal_notes_registry.json"
+        midi_command.extend(["--registry", str(registry_path)])
+
     stages.append(
         PipelineStage(
             name="midi_note_separation",
-            description="Split MIDI into individual note files (foundation)",
-            command=[
-                "python",
-                "Brain/App/Audio Separators/midi_note_separator.py",
-                str(config.midi_file),
-            ],
+            description="Split MIDI into individual note files with Universal ID preservation",
+            command=midi_command,
             input_files=[config.midi_file],
             output_files=[Path("outputs/midi")],
             depends_on=["tied_note_processor"]
