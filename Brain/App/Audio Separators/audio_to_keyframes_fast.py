@@ -22,8 +22,8 @@ def analyze_audio_features_fast(audio_file: str, sr: int = 22050) -> Dict:
     
     print(f"   Duration: {duration:.3f}s, Sample Rate: {sr}Hz")
     
-    # Use larger hop length for fewer frames = faster processing
-    hop_length = 1024  # Doubled from 512
+    # Calculate hop_length for exactly 60 analysis frames per second
+    hop_length = int(sr / 60)  # 22050/60 = 367 samples = 60 data points/second
     frame_length = 2048
     
     # 1. Core features only (skip expensive ones)
@@ -88,7 +88,7 @@ def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -
     
     features = analysis['features']
     times = analysis['times']
-    fps = 30
+    fps = 60
     
     # Reduce keyframe density for speed (every 3rd frame instead of every frame)
     frame_step = 3
