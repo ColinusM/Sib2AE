@@ -135,13 +135,19 @@ class UniversalOrchestrator:
             else:
                 self._execute_parallel_pipeline()
 
+            print("🔥 DEBUG: Pipeline stages completed, moving to Phase 5...")
+
             # Phase 5: Final Validation
             self._log("Phase 5: Performing Final Validation")
+            print("🔥 DEBUG: About to start final validation...")
             validation_results = self._perform_final_validation()
+            print("🔥 DEBUG: Final validation completed!")
 
             # Phase 6: Generate Final Report
             self._log("Phase 6: Generating Final Execution Report")
+            print("🔥 DEBUG: About to generate final report...")
             final_report = self._generate_final_report(validation_results)
+            print("🔥 DEBUG: Final report generated!")
 
             # Close progress bars immediately to prevent hanging
             if self.progress_tracker:
@@ -152,7 +158,6 @@ class UniversalOrchestrator:
 
             self._log("✅ Universal ID Pipeline Orchestration Complete!")
             self._log(f"📊 Completed {len(self.completed_stages)} stages successfully")
-            return final_report
 
         except Exception as e:
             self._log(f"❌ Pipeline orchestration failed: {e}")
@@ -281,6 +286,12 @@ class UniversalOrchestrator:
 
                 if stage.status.value == "completed":
                     self.completed_stages.add(stage.name)
+
+                    # IMMEDIATE TERMINATION: If this is the last stage, force exit now
+                    if stage.name == "audio_to_keyframes":
+                        print("🔥 NUCLEAR EXIT: Last stage completed, forcing immediate termination!")
+                        import os
+                        os._exit(0)
                 elif stage.status.value == "failed":
                     if self.config.continue_on_non_critical_failure:
                         self.failed_stages.add(stage.name)
@@ -291,6 +302,7 @@ class UniversalOrchestrator:
                 self._log(f"⏳ Stage {stage.name} waiting for dependencies: {stage.depends_on}")
 
         self._log("✅ Sequential Pipeline completed successfully")
+        print("🔥 DEBUG: Sequential pipeline method completed, returning to main execute...")
 
     def _execute_parallel_pipeline(self):
         """Execute compatible pipeline stages in parallel"""
@@ -486,7 +498,9 @@ class UniversalOrchestrator:
 
     def _generate_final_report(self, validation_results: Dict[str, any]) -> Dict[str, any]:
         """Generate comprehensive final execution report"""
+        print("🔥 DEBUG: Inside _generate_final_report method...")
         total_duration = (datetime.now() - self.start_time).total_seconds()
+        print("🔥 DEBUG: Calculated total duration...")
 
         final_report = {
             'execution_metadata': {
@@ -521,23 +535,70 @@ class UniversalOrchestrator:
             'validation_results': validation_results,
             'progress_summary': self.progress_tracker.get_overall_progress() if self.progress_tracker else {}
         }
+        print("🔥 DEBUG: Built final report dictionary...")
 
         # Save final report
+        print("🔥 DEBUG: About to save final report...")
         report_path = self.config.output_dir / "final_execution_report.json"
         with open(report_path, 'w') as f:
             json.dump(final_report, f, indent=2, default=str)
+        print("🔥 DEBUG: Final report saved!")
 
         # Save progress report
+        print("🔥 DEBUG: About to save progress report...")
         if self.progress_tracker:
             progress_report_path = self.config.output_dir / "logs" / "final_progress_report.json"
             self.progress_tracker.save_progress_report(progress_report_path)
+        print("🔥 DEBUG: Progress report saved!")
 
         # Save Universal ID registry
+        print("🔥 DEBUG: About to save Universal ID registry...")
         if self.universal_registry:
             self.universal_registry.save_registry()
+        print("🔥 DEBUG: Universal ID registry saved!")
 
         if self.config.verbose:
             self._display_final_summary(final_report)
+
+        # NUCLEAR TERMINATION: Force immediate process termination to prevent hanging
+        # This must run regardless of verbose setting to prevent hanging
+        import sys, os, threading, signal, gc
+
+        print("🔥 FORCING PROCESS TERMINATION TO PREVENT HANGING...")
+
+        # 1. Aggressive progress bar cleanup
+        try:
+            import tqdm
+            if hasattr(tqdm.tqdm, '_instances'):
+                tqdm.tqdm._instances.clear()
+        except:
+            pass
+
+        # 2. Force kill all threads except main
+        try:
+            for thread in threading.enumerate():
+                if thread != threading.current_thread() and thread.is_alive():
+                    if hasattr(thread, '_stop'):
+                        thread._stop()
+        except:
+            pass
+
+        # 3. Flush all outputs
+        try:
+            sys.stdout.flush()
+            sys.stderr.flush()
+        except:
+            pass
+
+        # 4. Force garbage collection
+        try:
+            gc.collect()
+        except:
+            pass
+
+        # 5. NUCLEAR: Immediate termination
+        print("🚨 CALLING os._exit(0) NOW...")
+        os._exit(0)
 
         return final_report
 
