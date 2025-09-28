@@ -18,6 +18,8 @@ def find_soundfont():
         # Local project soundfont (highest priority)
         "FluidR3_GM.sf2",
         "soundfonts/FluidR3_GM.sf2",
+        # Working soundfont from homebrew
+        "/opt/homebrew/share/soundfonts/VintageDreamsWaves-v2.sf2",
         # System locations
         "/usr/share/soundfonts/*.sf2",
         "/usr/local/share/soundfonts/*.sf2",
@@ -30,7 +32,8 @@ def find_soundfont():
     default_soundfonts = [
         "/usr/share/soundfonts/FluidR3_GM.sf2",
         "/usr/local/share/soundfonts/FluidR3_GM.sf2",
-        "/opt/homebrew/share/soundfonts/FluidR3_GM.sf2"
+        "/opt/homebrew/share/soundfonts/FluidR3_GM.sf2",
+        "/opt/homebrew/share/soundfonts/VintageDreamsWaves-v2.sf2"
     ]
 
     soundfont_paths.extend(default_soundfonts)
