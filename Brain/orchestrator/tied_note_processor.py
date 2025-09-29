@@ -355,7 +355,7 @@ class TiedNoteProcessor:
     
     def _create_xml_note_key(self, note: MusicXMLNote) -> str:
         """Create unique key for XML note identification"""
-        return f"{note.part_id}_{note.measure_number}_{note.beat_position:.3f}_{note.pitch}"
+        return f"{note.part_id}_{note.measure_number}_{note.pitch}"
     
     def get_tied_groups_summary(self) -> Dict:
         """Get comprehensive summary of tied note processing"""
@@ -522,10 +522,65 @@ def main():
         with open(matches_file, 'r') as f:
             matches_data = json.load(f)
         
-        # Convert to NoteMatch objects (simplified for testing)
+        # Convert Universal Notes Registry to NoteMatch objects
         note_matches = []
-        # In real implementation, this would reconstruct NoteMatch objects
-        print(f"✅ Loaded {len(matches_data.get('matches', []))} note matches")
+        if 'notes' in matches_data:
+            registry_notes = matches_data['notes']
+            print(f"📋 Converting {len(registry_notes)} registry entries to note matches...")
+
+            for registry_entry in registry_notes:
+                # Skip notes without MIDI data
+                if not registry_entry.get('midi_data'):
+                    continue
+
+                xml_data = registry_entry['xml_data']
+                midi_data = registry_entry['midi_data']
+
+                # Create XML note object
+                xml_note = MusicXMLNote(
+                    pitch=xml_data['note_name'],
+                    duration=256,  # Default, will be overridden by actual XML parsing
+                    beat_position=0.0,  # Will be calculated
+                    measure_number=xml_data['measure'],
+                    part_id=xml_data['part_id'],
+                    voice=1,
+                    tie_type=None,  # Will be set by XML parser
+                    tied_group_id=None,
+                    onset_time=midi_data['start_time_seconds'],
+                    xml_x=xml_data['xml_x'],
+                    xml_y=xml_data['xml_y']
+                )
+
+                # Create MIDI note object
+                midi_note = MIDINote(
+                    pitch=midi_data['pitch_midi'],
+                    velocity=midi_data['velocity'],
+                    start_time=midi_data['start_time_seconds'],
+                    end_time=midi_data['end_time_seconds'],
+                    duration=midi_data['duration_seconds'],
+                    channel=midi_data['channel'],
+                    instrument=midi_data['track_name'],
+                    track_index=midi_data['track_index'],
+                    track_name=midi_data['track_name'],
+                    note_id=registry_entry['universal_id']
+                )
+
+                # Create match object
+                match = NoteMatch(
+                    xml_note=xml_note,
+                    midi_note=midi_note,
+                    confidence=registry_entry.get('match_confidence', 1.0),
+                    time_difference=0.0,
+                    pitch_match=True,
+                    timing_score=1.0,
+                    context_score=1.0,
+                    match_type="registry_match"
+                )
+                note_matches.append(match)
+
+            print(f"✅ Created {len(note_matches)} note matches from registry")
+        else:
+            print(f"❌ No 'notes' found in registry file")
         print()
         
         # Step 3: Process tied relationships

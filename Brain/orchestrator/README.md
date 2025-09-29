@@ -7,6 +7,7 @@ A comprehensive orchestration system for the Sib2Ae pipeline, maintaining Univer
 The Universal ID Pipeline Orchestrator coordinates the complete Sib2Ae pipeline execution with:
 
 - **Universal ID Preservation**: Maintains unique identifiers across all pipeline stages
+- **Tied Note Processing**: Handles complex N:1 notehead-to-MIDI relationships with precise timing calculations
 - **Atomic Operations**: Safe manifest updates with backup and recovery
 - **Circuit Breaker Pattern**: Robust error handling and failure recovery
 - **Real-time Progress Tracking**: Universal ID-level granularity progress reporting
@@ -23,7 +24,7 @@ orchestrator/
 ├── progress_tracker.py        # Real-time progress tracking with tqdm integration
 ├── error_handlers.py          # Circuit breaker pattern and retry mechanisms
 ├── note_coordinator.py        # Universal note coordination and registry creation
-├── tied_note_processor.py     # Tied note relationship processing
+├── tied_note_processor.py     # Tied note relationship processing with Universal ID integration
 ├── universal_orchestrator.py  # Main orchestrator script
 ├── xml_temporal_parser.py     # MusicXML temporal parsing utilities
 ├── midi_matcher.py            # MIDI note matching utilities
@@ -354,7 +355,7 @@ The orchestrator coordinates the complete Sib2Ae pipeline with these stages:
 
 ### Coordination Stages
 1. **Note Coordinator**: Creates Universal ID registry linking MusicXML, MIDI, and SVG data
-2. **Tied Note Processor**: Processes tied note relationships with timing calculations
+2. **Tied Note Processor**: Handles complex tied note chains (N:1 notehead-to-MIDI) with proportional timing calculations for After Effects synchronization
 
 ### Symbolic Pipeline (5 stages)
 3. **Noteheads Extraction**: Extract noteheads from MusicXML with pixel-perfect coordinates
