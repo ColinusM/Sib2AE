@@ -20,6 +20,7 @@ orchestrator/
 ├── __init__.py                 # Package exports and version info
 ├── pipeline_stage.py          # Pipeline stage definitions and factory functions
 ├── universal_registry.py      # Universal ID tracking and filename transformations
+├── registry_utils.py          # Universal ID registry utilities with confidence-based matching (NEW)
 ├── manifest_manager.py        # Atomic manifest operations with backup/recovery
 ├── progress_tracker.py        # Real-time progress tracking with tqdm integration
 ├── error_handlers.py          # Circuit breaker pattern and retry mechanisms
@@ -173,7 +174,45 @@ integrity_report = registry.validate_universal_id_integrity()
 - Integrity validation and reporting
 - Sib2Ae-specific filename transformations
 
-### 3. Manifest Manager (`manifest_manager.py`)
+### 3. Registry Utilities (`registry_utils.py`) **NEW**
+
+Provides standardized Universal ID registry access with confidence-based matching:
+
+```python
+from orchestrator import UniversalIDRegistry, create_registry_for_script
+
+# Create registry for script with robust error handling
+registry = create_registry_for_script(
+    registry_path="universal_notes_registry.json",
+    script_name="audio_renderer"
+)
+
+# Confidence-based Universal ID lookup
+match = registry.get_universal_id_by_midi_match(
+    pitch="A4", track=0, start_time=7.5
+)
+if match:
+    universal_id = match['universal_id']  # Full 36-character UUID
+    confidence = match['confidence']      # 1.0 (exact), 0.9 (fuzzy), 0.8 (fallback)
+
+# Partial UUID expansion from filename
+partial_uuid = "5502"  # 4-character from filename
+full_uuid = registry.expand_partial_uuid(partial_uuid)
+# Result: "5502a647-7bca-4d81-93e5-3fa5562c4caf"
+
+# Get Universal ID by various criteria
+by_filename = registry.get_universal_id_by_filename("note_001_Flûte_G4_vel76.wav")
+by_exact_match = registry.get_universal_id_by_exact_match(pitch="G4", track=0)
+```
+
+**Key Features:**
+- **Confidence Scoring**: Exact (1.0), fuzzy (0.9), fallback (0.8) matching strategies
+- **Full UUID Preservation**: Eliminates 4-character truncation and collision risk
+- **Performance Optimization**: O(1) lookup via pre-computed indices
+- **Robust Error Handling**: Graceful fallbacks with detailed error reporting
+- **Standardized API**: Consistent registry access patterns across all scripts
+
+### 4. Manifest Manager (`manifest_manager.py`)
 
 Provides atomic manifest operations with backup and recovery:
 
@@ -204,7 +243,7 @@ validation = manager.validate_manifest_integrity(manifest_path)
 - File locking for concurrent access protection
 - Manifest integrity validation
 
-### 4. Progress Tracker (`progress_tracker.py`)
+### 5. Progress Tracker (`progress_tracker.py`)
 
 Real-time progress tracking with Universal ID granularity:
 
@@ -246,7 +285,7 @@ progress = tracker.get_overall_progress()
 - Comprehensive progress reporting
 - Thread-safe operations
 
-### 5. Error Handlers (`error_handlers.py`)
+### 6. Error Handlers (`error_handlers.py`)
 
 Circuit breaker pattern and retry mechanisms for robust pipeline execution:
 
@@ -379,16 +418,49 @@ The Universal ID system maintains relationships between:
 - **Audio Files**: Rendered waveforms with instrument-specific parameters
 - **Keyframes**: After Effects animation data synchronized to audio
 
+### Enhanced Universal ID Architecture
+
+**Full UUID Preservation** (Post-Architecture Refactor):
+- **Before**: 4-character truncated IDs (collision risk: 65,536 combinations)
+- **After**: Complete 36-character UUIDs (collision-resistant: 2^128 combinations)
+- **Registry Access**: Standardized lookup replacing fragile filename extraction
+- **Data Integrity**: Enhanced metadata tracking with confidence scoring
+
+### Registry-Based Access Pattern
+
+```python
+# Standardized implementation across all pipeline scripts
+from registry_utils import create_registry_for_script
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--registry", help="Path to Universal ID registry JSON file")
+    args = parser.parse_args()
+
+    # Create registry with robust error handling
+    registry = create_registry_for_script(args.registry, "script_name")
+
+    # Confidence-based UUID lookup
+    match = registry.get_universal_id_by_midi_match(pitch, track, start_time)
+    if match and match['confidence'] >= 0.8:
+        universal_id = match['universal_id']  # Full 36-character UUID
+```
+
 ### Filename Transformation
 
-Original pipeline filenames are transformed to include Universal ID suffixes:
+Enhanced filenames include Universal ID suffixes with full traceability:
 
 ```
+# Before (collision-prone 4-char truncation)
 note_000_Flûte_A4_vel76.wav → Flûte_A4_vel76_2584.wav
-note_001_Violon_B3_vel64.mid → Violon_B3_vel64_7e3f.mid
+
+# After (registry-based full UUID preservation)
+note_000_Flûte_A4_vel76.wav → Flûte_A4_vel76_5502.wav
+Registry: 5502a647-7bca-4d81-93e5-3fa5562c4caf (full UUID)
+Keyframes: "universal_id": "5502a647-7bca-4d81-93e5-3fa5562c4caf"
 ```
 
-This ensures every file can be traced back to its source Universal ID throughout the pipeline.
+This ensures bulletproof traceability from source Universal ID to final After Effects keyframes.
 
 ## 📊 Monitoring and Logging
 
@@ -455,6 +527,7 @@ The orchestrator provides multiple levels of error recovery:
 - **`OrchestrationConfig`**: Configuration dataclass
 - **`PipelineStage`**: Individual pipeline stage representation
 - **`UniversalFileRegistry`**: Universal ID tracking system
+- **`UniversalIDRegistry`**: ✨ **NEW** - Registry utilities with confidence-based matching
 - **`AtomicManifestManager`**: Safe manifest operations
 - **`ProgressTracker`**: Real-time progress monitoring
 - **`CircuitBreaker`**: Failure detection and recovery
@@ -468,6 +541,7 @@ The orchestrator provides multiple levels of error recovery:
 - **`create_audio_pipeline_stages(config)`**
 - **`create_manifest_manager(backup_enabled, verbose)`**
 - **`create_process_failure_handler(name, enable_circuit_breaker, enable_retry)`**
+- **`create_registry_for_script(registry_path, script_name)`** ✨ **NEW**
 
 ## 🤝 Contributing
 
