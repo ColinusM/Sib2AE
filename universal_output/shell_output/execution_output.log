@@ -1,7 +1,7 @@
-[21:04:40] 🚀 Starting Universal ID Pipeline Orchestration
-[21:04:40] Phase 1: Initializing Core Components
-[21:04:40] ✅ Core components initialized
-[21:04:40] Phase 2: Executing Note Coordinator
+[00:49:27] 🚀 Starting Universal ID Pipeline Orchestration
+[00:49:27] Phase 1: Initializing Core Components
+[00:49:27] ✅ Core components initialized
+[00:49:27] Phase 2: Executing Note Coordinator
       NOTE COORDINATOR - Universal Note Matching System
       ============================================================
       📄 MusicXML: Brain/Base/SS 9.musicxml
@@ -32,8 +32,8 @@
          P1: 3 notes, 2 matched to MIDI
          P2: 6 notes, 4 matched to MIDI
       🚀 Ready for pipeline execution with universal note tracking!
-[21:04:41] ✅ Note Coordinator completed: 9 Universal IDs loaded
-[21:04:41] Phase 3: Executing Tied Note Processor
+[00:49:27] ✅ Note Coordinator completed: 9 Universal IDs loaded
+[00:49:27] Phase 3: Executing Tied Note Processor
       TIED NOTE PROCESSOR TEST
       ==================================================
       📄 MusicXML: Brain/Base/SS 9.musicxml
@@ -78,9 +78,9 @@
       🔗 Tied (calculated): 0
       📈 Average confidence: 0.000
       ⏱️  Timing spread: 0.000s
-[21:04:41] ✅ Tied Note Processor completed with timing calculations
-[21:04:41] Phase 4: Executing Pipeline Stages
-[21:04:41] 🔄 Executing Sequential Pipeline
+[00:49:27] ✅ Tied Note Processor completed with timing calculations
+[00:49:27] Phase 4: Executing Pipeline Stages
+[00:49:27] 🔄 Executing Sequential Pipeline
       TRULY UNIVERSAL NOTEHEADS EXTRACTOR
       ==================================================
       Input: Brain/Base/SS 9.musicxml
@@ -220,9 +220,12 @@
         X=4578.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
         X=4600.0 (Y: 1297.0-1393.0) - THICK (stroke-width=16)
       🎯 SUCCESS! Extracted 10 staff lines and 13 barlines
+      ✅ Loaded Universal ID registry: 9 notes
       MIDI NOTE SEPARATOR
       ==================================================
       Input MIDI: Brain/Base/Saint-Saens Trio No 2.mid
+      🔗 Universal ID Mode: Registry-based matching
+         Lookup tables: 5 pitch+track, 5 pitch-only
       🎵 MIDI Type: 1
       ⏱️  Ticks per beat: 960
       🎼 Number of tracks: 3
@@ -236,42 +239,48 @@
         Pitch distribution: {'A3': 1, 'B3': 2, 'C4': 1}
       🎯 TOTAL NOTES: 6
       📁 Creating individual note files in: outputs/midi
-      ✅ Created: note_000_Flûte_A4_vel76.mid
-         Track: Flûte
+      ✅ Created: note_000_Flûte_A4_vel76_965c.mid
+         Track: Flûte → GM Program #74
          Note: A4 (MIDI 69)
          Velocity: 76
          Duration: 1440 ticks
          Start: 14400 ticks
-      ✅ Created: note_001_Flûte_G4_vel76.mid
-         Track: Flûte
+         🔗 Universal ID: 965c18eb... (confidence: 95.0%)
+      ✅ Created: note_001_Flûte_G4_vel76_0978.mid
+         Track: Flûte → GM Program #74
          Note: G4 (MIDI 67)
          Velocity: 76
          Duration: 960 ticks
          Start: 15840 ticks
-      ✅ Created: note_002_Violon_B3_vel65.mid
-         Track: Violon
+         🔗 Universal ID: 09789fa9... (confidence: 95.0%)
+      ✅ Created: note_002_Violon_B3_vel65_9bc6.mid
+         Track: Violon → GM Program #41
          Note: B3 (MIDI 59)
          Velocity: 65
          Duration: 4406 ticks
          Start: 11520 ticks
-      ✅ Created: note_003_Violon_A3_vel66.mid
-         Track: Violon
+         🔗 Universal ID: 9bc6ea50... (confidence: 95.0%)
+      ✅ Created: note_003_Violon_A3_vel66_9dc6.mid
+         Track: Violon → GM Program #41
          Note: A3 (MIDI 57)
          Velocity: 66
          Duration: 979 ticks
          Start: 15840 ticks
-      ✅ Created: note_004_Violon_C4_vel65.mid
-         Track: Violon
+         🔗 Universal ID: 9dc64975... (confidence: 95.0%)
+      ✅ Created: note_004_Violon_C4_vel65_7653.mid
+         Track: Violon → GM Program #41
          Note: C4 (MIDI 60)
          Velocity: 65
          Duration: 454 ticks
          Start: 16800 ticks
-      ✅ Created: note_005_Violon_B3_vel64.mid
-         Track: Violon
+         🔗 Universal ID: 7653d1ce... (confidence: 95.0%)
+      ✅ Created: note_005_Violon_B3_vel64_a69d.mid
+         Track: Violon → GM Program #41
          Note: B3 (MIDI 59)
          Velocity: 64
          Duration: 960 ticks
          Start: 17280 ticks
+         🔗 Universal ID: a69d03a7... (confidence: 95.0%)
       🎯 SUCCESS! Created 6 individual note files
       📁 Output directory: outputs/midi
       SUMMARY BY TRACK:
@@ -280,60 +289,60 @@
       FAST MIDI TO AUDIO RENDERER
       ==================================================
       Input directory: outputs/midi
-      🎵 Using soundfont: /System/Library/Components/CoreAudio.component/Contents/Resources/gs_instruments.dls
+      🎵 Using soundfont: soundfonts/SGM_V2_final.sf2
       🎼 Found 2 instruments, 6 files total:
-        Flûte: 2 notes
-        Violon: 4 notes
+        Flûte: 2 notes → GM Program #74
+        Violon: 4 notes → GM Program #41
       ⚡ Using 6 parallel workers for fast processing...
-      ✅ note_005_Violon_B3_vel64.mid → 229,676 bytes
-      ✅ note_004_Violon_C4_vel65.mid → 201,772 bytes
-      ✅ note_003_Violon_A3_vel66.mid → 230,700 bytes
-      ✅ note_000_Flûte_A4_vel76.mid → 256,300 bytes
-      ✅ note_001_Flûte_G4_vel76.mid → 229,676 bytes
-      ✅ note_002_Violon_B3_vel65.mid → 419,628 bytes
+      ❌ note_003_Violon_A3_vel66_9dc6.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76_965c.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65_7653.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65_9bc6.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64_a69d.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76_0978.mid → Exception: Cannot specify ',' with 's'.
       🎯 FAST RENDERING COMPLETE!
       📁 Output directory: outputs/audio
-      ✅ Successfully rendered: 6 files
-      ❌ Failed to render: 0 files
+      ✅ Successfully rendered: 0 files
+      ❌ Failed to render: 6 files
       📁 Audio file structure:
       audio/
         Flûte/
-          note_001_Flûte_G4_vel76.wav (229,676 bytes)
-          note_000_Flûte_A4_vel76.wav (256,300 bytes)
+          note_001_Flûte_G4_vel76_0978.wav (255532 bytes)
+          note_000_Flûte_A4_vel76_965c.wav (282156 bytes)
         Violon/
-          note_004_Violon_C4_vel65.wav (201,772 bytes)
-          note_003_Violon_A3_vel66.wav (230,700 bytes)
-          note_005_Violon_B3_vel64.wav (229,676 bytes)
-          note_002_Violon_B3_vel65.wav (419,628 bytes)
+          note_003_Violon_A3_vel66_9dc6.wav (263212 bytes)
+          note_005_Violon_B3_vel64_a69d.wav (261932 bytes)
+          note_002_Violon_B3_vel65_9bc6.wav (451884 bytes)
+          note_004_Violon_C4_vel65_7653.wav (234284 bytes)
       FAST AUDIO TO KEYFRAMES EXTRACTOR
       ==================================================
       Input directory: outputs/audio
       🎵 Found 6 audio files
       ⚡ Using 6 parallel workers for fast processing...
-      🔊 Analyzing: note_000_Flûte_A4_vel76.wav
-         Duration: 2.905s, Sample Rate: 22050Hz
-      🔊 Analyzing: note_003_Violon_A3_vel66.wav
-         Duration: 2.615s, Sample Rate: 22050Hz
-      🔊 Analyzing: note_002_Violon_B3_vel65.wav
-         Duration: 4.757s, Sample Rate: 22050Hz
-      🔊 Analyzing: note_001_Flûte_G4_vel76.wav
-         Duration: 2.604s, Sample Rate: 22050Hz
-      🔊 Analyzing: note_005_Violon_B3_vel64.wav
-         Duration: 2.604s, Sample Rate: 22050Hz
-      🔊 Analyzing: note_004_Violon_C4_vel65.wav
-         Duration: 2.287s, Sample Rate: 22050Hz
-      ✅ note_000_Flûte_A4_vel76.wav
-         Duration: 2.91s, Keyframes: 21
-      ✅ note_003_Violon_A3_vel66.wav
-         Duration: 2.62s, Keyframes: 19
-      ✅ note_002_Violon_B3_vel65.wav
-         Duration: 4.76s, Keyframes: 35
-      ✅ note_001_Flûte_G4_vel76.wav
-         Duration: 2.60s, Keyframes: 19
-      ✅ note_005_Violon_B3_vel64.wav
-         Duration: 2.60s, Keyframes: 19
-      ✅ note_004_Violon_C4_vel65.wav
-         Duration: 2.29s, Keyframes: 17
+      🔊 Analyzing: note_001_Flûte_G4_vel76_0978.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76_965c.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66_9dc6.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65_7653.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64_a69d.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65_9bc6.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      ✅ note_001_Flûte_G4_vel76_0978.wav
+         Duration: 2.90s, Keyframes: 175 [UUID:0978]
+      ✅ note_000_Flûte_A4_vel76_965c.wav
+         Duration: 3.20s, Keyframes: 193 [UUID:965c]
+      ✅ note_003_Violon_A3_vel66_9dc6.wav
+         Duration: 2.98s, Keyframes: 180 [UUID:9dc6]
+      ✅ note_004_Violon_C4_vel65_7653.wav
+         Duration: 2.66s, Keyframes: 160 [UUID:7653]
+      ✅ note_005_Violon_B3_vel64_a69d.wav
+         Duration: 2.97s, Keyframes: 179 [UUID:a69d]
+      ✅ note_002_Violon_B3_vel65_9bc6.wav
+         Duration: 5.12s, Keyframes: 308 [UUID:9bc6]
       🎯 FAST KEYFRAME GENERATION COMPLETE!
       📁 Output directory: outputs/json/keyframes
       ✅ Successfully processed: 6 files
@@ -341,14 +350,1588 @@
       📁 Keyframe file structure:
       keyframes/
         Flûte/
-          note_000_Flûte_A4_vel76_keyframes.json
-          note_001_Flûte_G4_vel76_keyframes.json
+          note_001_Flûte_G4_vel76_0978_keyframes.json
+          note_000_Flûte_A4_vel76_965c_keyframes.json
         Violon/
-          note_003_Violon_A3_vel66_keyframes.json
-          note_004_Violon_C4_vel65_keyframes.json
-          note_002_Violon_B3_vel65_keyframes.json
+          note_002_Violon_B3_vel65_9bc6_keyframes.json
+          note_004_Violon_C4_vel65_7653_keyframes.json
+          note_005_Violon_B3_vel64_a69d_keyframes.json
           ... and 1 more files
       🎯 Cleanup complete, exiting...
-📁 FILES GENERATED: 🎵 16 audio (1.0 MB total)
-📊 EXECUTION SUMMARY: 351 messages processed, 4 patterns identified, -0.3% aggregation efficiency
+📊 EXECUTION SUMMARY: 360 messages processed, 3 patterns identified, 0.0% aggregation efficiency
+🔥 NUCLEAR EXIT: Last stage completed, forcing immediate termination!
+[16:44:51] 🚀 Starting Universal ID Pipeline Orchestration
+[16:44:51] Phase 1: Initializing Core Components
+[16:44:51] ✅ Core components initialized
+[16:44:51] Phase 2: Executing Note Coordinator
+      NOTE COORDINATOR - Universal Note Matching System
+      ============================================================
+      📄 MusicXML: Brain/Base/SS 9.musicxml
+      🎵 MIDI: Brain/Base/Saint-Saens Trio No 2.mid
+      📁 Output: universal_output
+      📄 Loading XML notes from: Brain/Base/SS 9.musicxml
+         ✅ Loaded 9 XML notes from 2 parts
+      🎵 Loading MIDI notes from: Brain/Base/Saint-Saens Trio No 2.mid
+         ✅ Loaded 6 MIDI notes from 2 tracks
+      🖼️  Calculating SVG coordinates
+         ✅ Calculated 9 SVG coordinates
+      🌍 Creating universal note registry
+      🔗 Matching XML to MIDI notes
+         ✅ Matched 6/9 XML notes to MIDI
+         ✅ Created 9 universal notes
+      💾 Saved coordination data to: universal_output
+         📋 universal_notes_registry.json - Complete note registry
+         🎵 midi_pipeline_manifest.json - MIDI pipeline tracking
+         🖼️  svg_pipeline_manifest.json - SVG pipeline tracking
+         📊 coordination_metadata.json - Comprehensive metadata
+      🎯 COORDINATION COMPLETE!
+      ============================================================
+      ✅ Total Notes: 9
+      🔗 High Confidence Matches: 6
+      📊 Average Match Confidence: 0.67
+      ⏱️  Total Duration: 9.50s
+      📋 Instrument Breakdown:
+         P1: 3 notes, 2 matched to MIDI
+         P2: 6 notes, 4 matched to MIDI
+      🚀 Ready for pipeline execution with universal note tracking!
+[16:44:51] ✅ Note Coordinator completed: 9 Universal IDs loaded
+[16:44:51] Phase 3: Executing Tied Note Processor
+      TIED NOTE PROCESSOR TEST
+      ==================================================
+      📄 MusicXML: Brain/Base/SS 9.musicxml
+      ⏱️  Master timing: universal_output/coordination_metadata.json
+      🎯 Matches: universal_output/universal_notes_registry.json
+      🎵 Tempo: 120.0 BPM
+      ✅ XML Analysis Complete:
+         📝 Total notes: 9
+         🔗 Tied groups: 2
+      ✅ Loaded 0 note matches
+      🔗 TIED NOTE PROCESSOR INITIALIZED
+      🎵 Default tempo: 120.0 BPM
+      TIED NOTE RELATIONSHIP PROCESSING
+      ==================================================
+      🎼 Total XML notes: 9
+      🔗 Tied groups: 2
+      🎯 Note matches: 0
+      📋 Creating structured tied note groups...
+      ✅ Group tied_group_1: 2 notes, primary: A4 @ M4
+      ✅ Group tied_group_2: 2 notes, primary: B3 @ M4
+      📊 Created 2 tied note groups
+      🎯 Matching tied groups with MIDI notes...
+      ❌ Group tied_group_1 primary note not matched: A4 @ 7.500s
+      ❌ Group tied_group_2 primary note not matched: B3 @ 6.000s
+      📈 Matched 0/2 tied groups with MIDI
+      ⏱️  Calculating tied note timing...
+      ⚠️  Skipping unmatched group: tied_group_1
+      ⚠️  Skipping unmatched group: tied_group_2
+      🎵 Processing non-tied notes...
+      ✅ Processed 0 non-tied notes with direct MIDI timing
+      🔍 Validating timing assignments...
+      📊 VALIDATION RESULTS:
+      ✅ Total assignments: 0
+      🎯 Primary notes (MIDI exact): 0
+      🔗 Tied notes (calculated): 0
+      📈 Average confidence: 0.000
+      💾 Tied note assignments saved to: universal_output/tied_note_assignments.json
+      ✅ After Effects timing data saved to: universal_output/ae_timing_data.json
+      🎯 TIED NOTE PROCESSING COMPLETE!
+      ✅ Total assignments: 0
+      🎯 Primary (MIDI exact): 0
+      🔗 Tied (calculated): 0
+      📈 Average confidence: 0.000
+      ⏱️  Timing spread: 0.000s
+[16:44:51] ✅ Tied Note Processor completed with timing calculations
+[16:44:51] Phase 4: Executing Pipeline Stages
+[16:44:51] 🔄 Executing Sequential Pipeline
+      TRULY UNIVERSAL NOTEHEADS EXTRACTOR
+      ==================================================
+      Input: Brain/Base/SS 9.musicxml
+      Output: outputs/svg/noteheads/SS 9_noteheads_universal.svg
+      ✅ Extracted 9 notes from 2 parts
+      ✅ Applied universal coordinate transformation
+      ✅ Created universal noteheads SVG: outputs/svg/noteheads/SS 9_noteheads_universal.svg
+      SUMMARY:
+      Part P1: 3 notes
+        A4 M4 → SVG(3178,1037)
+        A4 M5 → SVG(3454,1037)
+        G4 M5 → SVG(3618,1049)
+      Part P2: 6 notes
+        B3 M4 → SVG(2723,1429)
+        B3 M4 → SVG(3178,1429)
+        B3 M5 → SVG(3454,1429)
+        A3 M5 → SVG(3618,1441)
+        C4 M5 → SVG(3842,1417)
+        B3 M5 → SVG(4006,1429)
+      🎯 SUCCESS! Universal transformation applied to Brain/Base/SS 9.musicxml
+      TRULY UNIVERSAL NOTEHEADS SUBTRACTOR
+      ==================================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Full SVG: Brain/Base/SS 9 full.svg
+      Output: outputs/svg/SS 9 full_without_noteheads.svg
+      ✅ Found 9 notes in 2 parts
+      ✅ Calculated 9 notehead coordinates to remove
+      Original SVG size: 43265 characters
+      Expected notehead coordinates: 9
+      ✓ Removing notehead at (3179.0, 1037.0) matching expected (3178, 1037)
+      ✓ Removing notehead at (3453.0, 1037.0) matching expected (3454, 1037)
+      ✓ Removing notehead at (3617.0, 1049.0) matching expected (3618, 1049)
+      ✓ Removing notehead at (2723.0, 1429.0) matching expected (2723, 1429)
+      ✓ Removing notehead at (3179.0, 1429.0) matching expected (3178, 1429)
+      ✓ Removing notehead at (3453.0, 1429.0) matching expected (3454, 1429)
+      ✓ Removing notehead at (3617.0, 1441.0) matching expected (3618, 1441)
+      ✓ Removing notehead at (3843.0, 1417.0) matching expected (3842, 1417)
+      ✓ Removing notehead at (4006.0, 1429.0) matching expected (4006, 1429)
+      Removed 9 noteheads (should be exactly 9)
+      Remaining unmatched coordinates: 0
+      Filtered SVG size: 41618 characters
+      Size reduction: 1647 characters
+      ✅ Created SVG without noteheads: outputs/svg/SS 9 full_without_noteheads.svg
+      🎯 SUCCESS! Full SVG with noteheads removed: outputs/svg/SS 9 full_without_noteheads.svg
+      XML-BASED UNIVERSAL INSTRUMENT SEPARATOR
+      ==================================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Full SVG: Brain/Base/SS 9 full.svg
+      Output Directory: outputs/svg/instruments
+      🎵 Found 2 instruments:
+         1. Flûte (P1) - Flute (2)
+         2. Violon (P2) - Violin
+      📐 Calculated staff positions using universal transformation
+      Original SVG: Brain/Base/SS 9 full.svg
+      🎼 Processing Flûte (P1)...
+         Staff Y range: 950 to 1100
+         ✅ Created: Flûte_P1.svg
+         📊 Kept 34 elements, removed 59 elements
+         💾 File size: 36714 bytes
+      🎼 Processing Violon (P2)...
+         Staff Y range: 1250 to 1500
+         ✅ Created: Violon_P2.svg
+         📊 Kept 49 elements, removed 44 elements
+         💾 File size: 38183 bytes
+      🎯 SUCCESS! Created 2 instrument-specific SVG files in 'outputs/svg/instruments/' directory
+      INDIVIDUAL NOTEHEADS CREATOR
+      ========================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Output Directory: outputs/svg/noteheads
+      🎵 Found 9 notes
+      🎼 Instrument mapping: {'P1': 'Flûte', 'P2': 'Violon'}
+         ✅ Created: notehead_000_P1_A4_M4.svg
+            📍 Position: (3178, 1037) - A4 quarter
+         ✅ Created: notehead_001_P1_A4_M5.svg
+            📍 Position: (3454, 1037) - A4 eighth
+         ✅ Created: notehead_002_P1_G4_M5.svg
+            📍 Position: (3617, 1049) - G4 quarter
+         ✅ Created: notehead_003_P2_B3_M4.svg
+            📍 Position: (2722, 1429) - B3 half
+         ✅ Created: notehead_004_P2_B3_M4.svg
+            📍 Position: (3178, 1429) - B3 quarter
+         ✅ Created: notehead_005_P2_B3_M5.svg
+            📍 Position: (3454, 1429) - B3 eighth
+         ✅ Created: notehead_006_P2_A3_M5.svg
+            📍 Position: (3617, 1441) - A3 quarter
+         ✅ Created: notehead_007_P2_C4_M5.svg
+            📍 Position: (3841, 1417) - C4 eighth
+         ✅ Created: notehead_008_P2_B3_M5.svg
+            📍 Position: (4005, 1429) - B3 quarter
+      🎯 SUCCESS! Created 9 individual notehead SVG files in 'outputs/svg/noteheads/' directory
+      SUMMARY BY INSTRUMENT:
+        P1: 3 noteheads
+          A4 M4 → SVG(3178,1037)
+          A4 M5 → SVG(3454,1037)
+          G4 M5 → SVG(3617,1049)
+        P2: 6 noteheads
+          B3 M4 → SVG(2722,1429)
+          B3 M4 → SVG(3178,1429)
+          B3 M5 → SVG(3454,1429)
+          A3 M5 → SVG(3617,1441)
+          C4 M5 → SVG(3841,1417)
+          B3 M5 → SVG(4005,1429)
+      STAFF LINES + BARLINES EXTRACTOR
+      ==================================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Full SVG: Brain/Base/SS 9 full.svg
+      🎼 Found 2 staves
+      📏 Found 5 measures
+      📐 Identified 10 staff lines
+      📏 Identified 13 barlines
+      ✅ Created staff lines and barlines SVG: outputs/svg/staff_barlines/SS 9_staff_barlines.svg
+      SUMMARY BY STAFF:
+        Flûte: 5 staff lines
+          Y=1073.0 (X: 564.0-4608.0)
+          Y=1049.0 (X: 564.0-4608.0)
+          Y=1025.0 (X: 564.0-4608.0)
+          Y=1001.0 (X: 564.0-4608.0)
+          Y=977.0 (X: 564.0-4608.0)
+        Violon: 5 staff lines
+          Y=1393.0 (X: 564.0-4608.0)
+          Y=1369.0 (X: 564.0-4608.0)
+          Y=1345.0 (X: 564.0-4608.0)
+          Y=1321.0 (X: 564.0-4608.0)
+          Y=1297.0 (X: 564.0-4608.0)
+      BARLINES:
+        X=566.0 (Y: 977.0-1393.0) - regular (stroke-width=5)
+        X=1422.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=1422.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=2047.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=2047.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=2673.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=2673.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=3403.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=3403.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=4578.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=4600.0 (Y: 977.0-1073.0) - THICK (stroke-width=16)
+        X=4578.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=4600.0 (Y: 1297.0-1393.0) - THICK (stroke-width=16)
+      🎯 SUCCESS! Extracted 10 staff lines and 13 barlines
+      ✅ Loaded Universal ID registry: 9 notes
+      MIDI NOTE SEPARATOR WITH PEDAL DETECTION
+      ==================================================
+      Input MIDI: Brain/Base/Saint-Saens Trio No 2.mid
+      🔗 Universal ID Mode: Registry-based matching
+         Lookup tables: 5 pitch+track, 5 pitch-only
+      🎵 MIDI Type: 1
+      ⏱️  Ticks per beat: 960
+      🎼 Number of tracks: 3
+      Track 0: Unnamed
+        Notes found: 0
+      Track 1: Flûte
+        Notes found: 2
+        Pitch distribution: {'A4': 1, 'G4': 1}
+      Track 2: Violon
+        Notes found: 4
+        Pitch distribution: {'A3': 1, 'B3': 2, 'C4': 1}
+      🎯 TOTAL NOTES: 6
+      🦶 PEDAL EVENTS: 2
+      🎹 PROCESSING PEDAL EXTENSIONS:
+      📁 Creating individual note files in: outputs/midi
+      ✅ Created: note_000_Flûte_A4_vel76_b996.mid
+         Track: Flûte → GM Program #74
+         Note: A4 (MIDI 69)
+         Velocity: 76
+         Duration: 1440 ticks
+         Start: 14400 ticks
+         🔗 Universal ID: b9964496... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_001_Flûte_G4_vel76_362b.mid
+         Track: Flûte → GM Program #74
+         Note: G4 (MIDI 67)
+         Velocity: 76
+         Duration: 960 ticks
+         Start: 15840 ticks
+         🔗 Universal ID: 362b62a4... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_002_Violon_B3_vel65_4913.mid
+         Track: Violon → GM Program #41
+         Note: B3 (MIDI 59)
+         Velocity: 65
+         Duration: 4406 ticks
+         Start: 11520 ticks
+         🔗 Universal ID: 4913b30a... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_003_Violon_A3_vel66_2fb3.mid
+         Track: Violon → GM Program #41
+         Note: A3 (MIDI 57)
+         Velocity: 66
+         Duration: 979 ticks
+         Start: 15840 ticks
+         🔗 Universal ID: 2fb35e9e... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_004_Violon_C4_vel65_f25a.mid
+         Track: Violon → GM Program #41
+         Note: C4 (MIDI 60)
+         Velocity: 65
+         Duration: 454 ticks
+         Start: 16800 ticks
+         🔗 Universal ID: f25a9aeb... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_005_Violon_B3_vel64_9650.mid
+         Track: Violon → GM Program #41
+         Note: B3 (MIDI 59)
+         Velocity: 64
+         Duration: 960 ticks
+         Start: 17280 ticks
+         🔗 Universal ID: 96506003... (confidence: 95.0%)
+         🦶 No pedal extension
+      🎯 SUCCESS! Created 6 individual note files
+      📁 Output directory: outputs/midi
+      SUMMARY BY TRACK:
+        Flûte: 2 notes
+        Violon: 4 notes
+      FAST MIDI TO AUDIO RENDERER
+      ==================================================
+      Input directory: outputs/midi
+      🎵 Using soundfont: soundfonts/SGM_V2_final.sf2
+      🎼 Found 3 instruments, 24 files total:
+        Flûte: 6 notes → GM Program #74
+        Violon: 12 notes → GM Program #41
+        Track: 6 notes → GM Program #1
+      ⚡ Using 8 parallel workers for fast processing...
+      ❌ note_004_Violon_C4_vel65.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76_b996.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76_0978.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76_965c.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76_362b.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65_f25a.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65_7653.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65_9bc6.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65_4913.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64_9650.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66_2fb3.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66_9dc6.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Track_0_D4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64_a69d.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Track_0_E4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Track_0_G4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Track_0_E4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Track_0_C4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Track_0_D4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      🎯 FAST RENDERING COMPLETE!
+      📁 Output directory: outputs/audio
+      ✅ Successfully rendered: 0 files
+      ❌ Failed to render: 24 files
+      📁 Audio file structure:
+      audio/
+        Track/
+          note_000_Track_0_D4_vel80.wav (454188 bytes)
+          note_002_Track_0_E4_vel80.wav (419372 bytes)
+          note_001_Track_0_D4_vel80.wav (419372 bytes)
+          note_000_Track_0_C4_vel80.wav (344876 bytes)
+          note_001_Track_0_G4_vel80.wav (300844 bytes)
+          note_000_Track_0_E4_vel80.wav (300844 bytes)
+        Flûte/
+          note_001_Flûte_G4_vel76.wav (255532 bytes)
+          note_001_Flûte_G4_vel76_0978.wav (255532 bytes)
+          note_000_Flûte_A4_vel76_b996.wav (282156 bytes)
+          note_000_Flûte_A4_vel76.wav (282156 bytes)
+          note_000_Flûte_A4_vel76_965c.wav (282156 bytes)
+          note_001_Flûte_G4_vel76_362b.wav (255532 bytes)
+        Violon/
+          note_004_Violon_C4_vel65.wav (234284 bytes)
+          note_003_Violon_A3_vel66.wav (263212 bytes)
+          note_003_Violon_A3_vel66_2fb3.wav (263212 bytes)
+          note_004_Violon_C4_vel65_f25a.wav (234284 bytes)
+          note_003_Violon_A3_vel66_9dc6.wav (263212 bytes)
+          note_005_Violon_B3_vel64.wav (261932 bytes)
+          note_005_Violon_B3_vel64_a69d.wav (261932 bytes)
+          note_002_Violon_B3_vel65.wav (451884 bytes)
+          note_002_Violon_B3_vel65_9bc6.wav (451884 bytes)
+          note_004_Violon_C4_vel65_7653.wav (234284 bytes)
+          note_005_Violon_B3_vel64_9650.wav (261932 bytes)
+          note_002_Violon_B3_vel65_4913.wav (451884 bytes)
+📁 FILES GENERATED: 🎵 10 audio (3.0 MB total)
+      FAST AUDIO TO KEYFRAMES EXTRACTOR
+      ==================================================
+      Input directory: outputs/audio
+      🎵 Found 24 audio files
+      ⚡ Using 8 parallel workers for fast processing...
+      🔊 Analyzing: note_001_Flûte_G4_vel76.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64_a69d.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Track_0_E4_vel80.wav
+         Duration: 3.410s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66_9dc6.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76_0978.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76_362b.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65_9bc6.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Track_0_D4_vel80.wav
+         Duration: 4.754s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65_f25a.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Track_0_D4_vel80.wav
+         Duration: 5.149s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76_965c.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Track_0_G4_vel80.wav
+         Duration: 3.410s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76_b996.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65_7653.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Track_0_C4_vel80.wav
+         Duration: 3.910s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66_2fb3.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64_9650.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Track_0_E4_vel80.wav
+         Duration: 4.754s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65_4913.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      ✅ note_001_Track_0_G4_vel80.wav
+         Duration: 3.41s, Keyframes: 205 [Sequential]
+      ✅ note_001_Flûte_G4_vel76.wav
+         Duration: 2.90s, Keyframes: 175 [Sequential]
+      ✅ note_000_Track_0_D4_vel80.wav
+         Duration: 5.15s, Keyframes: 310 [Sequential]
+      ✅ note_001_Flûte_G4_vel76_0978.wav
+         Duration: 2.90s, Keyframes: 175 [UUID:0978]
+      ✅ note_002_Track_0_E4_vel80.wav
+         Duration: 4.75s, Keyframes: 286 [Sequential]
+      ✅ note_000_Flûte_A4_vel76_b996.wav
+         Duration: 3.20s, Keyframes: 193 [UUID:b996]
+      ✅ note_000_Track_0_C4_vel80.wav
+         Duration: 3.91s, Keyframes: 235 [Sequential]
+      ✅ note_001_Track_0_D4_vel80.wav
+         Duration: 4.75s, Keyframes: 286 [Sequential]
+      ✅ note_000_Track_0_E4_vel80.wav
+         Duration: 3.41s, Keyframes: 205 [Sequential]
+      ✅ note_004_Violon_C4_vel65.wav
+         Duration: 2.66s, Keyframes: 160 [Sequential]
+      ✅ note_000_Flûte_A4_vel76.wav
+         Duration: 3.20s, Keyframes: 193 [Sequential]
+      ✅ note_000_Flûte_A4_vel76_965c.wav
+         Duration: 3.20s, Keyframes: 193 [UUID:965c]
+      ✅ note_001_Flûte_G4_vel76_362b.wav
+         Duration: 2.90s, Keyframes: 175 [UUID:362b]
+      ✅ note_003_Violon_A3_vel66.wav
+         Duration: 2.98s, Keyframes: 180 [Sequential]
+      ✅ note_003_Violon_A3_vel66_2fb3.wav
+         Duration: 2.98s, Keyframes: 180 [UUID:2fb3]
+      ✅ note_005_Violon_B3_vel64.wav
+         Duration: 2.97s, Keyframes: 179 [Sequential]
+      ✅ note_005_Violon_B3_vel64_a69d.wav
+         Duration: 2.97s, Keyframes: 179 [UUID:a69d]
+      ✅ note_003_Violon_A3_vel66_9dc6.wav
+         Duration: 2.98s, Keyframes: 180 [UUID:9dc6]
+      ✅ note_002_Violon_B3_vel65_9bc6.wav
+         Duration: 5.12s, Keyframes: 308 [UUID:9bc6]
+      ✅ note_004_Violon_C4_vel65_f25a.wav
+         Duration: 2.66s, Keyframes: 160 [UUID:f25a]
+      ✅ note_002_Violon_B3_vel65.wav
+         Duration: 5.12s, Keyframes: 308 [Sequential]
+      ✅ note_005_Violon_B3_vel64_9650.wav
+         Duration: 2.97s, Keyframes: 179 [UUID:9650]
+      ✅ note_004_Violon_C4_vel65_7653.wav
+         Duration: 2.66s, Keyframes: 160 [UUID:7653]
+      ✅ note_002_Violon_B3_vel65_4913.wav
+         Duration: 5.12s, Keyframes: 308 [UUID:4913]
+      🎯 FAST KEYFRAME GENERATION COMPLETE!
+      📁 Output directory: outputs/json/keyframes
+      ✅ Successfully processed: 24 files
+      ❌ Failed to process: 0 files
+      📁 Keyframe file structure:
+      keyframes/
+        Track/
+          note_000_Track_0_E4_vel80_keyframes.json
+          note_001_Track_0_D4_vel80_keyframes.json
+          note_000_Track_0_C4_vel80_keyframes.json
+          ... and 3 more files
+        Flûte/
+          note_001_Flûte_G4_vel76_362b_keyframes.json
+          note_001_Flûte_G4_vel76_0978_keyframes.json
+          note_000_Flûte_A4_vel76_b996_keyframes.json
+          ... and 3 more files
+        Violon/
+          note_003_Violon_A3_vel66_keyframes.json
+          note_002_Violon_B3_vel65_4913_keyframes.json
+          note_002_Violon_B3_vel65_9bc6_keyframes.json
+          ... and 9 more files
+      🎯 Cleanup complete, exiting...
+📁 FILES GENERATED: 🎵 24 audio
+📊 EXECUTION SUMMARY: 485 messages processed, 4 patterns identified, -0.4% aggregation efficiency
+🔥 NUCLEAR EXIT: Last stage completed, forcing immediate termination!
+[16:46:42] 🚀 Starting Universal ID Pipeline Orchestration
+[16:46:42] Phase 1: Initializing Core Components
+[16:46:42] ✅ Core components initialized
+[16:46:42] Phase 2: Executing Note Coordinator
+      NOTE COORDINATOR - Universal Note Matching System
+      ============================================================
+      📄 MusicXML: Brain/Base/SS 9.musicxml
+      🎵 MIDI: Brain/Base/Saint-Saens Trio No 2.mid
+      📁 Output: universal_output
+      📄 Loading XML notes from: Brain/Base/SS 9.musicxml
+         ✅ Loaded 9 XML notes from 2 parts
+      🎵 Loading MIDI notes from: Brain/Base/Saint-Saens Trio No 2.mid
+         ✅ Loaded 6 MIDI notes from 2 tracks
+      🖼️  Calculating SVG coordinates
+         ✅ Calculated 9 SVG coordinates
+      🌍 Creating universal note registry
+      🔗 Matching XML to MIDI notes
+         ✅ Matched 6/9 XML notes to MIDI
+         ✅ Created 9 universal notes
+      💾 Saved coordination data to: universal_output
+         📋 universal_notes_registry.json - Complete note registry
+         🎵 midi_pipeline_manifest.json - MIDI pipeline tracking
+         🖼️  svg_pipeline_manifest.json - SVG pipeline tracking
+         📊 coordination_metadata.json - Comprehensive metadata
+      🎯 COORDINATION COMPLETE!
+      ============================================================
+      ✅ Total Notes: 9
+      🔗 High Confidence Matches: 6
+      📊 Average Match Confidence: 0.67
+      ⏱️  Total Duration: 9.50s
+      📋 Instrument Breakdown:
+         P1: 3 notes, 2 matched to MIDI
+         P2: 6 notes, 4 matched to MIDI
+      🚀 Ready for pipeline execution with universal note tracking!
+[16:46:42] ✅ Note Coordinator completed: 9 Universal IDs loaded
+[16:46:42] Phase 3: Executing Tied Note Processor
+      TIED NOTE PROCESSOR TEST
+      ==================================================
+      📄 MusicXML: Brain/Base/SS 9.musicxml
+      ⏱️  Master timing: universal_output/coordination_metadata.json
+      🎯 Matches: universal_output/universal_notes_registry.json
+      🎵 Tempo: 120.0 BPM
+      ✅ XML Analysis Complete:
+         📝 Total notes: 9
+         🔗 Tied groups: 2
+      ✅ Loaded 0 note matches
+      🔗 TIED NOTE PROCESSOR INITIALIZED
+      🎵 Default tempo: 120.0 BPM
+      TIED NOTE RELATIONSHIP PROCESSING
+      ==================================================
+      🎼 Total XML notes: 9
+      🔗 Tied groups: 2
+      🎯 Note matches: 0
+      📋 Creating structured tied note groups...
+      ✅ Group tied_group_1: 2 notes, primary: A4 @ M4
+      ✅ Group tied_group_2: 2 notes, primary: B3 @ M4
+      📊 Created 2 tied note groups
+      🎯 Matching tied groups with MIDI notes...
+      ❌ Group tied_group_1 primary note not matched: A4 @ 7.500s
+      ❌ Group tied_group_2 primary note not matched: B3 @ 6.000s
+      📈 Matched 0/2 tied groups with MIDI
+      ⏱️  Calculating tied note timing...
+      ⚠️  Skipping unmatched group: tied_group_1
+      ⚠️  Skipping unmatched group: tied_group_2
+      🎵 Processing non-tied notes...
+      ✅ Processed 0 non-tied notes with direct MIDI timing
+      🔍 Validating timing assignments...
+      📊 VALIDATION RESULTS:
+      ✅ Total assignments: 0
+      🎯 Primary notes (MIDI exact): 0
+      🔗 Tied notes (calculated): 0
+      📈 Average confidence: 0.000
+      💾 Tied note assignments saved to: universal_output/tied_note_assignments.json
+      ✅ After Effects timing data saved to: universal_output/ae_timing_data.json
+      🎯 TIED NOTE PROCESSING COMPLETE!
+      ✅ Total assignments: 0
+      🎯 Primary (MIDI exact): 0
+      🔗 Tied (calculated): 0
+      📈 Average confidence: 0.000
+      ⏱️  Timing spread: 0.000s
+[16:46:42] ✅ Tied Note Processor completed with timing calculations
+[16:46:42] Phase 4: Executing Pipeline Stages
+[16:46:42] 🔄 Executing Sequential Pipeline
+      TRULY UNIVERSAL NOTEHEADS EXTRACTOR
+      ==================================================
+      Input: Brain/Base/SS 9.musicxml
+      Output: outputs/svg/noteheads/SS 9_noteheads_universal.svg
+      ✅ Extracted 9 notes from 2 parts
+      ✅ Applied universal coordinate transformation
+      ✅ Created universal noteheads SVG: outputs/svg/noteheads/SS 9_noteheads_universal.svg
+      SUMMARY:
+      Part P1: 3 notes
+        A4 M4 → SVG(3178,1037)
+        A4 M5 → SVG(3454,1037)
+        G4 M5 → SVG(3618,1049)
+      Part P2: 6 notes
+        B3 M4 → SVG(2723,1429)
+        B3 M4 → SVG(3178,1429)
+        B3 M5 → SVG(3454,1429)
+        A3 M5 → SVG(3618,1441)
+        C4 M5 → SVG(3842,1417)
+        B3 M5 → SVG(4006,1429)
+      🎯 SUCCESS! Universal transformation applied to Brain/Base/SS 9.musicxml
+      TRULY UNIVERSAL NOTEHEADS SUBTRACTOR
+      ==================================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Full SVG: Brain/Base/SS 9 full.svg
+      Output: outputs/svg/SS 9 full_without_noteheads.svg
+      ✅ Found 9 notes in 2 parts
+      ✅ Calculated 9 notehead coordinates to remove
+      Original SVG size: 43265 characters
+      Expected notehead coordinates: 9
+      ✓ Removing notehead at (3179.0, 1037.0) matching expected (3178, 1037)
+      ✓ Removing notehead at (3453.0, 1037.0) matching expected (3454, 1037)
+      ✓ Removing notehead at (3617.0, 1049.0) matching expected (3618, 1049)
+      ✓ Removing notehead at (2723.0, 1429.0) matching expected (2723, 1429)
+      ✓ Removing notehead at (3179.0, 1429.0) matching expected (3178, 1429)
+      ✓ Removing notehead at (3453.0, 1429.0) matching expected (3454, 1429)
+      ✓ Removing notehead at (3617.0, 1441.0) matching expected (3618, 1441)
+      ✓ Removing notehead at (3843.0, 1417.0) matching expected (3842, 1417)
+      ✓ Removing notehead at (4006.0, 1429.0) matching expected (4006, 1429)
+      Removed 9 noteheads (should be exactly 9)
+      Remaining unmatched coordinates: 0
+      Filtered SVG size: 41618 characters
+      Size reduction: 1647 characters
+      ✅ Created SVG without noteheads: outputs/svg/SS 9 full_without_noteheads.svg
+      🎯 SUCCESS! Full SVG with noteheads removed: outputs/svg/SS 9 full_without_noteheads.svg
+      XML-BASED UNIVERSAL INSTRUMENT SEPARATOR
+      ==================================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Full SVG: Brain/Base/SS 9 full.svg
+      Output Directory: outputs/svg/instruments
+      🎵 Found 2 instruments:
+         1. Flûte (P1) - Flute (2)
+         2. Violon (P2) - Violin
+      📐 Calculated staff positions using universal transformation
+      Original SVG: Brain/Base/SS 9 full.svg
+      🎼 Processing Flûte (P1)...
+         Staff Y range: 950 to 1100
+         ✅ Created: Flûte_P1.svg
+         📊 Kept 34 elements, removed 59 elements
+         💾 File size: 36714 bytes
+      🎼 Processing Violon (P2)...
+         Staff Y range: 1250 to 1500
+         ✅ Created: Violon_P2.svg
+         📊 Kept 49 elements, removed 44 elements
+         💾 File size: 38183 bytes
+      🎯 SUCCESS! Created 2 instrument-specific SVG files in 'outputs/svg/instruments/' directory
+      INDIVIDUAL NOTEHEADS CREATOR
+      ========================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Output Directory: outputs/svg/noteheads
+      🎵 Found 9 notes
+      🎼 Instrument mapping: {'P1': 'Flûte', 'P2': 'Violon'}
+         ✅ Created: notehead_000_P1_A4_M4.svg
+            📍 Position: (3178, 1037) - A4 quarter
+         ✅ Created: notehead_001_P1_A4_M5.svg
+            📍 Position: (3454, 1037) - A4 eighth
+         ✅ Created: notehead_002_P1_G4_M5.svg
+            📍 Position: (3617, 1049) - G4 quarter
+         ✅ Created: notehead_003_P2_B3_M4.svg
+            📍 Position: (2722, 1429) - B3 half
+         ✅ Created: notehead_004_P2_B3_M4.svg
+            📍 Position: (3178, 1429) - B3 quarter
+         ✅ Created: notehead_005_P2_B3_M5.svg
+            📍 Position: (3454, 1429) - B3 eighth
+         ✅ Created: notehead_006_P2_A3_M5.svg
+            📍 Position: (3617, 1441) - A3 quarter
+         ✅ Created: notehead_007_P2_C4_M5.svg
+            📍 Position: (3841, 1417) - C4 eighth
+         ✅ Created: notehead_008_P2_B3_M5.svg
+            📍 Position: (4005, 1429) - B3 quarter
+      🎯 SUCCESS! Created 9 individual notehead SVG files in 'outputs/svg/noteheads/' directory
+      SUMMARY BY INSTRUMENT:
+        P1: 3 noteheads
+          A4 M4 → SVG(3178,1037)
+          A4 M5 → SVG(3454,1037)
+          G4 M5 → SVG(3617,1049)
+        P2: 6 noteheads
+          B3 M4 → SVG(2722,1429)
+          B3 M4 → SVG(3178,1429)
+          B3 M5 → SVG(3454,1429)
+          A3 M5 → SVG(3617,1441)
+          C4 M5 → SVG(3841,1417)
+          B3 M5 → SVG(4005,1429)
+      STAFF LINES + BARLINES EXTRACTOR
+      ==================================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Full SVG: Brain/Base/SS 9 full.svg
+      🎼 Found 2 staves
+      📏 Found 5 measures
+      📐 Identified 10 staff lines
+      📏 Identified 13 barlines
+      ✅ Created staff lines and barlines SVG: outputs/svg/staff_barlines/SS 9_staff_barlines.svg
+      SUMMARY BY STAFF:
+        Flûte: 5 staff lines
+          Y=1073.0 (X: 564.0-4608.0)
+          Y=1049.0 (X: 564.0-4608.0)
+          Y=1025.0 (X: 564.0-4608.0)
+          Y=1001.0 (X: 564.0-4608.0)
+          Y=977.0 (X: 564.0-4608.0)
+        Violon: 5 staff lines
+          Y=1393.0 (X: 564.0-4608.0)
+          Y=1369.0 (X: 564.0-4608.0)
+          Y=1345.0 (X: 564.0-4608.0)
+          Y=1321.0 (X: 564.0-4608.0)
+          Y=1297.0 (X: 564.0-4608.0)
+      BARLINES:
+        X=566.0 (Y: 977.0-1393.0) - regular (stroke-width=5)
+        X=1422.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=1422.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=2047.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=2047.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=2673.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=2673.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=3403.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=3403.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=4578.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=4600.0 (Y: 977.0-1073.0) - THICK (stroke-width=16)
+        X=4578.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=4600.0 (Y: 1297.0-1393.0) - THICK (stroke-width=16)
+      🎯 SUCCESS! Extracted 10 staff lines and 13 barlines
+      ✅ Loaded Universal ID registry: 9 notes
+      MIDI NOTE SEPARATOR WITH PEDAL DETECTION
+      ==================================================
+      Input MIDI: Brain/Base/Saint-Saens Trio No 2.mid
+      🔗 Universal ID Mode: Registry-based matching
+         Lookup tables: 5 pitch+track, 5 pitch-only
+      🎵 MIDI Type: 1
+      ⏱️  Ticks per beat: 960
+      🎼 Number of tracks: 3
+      Track 0: Unnamed
+        Notes found: 0
+      Track 1: Flûte
+        Notes found: 2
+        Pitch distribution: {'A4': 1, 'G4': 1}
+      Track 2: Violon
+        Notes found: 4
+        Pitch distribution: {'A3': 1, 'B3': 2, 'C4': 1}
+      🎯 TOTAL NOTES: 6
+      🦶 PEDAL EVENTS: 2
+      🎹 PROCESSING PEDAL EXTENSIONS:
+      📁 Creating individual note files in: outputs/midi
+      ✅ Created: note_000_Flûte_A4_vel76_bce2.mid
+         Track: Flûte → GM Program #74
+         Note: A4 (MIDI 69)
+         Velocity: 76
+         Duration: 1440 ticks
+         Start: 14400 ticks
+         🔗 Universal ID: bce25e21... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_001_Flûte_G4_vel76_7980.mid
+         Track: Flûte → GM Program #74
+         Note: G4 (MIDI 67)
+         Velocity: 76
+         Duration: 960 ticks
+         Start: 15840 ticks
+         🔗 Universal ID: 79801450... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_002_Violon_B3_vel65_0250.mid
+         Track: Violon → GM Program #41
+         Note: B3 (MIDI 59)
+         Velocity: 65
+         Duration: 4406 ticks
+         Start: 11520 ticks
+         🔗 Universal ID: 0250de9a... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_003_Violon_A3_vel66_b495.mid
+         Track: Violon → GM Program #41
+         Note: A3 (MIDI 57)
+         Velocity: 66
+         Duration: 979 ticks
+         Start: 15840 ticks
+         🔗 Universal ID: b49520a6... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_004_Violon_C4_vel65_5c8e.mid
+         Track: Violon → GM Program #41
+         Note: C4 (MIDI 60)
+         Velocity: 65
+         Duration: 454 ticks
+         Start: 16800 ticks
+         🔗 Universal ID: 5c8e1ca9... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_005_Violon_B3_vel64_fd0c.mid
+         Track: Violon → GM Program #41
+         Note: B3 (MIDI 59)
+         Velocity: 64
+         Duration: 960 ticks
+         Start: 17280 ticks
+         🔗 Universal ID: fd0c868e... (confidence: 95.0%)
+         🦶 No pedal extension
+      🎯 SUCCESS! Created 6 individual note files
+      📁 Output directory: outputs/midi
+      SUMMARY BY TRACK:
+        Flûte: 2 notes
+        Violon: 4 notes
+      FAST MIDI TO AUDIO RENDERER
+      ==================================================
+      Input directory: outputs/midi
+      🎵 Using soundfont: soundfonts/SGM_V2_final.sf2
+      🎼 Found 3 instruments, 30 files total:
+        Flûte: 8 notes → GM Program #74
+        Violon: 16 notes → GM Program #41
+        Track: 6 notes → GM Program #1
+      ⚡ Using 8 parallel workers for fast processing...
+      ❌ note_001_Flûte_G4_vel76_7980.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76_965c.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76_bce2.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76_362b.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76_b996.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76_0978.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64_fd0c.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65_9bc6.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65_7653.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65_5c8e.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65_f25a.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66_2fb3.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65_4913.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64_9650.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66_9dc6.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64_a69d.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66_b495.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65_0250.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Track_0_D4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Track_0_E4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Track_0_G4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Track_0_E4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Track_0_D4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Track_0_C4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      🎯 FAST RENDERING COMPLETE!
+      📁 Output directory: outputs/audio
+      ✅ Successfully rendered: 0 files
+      ❌ Failed to render: 30 files
+      📁 Audio file structure:
+      audio/
+        Track/
+          note_000_Track_0_D4_vel80.wav (454188 bytes)
+          note_002_Track_0_E4_vel80.wav (419372 bytes)
+          note_001_Track_0_D4_vel80.wav (419372 bytes)
+          note_000_Track_0_C4_vel80.wav (344876 bytes)
+          note_001_Track_0_G4_vel80.wav (300844 bytes)
+          note_000_Track_0_E4_vel80.wav (300844 bytes)
+        Flûte/
+          note_001_Flûte_G4_vel76.wav (255532 bytes)
+          note_001_Flûte_G4_vel76_7980.wav (255532 bytes)
+          note_001_Flûte_G4_vel76_0978.wav (255532 bytes)
+          note_000_Flûte_A4_vel76_b996.wav (282156 bytes)
+          note_000_Flûte_A4_vel76.wav (282156 bytes)
+          note_000_Flûte_A4_vel76_bce2.wav (282156 bytes)
+          note_000_Flûte_A4_vel76_965c.wav (282156 bytes)
+          note_001_Flûte_G4_vel76_362b.wav (255532 bytes)
+        Violon/
+          note_004_Violon_C4_vel65_5c8e.wav (234284 bytes)
+          note_004_Violon_C4_vel65.wav (234284 bytes)
+          note_003_Violon_A3_vel66.wav (263212 bytes)
+          note_003_Violon_A3_vel66_2fb3.wav (263212 bytes)
+          note_005_Violon_B3_vel64_fd0c.wav (261932 bytes)
+          note_004_Violon_C4_vel65_f25a.wav (234284 bytes)
+          note_003_Violon_A3_vel66_9dc6.wav (263212 bytes)
+          note_005_Violon_B3_vel64.wav (261932 bytes)
+          note_002_Violon_B3_vel65_0250.wav (451884 bytes)
+          note_005_Violon_B3_vel64_a69d.wav (261932 bytes)
+          note_002_Violon_B3_vel65.wav (451884 bytes)
+          note_002_Violon_B3_vel65_9bc6.wav (451884 bytes)
+          note_004_Violon_C4_vel65_7653.wav (234284 bytes)
+          note_005_Violon_B3_vel64_9650.wav (261932 bytes)
+          note_003_Violon_A3_vel66_b495.wav (263212 bytes)
+          note_002_Violon_B3_vel65_4913.wav (451884 bytes)
+📁 FILES GENERATED: 🎵 10 audio (3.0 MB total)
+      FAST AUDIO TO KEYFRAMES EXTRACTOR
+      ==================================================
+      Input directory: outputs/audio
+      🎵 Found 30 audio files
+      ⚡ Using 8 parallel workers for fast processing...
+      🔊 Analyzing: note_000_Track_0_E4_vel80.wav
+         Duration: 3.410s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76_0978.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64_a69d.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76_7980.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66_2fb3.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65_0250.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Track_0_D4_vel80.wav
+         Duration: 5.149s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Track_0_C4_vel80.wav
+         Duration: 3.910s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76_bce2.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65_f25a.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65_7653.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Track_0_D4_vel80.wav
+         Duration: 4.754s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76_362b.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65_9bc6.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Track_0_E4_vel80.wav
+         Duration: 4.754s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76_b996.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64_fd0c.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64_9650.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Track_0_G4_vel80.wav
+         Duration: 3.410s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65_5c8e.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66_9dc6.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66_b495.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76_965c.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65_4913.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      ✅ note_000_Track_0_E4_vel80.wav
+         Duration: 3.41s, Keyframes: 205 [Sequential]
+      ✅ note_002_Track_0_E4_vel80.wav
+         Duration: 4.75s, Keyframes: 286 [Sequential]
+      ✅ note_001_Flûte_G4_vel76_7980.wav
+         Duration: 2.90s, Keyframes: 175 [UUID:7980]
+      ✅ note_000_Track_0_C4_vel80.wav
+         Duration: 3.91s, Keyframes: 235 [Sequential]
+      ✅ note_001_Flûte_G4_vel76.wav
+         Duration: 2.90s, Keyframes: 175 [Sequential]
+      ✅ note_001_Track_0_D4_vel80.wav
+         Duration: 4.75s, Keyframes: 286 [Sequential]
+      ✅ note_001_Track_0_G4_vel80.wav
+         Duration: 3.41s, Keyframes: 205 [Sequential]
+      ✅ note_000_Track_0_D4_vel80.wav
+         Duration: 5.15s, Keyframes: 310 [Sequential]
+      ✅ note_001_Flûte_G4_vel76_0978.wav
+         Duration: 2.90s, Keyframes: 175 [UUID:0978]
+      ✅ note_000_Flûte_A4_vel76.wav
+         Duration: 3.20s, Keyframes: 193 [Sequential]
+      ✅ note_000_Flûte_A4_vel76_b996.wav
+         Duration: 3.20s, Keyframes: 193 [UUID:b996]
+      ✅ note_000_Flûte_A4_vel76_bce2.wav
+         Duration: 3.20s, Keyframes: 193 [UUID:bce2]
+      ✅ note_004_Violon_C4_vel65_5c8e.wav
+         Duration: 2.66s, Keyframes: 160 [UUID:5c8e]
+      ✅ note_000_Flûte_A4_vel76_965c.wav
+         Duration: 3.20s, Keyframes: 193 [UUID:965c]
+      ✅ note_003_Violon_A3_vel66_2fb3.wav
+         Duration: 2.98s, Keyframes: 180 [UUID:2fb3]
+      ✅ note_003_Violon_A3_vel66.wav
+         Duration: 2.98s, Keyframes: 180 [Sequential]
+      ✅ note_004_Violon_C4_vel65.wav
+         Duration: 2.66s, Keyframes: 160 [Sequential]
+      ✅ note_001_Flûte_G4_vel76_362b.wav
+         Duration: 2.90s, Keyframes: 175 [UUID:362b]
+      ✅ note_004_Violon_C4_vel65_f25a.wav
+         Duration: 2.66s, Keyframes: 160 [UUID:f25a]
+      ✅ note_005_Violon_B3_vel64_fd0c.wav
+         Duration: 2.97s, Keyframes: 179 [UUID:fd0c]
+      ✅ note_003_Violon_A3_vel66_9dc6.wav
+         Duration: 2.98s, Keyframes: 180 [UUID:9dc6]
+      ✅ note_005_Violon_B3_vel64.wav
+         Duration: 2.97s, Keyframes: 179 [Sequential]
+      ✅ note_005_Violon_B3_vel64_a69d.wav
+         Duration: 2.97s, Keyframes: 179 [UUID:a69d]
+      ✅ note_002_Violon_B3_vel65.wav
+         Duration: 5.12s, Keyframes: 308 [Sequential]
+      ✅ note_002_Violon_B3_vel65_0250.wav
+         Duration: 5.12s, Keyframes: 308 [UUID:0250]
+      ✅ note_002_Violon_B3_vel65_9bc6.wav
+         Duration: 5.12s, Keyframes: 308 [UUID:9bc6]
+      ✅ note_005_Violon_B3_vel64_9650.wav
+         Duration: 2.97s, Keyframes: 179 [UUID:9650]
+      ✅ note_004_Violon_C4_vel65_7653.wav
+         Duration: 2.66s, Keyframes: 160 [UUID:7653]
+      ✅ note_003_Violon_A3_vel66_b495.wav
+         Duration: 2.98s, Keyframes: 180 [UUID:b495]
+      ✅ note_002_Violon_B3_vel65_4913.wav
+         Duration: 5.12s, Keyframes: 308 [UUID:4913]
+      🎯 FAST KEYFRAME GENERATION COMPLETE!
+      📁 Output directory: outputs/json/keyframes
+      ✅ Successfully processed: 30 files
+      ❌ Failed to process: 0 files
+      📁 Keyframe file structure:
+      keyframes/
+        Track/
+          note_000_Track_0_E4_vel80_keyframes.json
+          note_001_Track_0_D4_vel80_keyframes.json
+          note_000_Track_0_C4_vel80_keyframes.json
+          ... and 3 more files
+        Flûte/
+          note_000_Flûte_A4_vel76_bce2_keyframes.json
+          note_001_Flûte_G4_vel76_7980_keyframes.json
+          note_001_Flûte_G4_vel76_362b_keyframes.json
+          ... and 5 more files
+        Violon/
+          note_003_Violon_A3_vel66_keyframes.json
+          note_003_Violon_A3_vel66_b495_keyframes.json
+          note_002_Violon_B3_vel65_4913_keyframes.json
+          ... and 13 more files
+      🎯 Cleanup complete, exiting...
+📁 FILES GENERATED: 🎵 24 audio
+📊 EXECUTION SUMMARY: 521 messages processed, 4 patterns identified, -0.4% aggregation efficiency
+🔥 NUCLEAR EXIT: Last stage completed, forcing immediate termination!
+[17:29:09] 🚀 Starting Universal ID Pipeline Orchestration
+[17:29:09] Phase 1: Initializing Core Components
+[17:29:09] ✅ Core components initialized
+[17:29:09] Phase 2: Executing Note Coordinator
+      NOTE COORDINATOR - Universal Note Matching System
+      ============================================================
+      📄 MusicXML: Brain/Base/SS 9.musicxml
+      🎵 MIDI: Brain/Base/Saint-Saens Trio No 2.mid
+      📁 Output: universal_output
+      📄 Loading XML notes from: Brain/Base/SS 9.musicxml
+         ✅ Loaded 9 XML notes from 2 parts
+      🎵 Loading MIDI notes from: Brain/Base/Saint-Saens Trio No 2.mid
+         ✅ Loaded 6 MIDI notes from 2 tracks
+      🖼️  Calculating SVG coordinates
+         ✅ Calculated 9 SVG coordinates
+      🌍 Creating universal note registry
+      🔗 Matching XML to MIDI notes
+         ✅ Matched 6/9 XML notes to MIDI
+         ✅ Created 9 universal notes
+      💾 Saved coordination data to: universal_output
+         📋 universal_notes_registry.json - Complete note registry
+         🎵 midi_pipeline_manifest.json - MIDI pipeline tracking
+         🖼️  svg_pipeline_manifest.json - SVG pipeline tracking
+         📊 coordination_metadata.json - Comprehensive metadata
+      🎯 COORDINATION COMPLETE!
+      ============================================================
+      ✅ Total Notes: 9
+      🔗 High Confidence Matches: 6
+      📊 Average Match Confidence: 0.67
+      ⏱️  Total Duration: 9.50s
+      📋 Instrument Breakdown:
+         P1: 3 notes, 2 matched to MIDI
+         P2: 6 notes, 4 matched to MIDI
+      🚀 Ready for pipeline execution with universal note tracking!
+[17:29:09] ✅ Note Coordinator completed: 9 Universal IDs loaded
+[17:29:09] Phase 3: Executing Tied Note Processor
+      TIED NOTE PROCESSOR TEST
+      ==================================================
+      📄 MusicXML: Brain/Base/SS 9.musicxml
+      ⏱️  Master timing: universal_output/coordination_metadata.json
+      🎯 Matches: universal_output/universal_notes_registry.json
+      🎵 Tempo: 120.0 BPM
+      ✅ XML Analysis Complete:
+         📝 Total notes: 9
+         🔗 Tied groups: 2
+      ✅ Loaded 0 note matches
+      🔗 TIED NOTE PROCESSOR INITIALIZED
+      🎵 Default tempo: 120.0 BPM
+      TIED NOTE RELATIONSHIP PROCESSING
+      ==================================================
+      🎼 Total XML notes: 9
+      🔗 Tied groups: 2
+      🎯 Note matches: 0
+      📋 Creating structured tied note groups...
+      ✅ Group tied_group_1: 2 notes, primary: A4 @ M4
+      ✅ Group tied_group_2: 3 notes, primary: B3 @ M4
+      📊 Created 2 tied note groups
+      🎯 Matching tied groups with MIDI notes...
+      ❌ Group tied_group_1 primary note not matched: A4 @ 7.500s
+      ❌ Group tied_group_2 primary note not matched: B3 @ 6.000s
+      📈 Matched 0/2 tied groups with MIDI
+      ⏱️  Calculating tied note timing...
+      ⚠️  Skipping unmatched group: tied_group_1
+      ⚠️  Skipping unmatched group: tied_group_2
+      🎵 Processing non-tied notes...
+      ✅ Processed 0 non-tied notes with direct MIDI timing
+      🔍 Validating timing assignments...
+      📊 VALIDATION RESULTS:
+      ✅ Total assignments: 0
+      🎯 Primary notes (MIDI exact): 0
+      🔗 Tied notes (calculated): 0
+      📈 Average confidence: 0.000
+      💾 Tied note assignments saved to: universal_output/tied_note_assignments.json
+      ✅ After Effects timing data saved to: universal_output/ae_timing_data.json
+      🎯 TIED NOTE PROCESSING COMPLETE!
+      ✅ Total assignments: 0
+      🎯 Primary (MIDI exact): 0
+      🔗 Tied (calculated): 0
+      📈 Average confidence: 0.000
+      ⏱️  Timing spread: 0.000s
+[17:29:09] ✅ Tied Note Processor completed with timing calculations
+[17:29:09] Phase 4: Executing Pipeline Stages
+[17:29:09] 🔄 Executing Sequential Pipeline
+      TRULY UNIVERSAL NOTEHEADS EXTRACTOR
+      ==================================================
+      Input: Brain/Base/SS 9.musicxml
+      Output: outputs/svg/noteheads/SS 9_noteheads_universal.svg
+      ✅ Extracted 9 notes from 2 parts
+      ✅ Applied universal coordinate transformation
+      ✅ Created universal noteheads SVG: outputs/svg/noteheads/SS 9_noteheads_universal.svg
+      SUMMARY:
+      Part P1: 3 notes
+        A4 M4 → SVG(3178,1037)
+        A4 M5 → SVG(3454,1037)
+        G4 M5 → SVG(3618,1049)
+      Part P2: 6 notes
+        B3 M4 → SVG(2723,1429)
+        B3 M4 → SVG(3178,1429)
+        B3 M5 → SVG(3454,1429)
+        A3 M5 → SVG(3618,1441)
+        C4 M5 → SVG(3842,1417)
+        B3 M5 → SVG(4006,1429)
+      🎯 SUCCESS! Universal transformation applied to Brain/Base/SS 9.musicxml
+      TRULY UNIVERSAL NOTEHEADS SUBTRACTOR
+      ==================================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Full SVG: Brain/Base/SS 9 full.svg
+      Output: outputs/svg/SS 9 full_without_noteheads.svg
+      ✅ Found 9 notes in 2 parts
+      ✅ Calculated 9 notehead coordinates to remove
+      Original SVG size: 43265 characters
+      Expected notehead coordinates: 9
+      ✓ Removing notehead at (3179.0, 1037.0) matching expected (3178, 1037)
+      ✓ Removing notehead at (3453.0, 1037.0) matching expected (3454, 1037)
+      ✓ Removing notehead at (3617.0, 1049.0) matching expected (3618, 1049)
+      ✓ Removing notehead at (2723.0, 1429.0) matching expected (2723, 1429)
+      ✓ Removing notehead at (3179.0, 1429.0) matching expected (3178, 1429)
+      ✓ Removing notehead at (3453.0, 1429.0) matching expected (3454, 1429)
+      ✓ Removing notehead at (3617.0, 1441.0) matching expected (3618, 1441)
+      ✓ Removing notehead at (3843.0, 1417.0) matching expected (3842, 1417)
+      ✓ Removing notehead at (4006.0, 1429.0) matching expected (4006, 1429)
+      Removed 9 noteheads (should be exactly 9)
+      Remaining unmatched coordinates: 0
+      Filtered SVG size: 41618 characters
+      Size reduction: 1647 characters
+      ✅ Created SVG without noteheads: outputs/svg/SS 9 full_without_noteheads.svg
+      🎯 SUCCESS! Full SVG with noteheads removed: outputs/svg/SS 9 full_without_noteheads.svg
+      XML-BASED UNIVERSAL INSTRUMENT SEPARATOR
+      ==================================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Full SVG: Brain/Base/SS 9 full.svg
+      Output Directory: outputs/svg/instruments
+      🎵 Found 2 instruments:
+         1. Flûte (P1) - Flute (2)
+         2. Violon (P2) - Violin
+      📐 Calculated staff positions using universal transformation
+      Original SVG: Brain/Base/SS 9 full.svg
+      🎼 Processing Flûte (P1)...
+         Staff Y range: 950 to 1100
+         ✅ Created: Flûte_P1.svg
+         📊 Kept 34 elements, removed 59 elements
+         💾 File size: 36714 bytes
+      🎼 Processing Violon (P2)...
+         Staff Y range: 1250 to 1500
+         ✅ Created: Violon_P2.svg
+         📊 Kept 49 elements, removed 44 elements
+         💾 File size: 38183 bytes
+      🎯 SUCCESS! Created 2 instrument-specific SVG files in 'outputs/svg/instruments/' directory
+      INDIVIDUAL NOTEHEADS CREATOR
+      ========================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Output Directory: outputs/svg/noteheads
+      🎵 Found 9 notes
+      🎼 Instrument mapping: {'P1': 'Flûte', 'P2': 'Violon'}
+         ✅ Created: notehead_000_P1_A4_M4.svg
+            📍 Position: (3178, 1037) - A4 quarter
+         ✅ Created: notehead_001_P1_A4_M5.svg
+            📍 Position: (3454, 1037) - A4 eighth
+         ✅ Created: notehead_002_P1_G4_M5.svg
+            📍 Position: (3617, 1049) - G4 quarter
+         ✅ Created: notehead_003_P2_B3_M4.svg
+            📍 Position: (2722, 1429) - B3 half
+         ✅ Created: notehead_004_P2_B3_M4.svg
+            📍 Position: (3178, 1429) - B3 quarter
+         ✅ Created: notehead_005_P2_B3_M5.svg
+            📍 Position: (3454, 1429) - B3 eighth
+         ✅ Created: notehead_006_P2_A3_M5.svg
+            📍 Position: (3617, 1441) - A3 quarter
+         ✅ Created: notehead_007_P2_C4_M5.svg
+            📍 Position: (3841, 1417) - C4 eighth
+         ✅ Created: notehead_008_P2_B3_M5.svg
+            📍 Position: (4005, 1429) - B3 quarter
+      🎯 SUCCESS! Created 9 individual notehead SVG files in 'outputs/svg/noteheads/' directory
+      SUMMARY BY INSTRUMENT:
+        P1: 3 noteheads
+          A4 M4 → SVG(3178,1037)
+          A4 M5 → SVG(3454,1037)
+          G4 M5 → SVG(3617,1049)
+        P2: 6 noteheads
+          B3 M4 → SVG(2722,1429)
+          B3 M4 → SVG(3178,1429)
+          B3 M5 → SVG(3454,1429)
+          A3 M5 → SVG(3617,1441)
+          C4 M5 → SVG(3841,1417)
+          B3 M5 → SVG(4005,1429)
+      STAFF LINES + BARLINES EXTRACTOR
+      ==================================================
+      MusicXML: Brain/Base/SS 9.musicxml
+      Full SVG: Brain/Base/SS 9 full.svg
+      🎼 Found 2 staves
+      📏 Found 5 measures
+      📐 Identified 10 staff lines
+      📏 Identified 13 barlines
+      ✅ Created staff lines and barlines SVG: outputs/svg/staff_barlines/SS 9_staff_barlines.svg
+      SUMMARY BY STAFF:
+        Flûte: 5 staff lines
+          Y=1073.0 (X: 564.0-4608.0)
+          Y=1049.0 (X: 564.0-4608.0)
+          Y=1025.0 (X: 564.0-4608.0)
+          Y=1001.0 (X: 564.0-4608.0)
+          Y=977.0 (X: 564.0-4608.0)
+        Violon: 5 staff lines
+          Y=1393.0 (X: 564.0-4608.0)
+          Y=1369.0 (X: 564.0-4608.0)
+          Y=1345.0 (X: 564.0-4608.0)
+          Y=1321.0 (X: 564.0-4608.0)
+          Y=1297.0 (X: 564.0-4608.0)
+      BARLINES:
+        X=566.0 (Y: 977.0-1393.0) - regular (stroke-width=5)
+        X=1422.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=1422.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=2047.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=2047.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=2673.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=2673.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=3403.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=3403.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=4578.0 (Y: 977.0-1073.0) - regular (stroke-width=5)
+        X=4600.0 (Y: 977.0-1073.0) - THICK (stroke-width=16)
+        X=4578.0 (Y: 1297.0-1393.0) - regular (stroke-width=5)
+        X=4600.0 (Y: 1297.0-1393.0) - THICK (stroke-width=16)
+      🎯 SUCCESS! Extracted 10 staff lines and 13 barlines
+      ✅ Loaded Universal ID registry: 9 notes
+      MIDI NOTE SEPARATOR WITH PEDAL DETECTION
+      ==================================================
+      Input MIDI: Brain/Base/Saint-Saens Trio No 2.mid
+      🔗 Universal ID Mode: Registry-based matching
+         Lookup tables: 5 pitch+track, 5 pitch-only
+      🎵 MIDI Type: 1
+      ⏱️  Ticks per beat: 960
+      🎼 Number of tracks: 3
+      Track 0: Unnamed
+        Notes found: 0
+      Track 1: Flûte
+        Notes found: 2
+        Pitch distribution: {'A4': 1, 'G4': 1}
+      Track 2: Violon
+        Notes found: 4
+        Pitch distribution: {'A3': 1, 'B3': 2, 'C4': 1}
+      🎯 TOTAL NOTES: 6
+      🦶 PEDAL EVENTS: 2
+      🎹 PROCESSING PEDAL EXTENSIONS:
+      📁 Creating individual note files in: outputs/midi
+      ✅ Created: note_000_Flûte_A4_vel76_bf79.mid
+         Track: Flûte → GM Program #74
+         Note: A4 (MIDI 69)
+         Velocity: 76
+         Duration: 1440 ticks
+         Start: 14400 ticks
+         🔗 Universal ID: bf797752... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_001_Flûte_G4_vel76_43ab.mid
+         Track: Flûte → GM Program #74
+         Note: G4 (MIDI 67)
+         Velocity: 76
+         Duration: 960 ticks
+         Start: 15840 ticks
+         🔗 Universal ID: 43abfb66... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_002_Violon_B3_vel65_f9f6.mid
+         Track: Violon → GM Program #41
+         Note: B3 (MIDI 59)
+         Velocity: 65
+         Duration: 4406 ticks
+         Start: 11520 ticks
+         🔗 Universal ID: f9f67d7f... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_003_Violon_A3_vel66_2b66.mid
+         Track: Violon → GM Program #41
+         Note: A3 (MIDI 57)
+         Velocity: 66
+         Duration: 979 ticks
+         Start: 15840 ticks
+         🔗 Universal ID: 2b66e8ad... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_004_Violon_C4_vel65_1a3a.mid
+         Track: Violon → GM Program #41
+         Note: C4 (MIDI 60)
+         Velocity: 65
+         Duration: 454 ticks
+         Start: 16800 ticks
+         🔗 Universal ID: 1a3a3e19... (confidence: 95.0%)
+         🦶 No pedal extension
+      ✅ Created: note_005_Violon_B3_vel64_c6a7.mid
+         Track: Violon → GM Program #41
+         Note: B3 (MIDI 59)
+         Velocity: 64
+         Duration: 960 ticks
+         Start: 17280 ticks
+         🔗 Universal ID: c6a7513f... (confidence: 95.0%)
+         🦶 No pedal extension
+      🎯 SUCCESS! Created 6 individual note files
+      📁 Output directory: outputs/midi
+      SUMMARY BY TRACK:
+        Flûte: 2 notes
+        Violon: 4 notes
+      FAST MIDI TO AUDIO RENDERER
+      ==================================================
+      Input directory: outputs/midi
+      🎵 Using soundfont: soundfonts/SGM_V2_final.sf2
+      🎼 Found 3 instruments, 36 files total:
+        Flûte: 10 notes → GM Program #74
+        Violon: 20 notes → GM Program #41
+        Track: 6 notes → GM Program #1
+      ⚡ Using 8 parallel workers for fast processing...
+      ❌ note_001_Flûte_G4_vel76_43ab.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76_7980.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76_b996.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76_965c.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76_0978.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76_362b.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Flûte_G4_vel76.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65_f25a.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76_bf79.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64_c6a7.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64_fd0c.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66_2fb3.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Flûte_A4_vel76_bce2.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65_1a3a.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65_5c8e.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65_4913.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_004_Violon_C4_vel65_7653.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64_9650.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65_9bc6.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66_b495.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65_f9f6.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Track_0_C4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64_a69d.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66_9dc6.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_003_Violon_A3_vel66_2b66.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_005_Violon_B3_vel64.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Violon_B3_vel65_0250.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Track_0_D4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_002_Track_0_E4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Track_0_E4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_000_Track_0_D4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      ❌ note_001_Track_0_G4_vel80.mid → Exception: Cannot specify ',' with 's'.
+      🎯 FAST RENDERING COMPLETE!
+      📁 Output directory: outputs/audio
+      ✅ Successfully rendered: 0 files
+      ❌ Failed to render: 36 files
+      📁 Audio file structure:
+      audio/
+        Track/
+          note_000_Track_0_D4_vel80.wav (454188 bytes)
+          note_002_Track_0_E4_vel80.wav (419372 bytes)
+          note_001_Track_0_D4_vel80.wav (419372 bytes)
+          note_000_Track_0_C4_vel80.wav (344876 bytes)
+          note_001_Track_0_G4_vel80.wav (300844 bytes)
+          note_000_Track_0_E4_vel80.wav (300844 bytes)
+        Flûte/
+          note_001_Flûte_G4_vel76.wav (255532 bytes)
+          note_001_Flûte_G4_vel76_7980.wav (255532 bytes)
+          note_001_Flûte_G4_vel76_0978.wav (255532 bytes)
+          note_000_Flûte_A4_vel76_b996.wav (282156 bytes)
+          note_000_Flûte_A4_vel76.wav (282156 bytes)
+          note_000_Flûte_A4_vel76_bf79.wav (282156 bytes)
+          note_000_Flûte_A4_vel76_bce2.wav (282156 bytes)
+          note_000_Flûte_A4_vel76_965c.wav (282156 bytes)
+          note_001_Flûte_G4_vel76_362b.wav (255532 bytes)
+          note_001_Flûte_G4_vel76_43ab.wav (255532 bytes)
+        Violon/
+          note_004_Violon_C4_vel65_5c8e.wav (234284 bytes)
+          note_004_Violon_C4_vel65_1a3a.wav (234284 bytes)
+          note_004_Violon_C4_vel65.wav (234284 bytes)
+          note_003_Violon_A3_vel66.wav (263212 bytes)
+          note_005_Violon_B3_vel64_c6a7.wav (261932 bytes)
+          note_003_Violon_A3_vel66_2fb3.wav (263212 bytes)
+          note_005_Violon_B3_vel64_fd0c.wav (261932 bytes)
+          note_004_Violon_C4_vel65_f25a.wav (234284 bytes)
+          note_003_Violon_A3_vel66_9dc6.wav (263212 bytes)
+          note_005_Violon_B3_vel64.wav (261932 bytes)
+          note_002_Violon_B3_vel65_0250.wav (451884 bytes)
+          note_005_Violon_B3_vel64_a69d.wav (261932 bytes)
+          note_002_Violon_B3_vel65.wav (451884 bytes)
+          note_003_Violon_A3_vel66_2b66.wav (263212 bytes)
+          note_002_Violon_B3_vel65_f9f6.wav (451884 bytes)
+          note_002_Violon_B3_vel65_9bc6.wav (451884 bytes)
+          note_004_Violon_C4_vel65_7653.wav (234284 bytes)
+          note_005_Violon_B3_vel64_9650.wav (261932 bytes)
+          note_003_Violon_A3_vel66_b495.wav (263212 bytes)
+          note_002_Violon_B3_vel65_4913.wav (451884 bytes)
+📁 FILES GENERATED: 🎵 10 audio (3.0 MB total)
+      FAST AUDIO TO KEYFRAMES EXTRACTOR
+      ==================================================
+      Input directory: outputs/audio
+      🎵 Found 36 audio files
+      ⚡ Using 8 parallel workers for fast processing...
+      🔊 Analyzing: note_000_Track_0_C4_vel80.wav
+         Duration: 3.910s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76_bce2.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64_c6a7.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66_2b66.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76_7980.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64_9650.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Track_0_E4_vel80.wav
+         Duration: 4.754s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76_b996.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65_5c8e.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66_9dc6.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65_7653.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Track_0_G4_vel80.wav
+         Duration: 3.410s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Track_0_D4_vel80.wav
+         Duration: 5.149s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76_0978.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76_362b.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64_fd0c.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65_9bc6.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Track_0_D4_vel80.wav
+         Duration: 4.754s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76_965c.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66_2fb3.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_005_Violon_B3_vel64_a69d.wav
+         Duration: 2.969s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_003_Violon_A3_vel66_b495.wav
+         Duration: 2.984s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_001_Flûte_G4_vel76_43ab.wav
+         Duration: 2.897s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65_f25a.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65_f9f6.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Track_0_E4_vel80.wav
+         Duration: 3.410s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_000_Flûte_A4_vel76_bf79.wav
+         Duration: 3.199s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_004_Violon_C4_vel65_1a3a.wav
+         Duration: 2.656s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65_0250.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      🔊 Analyzing: note_002_Violon_B3_vel65_4913.wav
+         Duration: 5.123s, Sample Rate: 22050Hz
+      ✅ note_000_Track_0_D4_vel80.wav
+         Duration: 5.15s, Keyframes: 310 [Sequential]
+      ✅ note_002_Track_0_E4_vel80.wav
+         Duration: 4.75s, Keyframes: 286 [Sequential]
+      ✅ note_001_Track_0_G4_vel80.wav
+         Duration: 3.41s, Keyframes: 205 [Sequential]
+      ✅ note_000_Track_0_E4_vel80.wav
+         Duration: 3.41s, Keyframes: 205 [Sequential]
+      ✅ note_000_Track_0_C4_vel80.wav
+         Duration: 3.91s, Keyframes: 235 [Sequential]
+      ✅ note_001_Track_0_D4_vel80.wav
+         Duration: 4.75s, Keyframes: 286 [Sequential]
+      ✅ note_001_Flûte_G4_vel76_0978.wav
+         Duration: 2.90s, Keyframes: 175 [UUID:0978]
+      ✅ note_001_Flûte_G4_vel76.wav
+         Duration: 2.90s, Keyframes: 175 [Sequential]
+      ✅ note_000_Flûte_A4_vel76_b996.wav
+         Duration: 3.20s, Keyframes: 193 [UUID:b996]
+      ✅ note_000_Flûte_A4_vel76_bf79.wav
+         Duration: 3.20s, Keyframes: 193 [UUID:bf79]
+      ✅ note_001_Flûte_G4_vel76_7980.wav
+         Duration: 2.90s, Keyframes: 175 [UUID:7980]
+      ✅ note_000_Flûte_A4_vel76.wav
+         Duration: 3.20s, Keyframes: 193 [Sequential]
+      ✅ note_000_Flûte_A4_vel76_bce2.wav
+         Duration: 3.20s, Keyframes: 193 [UUID:bce2]
+      ✅ note_000_Flûte_A4_vel76_965c.wav
+         Duration: 3.20s, Keyframes: 193 [UUID:965c]
+      ✅ note_001_Flûte_G4_vel76_362b.wav
+         Duration: 2.90s, Keyframes: 175 [UUID:362b]
+      ✅ note_001_Flûte_G4_vel76_43ab.wav
+         Duration: 2.90s, Keyframes: 175 [UUID:43ab]
+      ✅ note_004_Violon_C4_vel65_5c8e.wav
+         Duration: 2.66s, Keyframes: 160 [UUID:5c8e]
+      ✅ note_004_Violon_C4_vel65.wav
+         Duration: 2.66s, Keyframes: 160 [Sequential]
+      ✅ note_004_Violon_C4_vel65_1a3a.wav
+         Duration: 2.66s, Keyframes: 160 [UUID:1a3a]
+      ✅ note_003_Violon_A3_vel66_2fb3.wav
+         Duration: 2.98s, Keyframes: 180 [UUID:2fb3]
+      ✅ note_003_Violon_A3_vel66.wav
+         Duration: 2.98s, Keyframes: 180 [Sequential]
+      ✅ note_005_Violon_B3_vel64_c6a7.wav
+         Duration: 2.97s, Keyframes: 179 [UUID:c6a7]
+      ✅ note_004_Violon_C4_vel65_f25a.wav
+         Duration: 2.66s, Keyframes: 160 [UUID:f25a]
+      ✅ note_005_Violon_B3_vel64_fd0c.wav
+         Duration: 2.97s, Keyframes: 179 [UUID:fd0c]
+      ✅ note_003_Violon_A3_vel66_9dc6.wav
+         Duration: 2.98s, Keyframes: 180 [UUID:9dc6]
+      ✅ note_005_Violon_B3_vel64.wav
+         Duration: 2.97s, Keyframes: 179 [Sequential]
+      ✅ note_005_Violon_B3_vel64_a69d.wav
+         Duration: 2.97s, Keyframes: 179 [UUID:a69d]
+      ✅ note_002_Violon_B3_vel65_0250.wav
+         Duration: 5.12s, Keyframes: 308 [UUID:0250]
+      ✅ note_003_Violon_A3_vel66_2b66.wav
+         Duration: 2.98s, Keyframes: 180 [UUID:2b66]
+      ✅ note_005_Violon_B3_vel64_9650.wav
+         Duration: 2.97s, Keyframes: 179 [UUID:9650]
+      ✅ note_004_Violon_C4_vel65_7653.wav
+         Duration: 2.66s, Keyframes: 160 [UUID:7653]
+      ✅ note_002_Violon_B3_vel65.wav
+         Duration: 5.12s, Keyframes: 308 [Sequential]
+      ✅ note_002_Violon_B3_vel65_9bc6.wav
+         Duration: 5.12s, Keyframes: 308 [UUID:9bc6]
+      ✅ note_002_Violon_B3_vel65_f9f6.wav
+         Duration: 5.12s, Keyframes: 308 [UUID:f9f6]
+      ✅ note_003_Violon_A3_vel66_b495.wav
+         Duration: 2.98s, Keyframes: 180 [UUID:b495]
+      ✅ note_002_Violon_B3_vel65_4913.wav
+         Duration: 5.12s, Keyframes: 308 [UUID:4913]
+      🎯 FAST KEYFRAME GENERATION COMPLETE!
+      📁 Output directory: outputs/json/keyframes
+      ✅ Successfully processed: 36 files
+      ❌ Failed to process: 0 files
+      📁 Keyframe file structure:
+      keyframes/
+        Track/
+          note_000_Track_0_E4_vel80_keyframes.json
+          note_001_Track_0_D4_vel80_keyframes.json
+          note_000_Track_0_C4_vel80_keyframes.json
+          ... and 3 more files
+        Flûte/
+          note_000_Flûte_A4_vel76_bce2_keyframes.json
+          note_000_Flûte_A4_vel76_bf79_keyframes.json
+          note_001_Flûte_G4_vel76_7980_keyframes.json
+          ... and 7 more files
+        Violon/
+          note_004_Violon_C4_vel65_1a3a_keyframes.json
+          note_003_Violon_A3_vel66_keyframes.json
+          note_003_Violon_A3_vel66_b495_keyframes.json
+          ... and 17 more files
+      🎯 Cleanup complete, exiting...
+📁 FILES GENERATED: 🎵 24 audio
+📊 EXECUTION SUMMARY: 557 messages processed, 4 patterns identified, -0.4% aggregation efficiency
 🔥 NUCLEAR EXIT: Last stage completed, forcing immediate termination!

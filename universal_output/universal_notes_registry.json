@@ -1,7 +1,7 @@
 {
   "notes": [
     {
-      "universal_id": "c44a2dd7-733a-4585-a387-b0ed51ab1f45",
+      "universal_id": "bf797752-4ca4-49ac-bd91-9644555a9a59",
       "xml_data": {
         "part_id": "P1",
         "measure": 4,
@@ -40,7 +40,7 @@
       "timing_priority": "midi"
     },
     {
-      "universal_id": "8ff01a44-6df9-49ee-8409-b9948dfefd21",
+      "universal_id": "b6dca10f-bfd8-4d0e-b24b-dbe441930747",
       "xml_data": {
         "part_id": "P1",
         "measure": 5,
@@ -66,7 +66,7 @@
       "timing_priority": "xml"
     },
     {
-      "universal_id": "a313e520-fc88-4ff5-8108-ebef3b3e5d46",
+      "universal_id": "43abfb66-78a4-4a36-ac51-18e0043625cc",
       "xml_data": {
         "part_id": "P1",
         "measure": 5,
@@ -105,7 +105,7 @@
       "timing_priority": "midi"
     },
     {
-      "universal_id": "b3d9f06e-9930-4210-87e2-12efa596d638",
+      "universal_id": "f9f67d7f-ddad-4dc4-af86-8283a8342f4e",
       "xml_data": {
         "part_id": "P2",
         "measure": 4,
@@ -144,7 +144,7 @@
       "timing_priority": "midi"
     },
     {
-      "universal_id": "8aff1eeb-a847-42d8-b775-864123aad791",
+      "universal_id": "c6a7513f-1f35-4497-970a-3c060dfe23dc",
       "xml_data": {
         "part_id": "P2",
         "measure": 4,
@@ -183,7 +183,7 @@
       "timing_priority": "midi"
     },
     {
-      "universal_id": "5f4c3092-2b76-4e36-ad48-dd192151c5b4",
+      "universal_id": "63c45d8f-c29e-4e70-9f5e-cdd8b7e23791",
       "xml_data": {
         "part_id": "P2",
         "measure": 5,
@@ -209,7 +209,7 @@
       "timing_priority": "xml"
     },
     {
-      "universal_id": "8730c2a6-b9dc-42db-b327-0977167e2cc6",
+      "universal_id": "2b66e8ad-9ef4-4025-ac9f-452d705683f6",
       "xml_data": {
         "part_id": "P2",
         "measure": 5,
@@ -248,7 +248,7 @@
       "timing_priority": "midi"
     },
     {
-      "universal_id": "97c6cd0c-a119-4599-9643-0b737a7c7338",
+      "universal_id": "1a3a3e19-cd80-4624-afec-fe836126a458",
       "xml_data": {
         "part_id": "P2",
         "measure": 5,
@@ -287,7 +287,7 @@
       "timing_priority": "midi"
     },
     {
-      "universal_id": "6f1a16ca-db2a-413d-8150-6ce127b17146",
+      "universal_id": "7de1b136-0f81-4c1e-94a3-4b1573b8df23",
       "xml_data": {
         "part_id": "P2",
         "measure": 5,

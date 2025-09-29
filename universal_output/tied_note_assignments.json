@@ -33,9 +33,9 @@
       },
       {
         "group_id": "tied_group_2",
-        "note_count": 2,
+        "note_count": 3,
         "primary_pitch": "B3",
-        "total_duration_beats": 1024,
+        "total_duration_beats": 1152,
         "has_midi_match": false,
         "master_start_time": null,
         "master_end_time": null,
@@ -51,8 +51,15 @@
             "pitch": "B3",
             "measure": 4,
             "beat_position": 4.0,
-            "tie_type": "stop",
+            "tie_type": "continue",
             "duration": 256
+          },
+          {
+            "pitch": "B3",
+            "measure": 5,
+            "beat_position": 1.0,
+            "tie_type": "stop",
+            "duration": 128
           }
         ]
       }
@@ -67,7 +74,7 @@
     "processing_summary": {
       "total_tied_groups": 2,
       "matched_tied_groups": 0,
-      "complex_relationships": 0,
+      "complex_relationships": 1,
       "tempo_handling": "proportional_approximation"
     }
   },
