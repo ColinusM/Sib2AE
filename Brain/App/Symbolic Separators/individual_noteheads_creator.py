@@ -4,7 +4,13 @@ import xml.etree.ElementTree as ET
 import sys
 import os
 import re
-from typing import List, Dict
+import argparse
+from pathlib import Path
+from typing import List, Dict, Optional
+
+# Import Universal ID registry utilities
+sys.path.append(str(Path(__file__).parent.parent.parent / "orchestrator"))
+from registry_utils import create_registry_for_script, UniversalIDRegistry
 
 def extract_instrument_mapping(musicxml_file: str) -> Dict[str, str]:
     """Extract part_id to instrument name mapping from MusicXML."""
@@ -165,7 +171,7 @@ def get_notehead_unicode(duration: str) -> str:
     else:  # quarter, eighth, sixteenth, etc.
         return '&#102;'  # Code 102: Full notehead
 
-def create_individual_notehead_svgs(musicxml_file: str, output_dir: str):
+def create_individual_notehead_svgs(musicxml_file: str, output_dir: str, registry: Optional[UniversalIDRegistry] = None):
     """Create individual SVG files for each notehead with EXACT coordinates."""
     
     print("INDIVIDUAL NOTEHEADS CREATOR")
@@ -251,16 +257,31 @@ def create_individual_notehead_svgs(musicxml_file: str, output_dir: str):
             print(f"    {note['note_name']} M{note['measure']} → SVG({note['svg_x']},{note['svg_y']})")
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python individual_noteheads_creator.py <musicxml_file> [output_dir]")
-        print("Example: python individual_noteheads_creator.py 'Base/SS 9.musicxml' 'individual_noteheads'")
-        sys.exit(1)
-    
-    musicxml_file = sys.argv[1]
-    output_dir = sys.argv[2] if len(sys.argv) > 2 else "outputs/svg/noteheads"
-    
+    parser = argparse.ArgumentParser(
+        description="Individual Noteheads Creator with Universal ID preservation"
+    )
+    parser.add_argument(
+        "musicxml_file",
+        help="MusicXML file to process"
+    )
+    parser.add_argument(
+        "output_dir",
+        nargs="?",
+        default="outputs/svg/noteheads",
+        help="Output directory for SVG files"
+    )
+    parser.add_argument(
+        "--registry",
+        help="Path to Universal ID registry JSON file",
+        default=None
+    )
+    args = parser.parse_args()
+
+    # Create registry instance
+    registry = create_registry_for_script(args.registry, "individual_noteheads_creator")
+
     try:
-        create_individual_notehead_svgs(musicxml_file, output_dir)
+        create_individual_notehead_svgs(args.musicxml_file, args.output_dir, registry)
     except Exception as e:
         print(f"❌ ERROR: {e}")
         sys.exit(1)

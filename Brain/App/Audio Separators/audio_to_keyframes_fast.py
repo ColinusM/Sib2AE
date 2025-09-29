@@ -7,10 +7,15 @@ import sys
 import json
 import glob
 import re
+import argparse
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 import multiprocessing as mp
 from concurrent.futures import ProcessPoolExecutor, as_completed
+
+# Import Universal ID registry utilities
+sys.path.append(str(Path(__file__).parent.parent.parent / "orchestrator"))
+from registry_utils import create_registry_for_script, UniversalIDRegistry, get_universal_id_with_fallback
 
 def extract_universal_id_from_filename(filename: str) -> Optional[str]:
     """Extract Universal ID suffix from filename if present"""
@@ -127,7 +132,7 @@ def analyze_audio_features_fast(audio_file: str, sr: int = 22050) -> Dict:
         }
     }
 
-def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -> Dict:
+def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str, registry: Optional[UniversalIDRegistry] = None) -> Dict:
     """Generate simplified After Effects keyframes for speed."""
 
     features = analysis['features']
@@ -162,8 +167,21 @@ def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -
     for i, (_, amplitude_val) in enumerate(raw_keyframes):
         keyframes['amplitude'].append([i, amplitude_val])
 
-    # Extract Universal ID and note metadata from filename
-    universal_id = extract_universal_id_from_filename(audio_filename)
+    # Extract Universal ID using registry if available, otherwise from filename
+    if registry and registry.total_entries > 0:
+        # Use registry lookup for robust Universal ID retrieval
+        match = get_universal_id_with_fallback(
+            registry,
+            lambda: registry.get_universal_id_from_filename(audio_filename),
+            audio_filename
+        )
+        universal_id = match.universal_id
+        registry_source = match.match_method
+    else:
+        # Fallback to filename extraction
+        universal_id = extract_universal_id_from_filename(audio_filename)
+        registry_source = "filename_extraction"
+
     note_metadata = extract_note_metadata_from_filename(audio_filename)
 
     # Build enhanced keyframe data with Universal ID
@@ -187,8 +205,15 @@ def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -
 
     # Add Universal ID if present (critical for After Effects synchronization)
     if universal_id:
-        keyframe_data['universal_id'] = universal_id
+        keyframe_data['universal_id'] = universal_id  # FULL UUID, not truncated
+        keyframe_data['universal_id_short'] = universal_id[:4] if len(universal_id) >= 4 else universal_id  # 4-char for compatibility
         keyframe_data['metadata']['universal_id'] = universal_id
+        keyframe_data['metadata']['registry_source'] = registry_source
+        keyframe_data['metadata']['data_integrity'] = {
+            'full_uuid_preserved': len(universal_id) > 8,
+            'registry_lookup_used': registry_source != "filename_extraction",
+            'confidence': 1.0 if registry_source in ["pitch_track_exact", "xml_exact"] else 0.8
+        }
         keyframe_data['metadata']['id_type'] = 'Universal'
     else:
         keyframe_data['metadata']['id_type'] = 'Sequential'
@@ -197,7 +222,7 @@ def generate_after_effects_keyframes_fast(analysis: Dict, audio_filename: str) -
 
 def process_single_audio_file(args):
     """Process a single audio file (for parallel processing)."""
-    audio_file, output_dir = args
+    audio_file, output_dir, registry = args
     
     try:
         # Determine instrument from path
@@ -217,8 +242,8 @@ def process_single_audio_file(args):
         # Analyze audio (fast mode)
         analysis = analyze_audio_features_fast(audio_file)
 
-        # Generate keyframes (fast mode)
-        keyframe_data = generate_after_effects_keyframes_fast(analysis, os.path.basename(audio_file))
+        # Generate keyframes (fast mode) with registry support
+        keyframe_data = generate_after_effects_keyframes_fast(analysis, os.path.basename(audio_file), registry)
 
         # Save keyframe data
         audio_basename = Path(audio_file).stem
@@ -237,7 +262,7 @@ def process_single_audio_file(args):
     except Exception as e:
         return (False, audio_file, str(e), 0, 0, " [Error]")
 
-def process_audio_directory_fast(audio_dir: str):
+def process_audio_directory_fast(audio_dir: str, registry: Optional[UniversalIDRegistry] = None):
     """Process all audio files using parallel processing for speed."""
     
     print("FAST AUDIO TO KEYFRAMES EXTRACTOR")
@@ -268,8 +293,8 @@ def process_audio_directory_fast(audio_dir: str):
     keyframes_base_dir = "outputs/json/keyframes"
     os.makedirs(keyframes_base_dir, exist_ok=True)
     
-    # Prepare tasks for parallel processing
-    tasks = [(audio_file, audio_dir) for audio_file in audio_files]
+    # Prepare tasks for parallel processing (include registry)
+    tasks = [(audio_file, audio_dir, registry) for audio_file in audio_files]
     
     # Use parallel processing
     cpu_count = mp.cpu_count()
@@ -354,15 +379,28 @@ def process_audio_directory_fast(audio_dir: str):
             print(f"{subindent}... and {remaining} more files")
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python audio_to_keyframes_fast.py <audio_directory>")
-        print("Example: python audio_to_keyframes_fast.py 'Audio'")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description="Fast Audio to Keyframes Generator with Universal ID preservation"
+    )
+    parser.add_argument(
+        "audio_directory",
+        help="Directory containing audio files to process"
+    )
+    parser.add_argument(
+        "--registry",
+        help="Path to Universal ID registry JSON file",
+        default=None
+    )
+    args = parser.parse_args()
 
-    audio_dir = sys.argv[1]
+    audio_dir = args.audio_directory
+    registry_path = args.registry
+
+    # Create registry instance
+    registry = create_registry_for_script(registry_path, "audio_to_keyframes_fast")
 
     try:
-        process_audio_directory_fast(audio_dir)
+        process_audio_directory_fast(audio_dir, registry)
         # Force cleanup of multiprocessing resources
         import gc
         gc.collect()

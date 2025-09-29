@@ -22,6 +22,10 @@ from .universal_registry import UniversalFileRegistry
 from .manifest_manager import AtomicManifestManager, create_manifest_manager
 from .progress_tracker import ProgressTracker
 from .error_handlers import CircuitBreaker, ProcessFailureHandler, create_process_failure_handler
+from .registry_utils import (
+    UniversalIDRegistry, UniversalIDMatch,
+    create_registry_for_script, get_universal_id_with_fallback
+)
 
 __version__ = "1.0.0"
 
@@ -34,10 +38,14 @@ __all__ = [
     "ProgressTracker",
     "CircuitBreaker",
     "ProcessFailureHandler",
+    "UniversalIDRegistry",
+    "UniversalIDMatch",
     "create_note_coordinator_stage",
     "create_tied_note_processor_stage",
     "create_symbolic_pipeline_stages",
     "create_audio_pipeline_stages",
     "create_manifest_manager",
     "create_process_failure_handler",
+    "create_registry_for_script",
+    "get_universal_id_with_fallback",
 ]

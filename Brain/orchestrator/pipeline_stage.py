@@ -333,16 +333,23 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
     """Create all symbolic pipeline stages"""
     stages = []
 
-    # Stage 1: Noteheads Extraction
+    # Stage 1: Noteheads Extraction (with Universal ID registry integration)
+    noteheads_extraction_command = [
+        "python",
+        "Brain/App/Symbolic Separators/truly_universal_noteheads_extractor.py",
+        str(config.musicxml_file),
+    ]
+
+    # Add Universal ID registry path if preserving Universal IDs
+    if config.preserve_universal_ids:
+        registry_path = config.output_dir / "universal_notes_registry.json"
+        noteheads_extraction_command.extend(["--registry", str(registry_path)])
+
     stages.append(
         PipelineStage(
             name="noteheads_extraction",
-            description="Extract noteheads from MusicXML with pixel-perfect coordinates",
-            command=[
-                "python",
-                "Brain/App/Symbolic Separators/truly_universal_noteheads_extractor.py",
-                str(config.musicxml_file),
-            ],
+            description="Extract noteheads from MusicXML with pixel-perfect coordinates and Universal ID preservation",
+            command=noteheads_extraction_command,
             input_files=[config.musicxml_file],
             output_files=[Path(f"outputs/svg/noteheads/{config.musicxml_file.stem}_noteheads_universal.svg")],
             depends_on=["tied_note_processor"]
@@ -352,18 +359,25 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
         )
     )
 
-    # Stage 2: Noteheads Subtraction
+    # Stage 2: Noteheads Subtraction (with Universal ID registry integration)
     if config.svg_file:
+        noteheads_subtraction_command = [
+            "python",
+            "Brain/App/Symbolic Separators/truly_universal_noteheads_subtractor.py",
+            str(config.musicxml_file),
+            str(config.svg_file),
+        ]
+
+        # Add Universal ID registry path if preserving Universal IDs
+        if config.preserve_universal_ids:
+            registry_path = config.output_dir / "universal_notes_registry.json"
+            noteheads_subtraction_command.extend(["--registry", str(registry_path)])
+
         stages.append(
             PipelineStage(
                 name="noteheads_subtraction",
-                description="Remove noteheads from full SVG while preserving other elements",
-                command=[
-                    "python",
-                    "Brain/App/Symbolic Separators/truly_universal_noteheads_subtractor.py",
-                    str(config.musicxml_file),
-                    str(config.svg_file),
-                ],
+                description="Remove noteheads from full SVG while preserving other elements with Universal ID preservation",
+                command=noteheads_subtraction_command,
                 input_files=[config.musicxml_file, config.svg_file],
                 output_files=[Path(f"outputs/svg/{config.svg_file.stem}_without_noteheads.svg")],
                 depends_on=["noteheads_extraction"],
@@ -371,18 +385,25 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
             )
         )
 
-    # Stage 3: Instrument Separation
+    # Stage 3: Instrument Separation (with Universal ID registry integration)
+    instrument_separation_command = [
+        "python",
+        "Brain/App/Symbolic Separators/xml_based_instrument_separator.py",
+        str(config.musicxml_file),
+        str(config.svg_file or ""),
+        "outputs/svg/instruments",
+    ]
+
+    # Add Universal ID registry path if preserving Universal IDs
+    if config.preserve_universal_ids:
+        registry_path = config.output_dir / "universal_notes_registry.json"
+        instrument_separation_command.extend(["--registry", str(registry_path)])
+
     stages.append(
         PipelineStage(
             name="instrument_separation",
-            description="Create individual SVG files per instrument",
-            command=[
-                "python",
-                "Brain/App/Symbolic Separators/xml_based_instrument_separator.py",
-                str(config.musicxml_file),
-                str(config.svg_file or ""),
-                "outputs/svg/instruments",
-            ],
+            description="Create individual SVG files per instrument with Universal ID preservation",
+            command=instrument_separation_command,
             input_files=[config.musicxml_file]
             + ([config.svg_file] if config.svg_file else []),
             output_files=[Path("outputs/svg/instruments")],
@@ -391,16 +412,23 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
         )
     )
 
-    # Stage 4: Individual Noteheads Creation
+    # Stage 4: Individual Noteheads Creation (with Universal ID registry integration)
+    individual_noteheads_command = [
+        "python",
+        "Brain/App/Symbolic Separators/individual_noteheads_creator.py",
+        str(config.musicxml_file),
+    ]
+
+    # Add Universal ID registry path if preserving Universal IDs
+    if config.preserve_universal_ids:
+        registry_path = config.output_dir / "universal_notes_registry.json"
+        individual_noteheads_command.extend(["--registry", str(registry_path)])
+
     stages.append(
         PipelineStage(
             name="individual_noteheads_creation",
-            description="Create one SVG file per notehead for After Effects animation",
-            command=[
-                "python",
-                "Brain/App/Symbolic Separators/individual_noteheads_creator.py",
-                str(config.musicxml_file),
-            ],
+            description="Create one SVG file per notehead for After Effects animation with Universal ID preservation",
+            command=individual_noteheads_command,
             input_files=[config.musicxml_file],
             output_files=[Path("outputs/svg/noteheads")],
             depends_on=["instrument_separation"],
@@ -408,18 +436,25 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
         )
     )
 
-    # Stage 5: Staff and Barlines Extraction
+    # Stage 5: Staff and Barlines Extraction (with Universal ID registry integration)
     if config.svg_file:
+        staff_barlines_command = [
+            "python",
+            "Brain/App/Symbolic Separators/staff_barlines_extractor.py",
+            str(config.musicxml_file),
+            str(config.svg_file),
+        ]
+
+        # Add Universal ID registry path if preserving Universal IDs
+        if config.preserve_universal_ids:
+            registry_path = config.output_dir / "universal_notes_registry.json"
+            staff_barlines_command.extend(["--registry", str(registry_path)])
+
         stages.append(
             PipelineStage(
                 name="staff_barlines_extraction",
-                description="Extract staff lines and barlines for background elements",
-                command=[
-                    "python",
-                    "Brain/App/Symbolic Separators/staff_barlines_extractor.py",
-                    str(config.musicxml_file),
-                    str(config.svg_file),
-                ],
+                description="Extract staff lines and barlines for background elements with Universal ID preservation",
+                command=staff_barlines_command,
                 input_files=[config.musicxml_file, config.svg_file],
                 output_files=[Path(f"outputs/svg/staff_barlines/{config.svg_file.stem}_staff_barlines.svg")],
                 depends_on=["individual_noteheads_creation"],
@@ -461,16 +496,23 @@ def create_audio_pipeline_stages(config: OrchestrationConfig) -> List[PipelineSt
         )
     )
 
-    # Stage 2: MIDI to Audio Rendering
+    # Stage 2: MIDI to Audio Rendering (with Universal ID registry integration)
+    audio_command = [
+        "python",
+        f"Brain/App/Audio Separators/{config.get_audio_renderer_script()}",
+        str(midi_notes_dir),
+    ]
+
+    # Add Universal ID registry path if preserving Universal IDs
+    if config.preserve_universal_ids:
+        registry_path = config.output_dir / "universal_notes_registry.json"
+        audio_command.extend(["--registry", str(registry_path)])
+
     stages.append(
         PipelineStage(
             name="midi_to_audio_rendering",
-            description=f"Convert MIDI notes to audio files ({config.audio_renderer_mode} mode)",
-            command=[
-                "python",
-                f"Brain/App/Audio Separators/{config.get_audio_renderer_script()}",
-                str(midi_notes_dir),
-            ],
+            description=f"Convert MIDI notes to audio files ({config.audio_renderer_mode} mode) with Universal ID preservation",
+            command=audio_command,
             input_files=[midi_notes_dir],
             output_files=[Path("outputs/audio")],
             depends_on=["midi_note_separation"],
@@ -480,16 +522,23 @@ def create_audio_pipeline_stages(config: OrchestrationConfig) -> List[PipelineSt
         )
     )
 
-    # Stage 3: Audio to Keyframes
+    # Stage 3: Audio to Keyframes (with Universal ID registry integration)
+    keyframes_command = [
+        "python",
+        f"Brain/App/Audio Separators/{config.get_keyframe_generator_script()}",
+        "outputs/audio",
+    ]
+
+    # Add Universal ID registry path if preserving Universal IDs
+    if config.preserve_universal_ids:
+        registry_path = config.output_dir / "universal_notes_registry.json"
+        keyframes_command.extend(["--registry", str(registry_path)])
+
     stages.append(
         PipelineStage(
             name="audio_to_keyframes",
-            description=f"Generate After Effects keyframe data ({config.keyframe_generator_mode} mode)",
-            command=[
-                "python",
-                f"Brain/App/Audio Separators/{config.get_keyframe_generator_script()}",
-                "outputs/audio",
-            ],
+            description=f"Generate After Effects keyframe data ({config.keyframe_generator_mode} mode) with Universal ID preservation",
+            command=keyframes_command,
             input_files=[Path("outputs/audio")],
             output_files=[Path("outputs/json/keyframes")],
             depends_on=["midi_to_audio_rendering"],

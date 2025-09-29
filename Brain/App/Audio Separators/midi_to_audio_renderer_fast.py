@@ -5,11 +5,16 @@ import sys
 import subprocess
 import glob
 import re
+import argparse
 from pathlib import Path
 from typing import List, Dict, Optional
 import json
 import multiprocessing as mp
 from concurrent.futures import ProcessPoolExecutor, as_completed
+
+# Import Universal ID registry utilities
+sys.path.append(str(Path(__file__).parent.parent.parent / "orchestrator"))
+from registry_utils import create_registry_for_script, UniversalIDRegistry, get_universal_id_with_fallback
 
 # General MIDI Instrument Program Numbers
 INSTRUMENT_PROGRAM_MAP = {
@@ -148,7 +153,7 @@ def render_single_midi(args):
     except Exception as e:
         return (False, midi_file, str(e))
 
-def analyze_midi_directory_fast(midi_dir: str) -> Dict:
+def analyze_midi_directory_fast(midi_dir: str, registry: Optional[UniversalIDRegistry] = None) -> Dict:
     """Quickly analyze MIDI files in directory and organize by instrument."""
 
     # Search for MIDI files recursively in subdirectories
@@ -162,8 +167,20 @@ def analyze_midi_directory_fast(midi_dir: str) -> Dict:
         parts = filename.replace('.mid', '').split('_')
         
         if len(parts) >= 3:
-            # Extract Universal ID from filename if present
-            universal_id = extract_universal_id_from_filename(filename)
+            # Get Universal ID using registry if available, otherwise extract from filename
+            if registry and registry.total_entries > 0:
+                # Use registry lookup for robust Universal ID retrieval
+                match = get_universal_id_with_fallback(
+                    registry,
+                    lambda: registry.get_universal_id_from_filename(filename),
+                    filename
+                )
+                universal_id = match.universal_id
+                registry_source = match.match_method
+            else:
+                # Fallback to filename extraction
+                universal_id = extract_universal_id_from_filename(filename)
+                registry_source = "filename_extraction"
 
             # Get instrument name (handles both new and old filename patterns)
             instrument_name = extract_instrument_from_filename(filename)
@@ -176,12 +193,13 @@ def analyze_midi_directory_fast(midi_dir: str) -> Dict:
                 'filename': filename,
                 'note_id': parts[1] if len(parts) > 1 else 'unknown',
                 'note_info': '_'.join(parts[3:]) if len(parts) > 3 else 'unknown',
-                'universal_id': universal_id  # Preserve Universal ID for audio file naming
+                'universal_id': universal_id,  # Preserve Universal ID for audio file naming
+                'registry_source': registry_source  # Track data source for validation
             })
     
     return instruments
 
-def render_midi_collection_to_audio_fast(midi_dir: str):
+def render_midi_collection_to_audio_fast(midi_dir: str, registry: Optional[UniversalIDRegistry] = None):
     """Render all MIDI files to audio using parallel processing for speed."""
     
     print("FAST MIDI TO AUDIO RENDERER")
@@ -203,7 +221,7 @@ def render_midi_collection_to_audio_fast(midi_dir: str):
     print()
     
     # Analyze MIDI files
-    instruments = analyze_midi_directory_fast(midi_dir)
+    instruments = analyze_midi_directory_fast(midi_dir, registry)
     
     if not instruments:
         print("❌ No MIDI files found in directory")
@@ -294,12 +312,22 @@ def render_midi_collection_to_audio_fast(midi_dir: str):
                 print(f"{subindent}{file} ({file_size} bytes)")
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python midi_to_audio_renderer_fast.py <midi_directory>")
-        print("Example: python midi_to_audio_renderer_fast.py 'Base/Saint-Saens Trio No 2_individual_notes'")
-        sys.exit(1)
-    
-    midi_dir = sys.argv[1]
+    parser = argparse.ArgumentParser(
+        description="Fast MIDI to Audio Renderer with Universal ID preservation"
+    )
+    parser.add_argument(
+        "midi_directory",
+        help="Directory containing MIDI files to render"
+    )
+    parser.add_argument(
+        "--registry",
+        help="Path to Universal ID registry JSON file",
+        default=None
+    )
+    args = parser.parse_args()
+
+    midi_dir = args.midi_directory
+    registry_path = args.registry
     
     # Check if FluidSynth is available
     try:
@@ -313,8 +341,11 @@ def main():
         print("Install with: brew install fluidsynth")
         sys.exit(1)
     
+    # Create registry instance
+    registry = create_registry_for_script(registry_path, "midi_to_audio_renderer_fast")
+
     try:
-        render_midi_collection_to_audio_fast(midi_dir)
+        render_midi_collection_to_audio_fast(midi_dir, registry)
     except Exception as e:
         print(f"❌ ERROR: {e}")
         sys.exit(1)
