@@ -156,14 +156,26 @@ class XMLTemporalParser:
                     note_key = f"{part_id}_voice{voice}_{pitch_str}"
                     
                     # Check for tie elements - CRITICAL: Process both <tie> and <tied>
-                    tie_elem = note.find('tie')
-                    tied_elem = note.find('notations/tied')
-                    
+                    # FIXED: Handle multiple tie elements (stop+start = continue)
+                    tie_elements = note.findall('tie')
+                    tied_elements = note.findall('notations/tied')
+
+                    tie_types = []
+                    for tie_elem in tie_elements:
+                        if tie_elem is not None:
+                            tie_types.append(tie_elem.get('type'))
+                    for tied_elem in tied_elements:
+                        if tied_elem is not None:
+                            tie_types.append(tied_elem.get('type'))
+
+                    # Determine tie type based on combination
                     tie_type = None
-                    if tie_elem is not None:
-                        tie_type = tie_elem.get('type')
-                    elif tied_elem is not None:
-                        tie_type = tied_elem.get('type')
+                    if 'stop' in tie_types and 'start' in tie_types:
+                        tie_type = 'continue'  # Both stop and start = continue tie
+                    elif 'start' in tie_types:
+                        tie_type = 'start'
+                    elif 'stop' in tie_types:
+                        tie_type = 'stop'
                     
                     # Extract timing information
                     duration_elem = note.find('duration')
@@ -322,15 +334,26 @@ class XMLTemporalParser:
                     voice_elem = note.find('voice')
                     voice = int(voice_elem.text) if voice_elem is not None else 1
                     
-                    # Check for tie elements
-                    tie_elem = note.find('tie')
-                    tied_elem = note.find('notations/tied')
-                    
+                    # Check for tie elements - FIXED: Handle multiple tie elements
+                    tie_elements = note.findall('tie')
+                    tied_elements = note.findall('notations/tied')
+
+                    tie_types = []
+                    for tie_elem in tie_elements:
+                        if tie_elem is not None:
+                            tie_types.append(tie_elem.get('type'))
+                    for tied_elem in tied_elements:
+                        if tied_elem is not None:
+                            tie_types.append(tied_elem.get('type'))
+
+                    # Determine tie type based on combination
                     tie_type = None
-                    if tie_elem is not None:
-                        tie_type = tie_elem.get('type')
-                    elif tied_elem is not None:
-                        tie_type = tied_elem.get('type')
+                    if 'stop' in tie_types and 'start' in tie_types:
+                        tie_type = 'continue'  # Both stop and start = continue tie
+                    elif 'start' in tie_types:
+                        tie_type = 'start'
+                    elif 'stop' in tie_types:
+                        tie_type = 'stop'
                     
                     # Extract timing information
                     duration_elem = note.find('duration')
