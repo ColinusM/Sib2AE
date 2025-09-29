@@ -88,8 +88,8 @@ Transform MIDI data into audio files and After Effects keyframe data, maintainin
 
 ### Scripts
 
-#### 1. `midi_note_separator.py` (Foundation)
-**Purpose**: Split MIDI files into individual note files with Universal ID preservation
+#### 1. `midi_note_separator.py` (Foundation with Pedal Detection)
+**Purpose**: Split MIDI files into individual note files with Universal ID preservation and sustain pedal processing
 ```bash
 python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Saens Trio No 2.mid" --registry "universal_output/universal_notes_registry.json"
 ```
@@ -98,6 +98,11 @@ python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Sae
 - **Naming**: `note_000_Flûte_A4_vel76_4ea7.mid` (with Universal ID suffix)
 - **Foundation**: Required for all subsequent audio processing
 - **Universal ID**: When registry provided, preserves note relationships for After Effects
+- **NEW: Pedal Detection**: Automatic CC 64 (sustain pedal) detection and file extension
+  - Notes starting during active pedal: CC 64 ON synthesized at file start
+  - Notes with pedal release after note ends: File duration extended to pedal OFF
+  - Channel-specific processing: Pedal events only affect same-channel notes
+  - Graceful fallback: Works normally when no pedal events present
 
 #### 2. `midi_to_audio_renderer_fast.py` (High-Quality Audio Rendering)
 **Purpose**: Convert MIDI notes to audio using 247MB SGM-V2.01 soundfont
@@ -233,7 +238,7 @@ python "Brain/App/Audio Separators/audio_to_keyframes_fast.py" "outputs/audio"
 - **Staff/Barlines**: ~0.1s (background element extraction)
 
 ### Audio Pipeline Performance
-- **MIDI Separation**: ~0.1s (foundation for audio processing)
+- **MIDI Separation**: ~0.1s (foundation for audio processing, +~10ms pedal detection overhead)
 - **Audio Rendering**: 0.7-1s (fast mode with SGM-V2.01 soundfont)
 - **Keyframe Generation**: 0.5-1s (60Hz amplitude-only, sequential frame indexing)
 
@@ -306,6 +311,14 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 **Pipeline Compatibility**: Universal ID Pipeline Orchestrator 1.5.0
 
 ### Recent Updates
+- **v1.5.0**: Sustain pedal (CC 64) detection and processing implemented (MAJOR ENHANCEMENT)
+  - **Automatic Pedal Detection**: Built-in CC 64 event scanning during MIDI analysis
+  - **File Duration Extension**: Individual MIDI files extended to pedal release times
+  - **Pedal Context Injection**: CC 64 ON/OFF events added to preserve sustain state
+  - **Channel-Specific Processing**: Pedal events only affect notes on same MIDI channel
+  - **Edge Case Handling**: Comprehensive logic for all pedal timing scenarios
+  - **Zero Breaking Changes**: Fully backward compatible with existing pipeline
+  - **Test Coverage**: 5 comprehensive test cases validating all pedal logic
 - **v1.4.0**: Universal ID preservation implemented (CRITICAL ENHANCEMENT)
   - **Core Issue**: Scripts created sequential IDs (000, 001, 002) disconnected from Note Coordinator's Universal IDs
   - **Root Cause**: MIDI separator, audio renderer, and keyframe generator operated independently without registry awareness
@@ -326,4 +339,4 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 
 ---
 
-🎼 **Ready to transform your musical notation into synchronized After Effects animations!**
+🎼 **Ready to transform your musical notation into synchronized After Effects animations with realistic sustain pedal expression!**
