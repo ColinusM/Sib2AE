@@ -757,6 +757,7 @@ Examples:
     parser.add_argument("--skip-tied-notes", action="store_true", help="Skip tied note processing")
     parser.add_argument("--audio-mode", choices=["fast", "standard"], default="fast", help="Audio rendering mode")
     parser.add_argument("--keyframe-mode", choices=["fast", "standard"], default="fast", help="Keyframe generation mode")
+    parser.add_argument("--no-cleanup", action="store_true", help="Disable automatic output cleanup before run")
     parser.add_argument("--quiet", "-q", action="store_true", help="Quiet mode (minimal output)")
     parser.add_argument("--log-file", help="Path to log file")
 
@@ -805,6 +806,7 @@ Examples:
             skip_tied_note_processing=args.skip_tied_notes,
             audio_renderer_mode=args.audio_mode,
             keyframe_generator_mode=args.keyframe_mode,
+            clear_outputs_before_run=not args.no_cleanup,
             log_file=Path(args.log_file) if args.log_file else None
         )
 

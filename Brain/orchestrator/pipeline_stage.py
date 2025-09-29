@@ -184,6 +184,7 @@ class OrchestrationConfig:
     stage_timeout_seconds: float = 30.0  # 30 second timeout per stage (reduced to fix audio-to-keyframes hanging)
     enable_performance_tracking: bool = True
     backup_existing_outputs: bool = True
+    clear_outputs_before_run: bool = True  # Clear output directories before pipeline execution
 
     # Pipeline customization
     skip_tied_note_processing: bool = False  # Always run tied note processor by default
@@ -266,7 +267,12 @@ class OrchestrationConfig:
         return issues
 
     def create_output_directory(self):
-        """Create output directory if it doesn't exist"""
+        """Create output directory and optionally clear previous outputs for clean pipeline execution"""
+        # Clear previous outputs for a clean execution environment (if enabled)
+        if self.clear_outputs_before_run:
+            self._clear_output_directories()
+
+        # Create main output directory
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
         # Create subdirectories for different pipeline outputs
@@ -274,6 +280,60 @@ class OrchestrationConfig:
         (self.output_dir / "logs").mkdir(exist_ok=True)
         (self.output_dir / "backups").mkdir(exist_ok=True)
         (self.output_dir / "shell_output").mkdir(exist_ok=True)
+
+    def _clear_output_directories(self):
+        """Clear output directories to prevent file accumulation across runs"""
+        import shutil
+        from pathlib import Path
+
+        # Define directories to clear
+        outputs_dir = Path("outputs")
+        universal_output_dir = self.output_dir
+
+        # Clear main outputs directory
+        if outputs_dir.exists():
+            try:
+                shutil.rmtree(outputs_dir)
+                if self.verbose:
+                    print(f"🧹 Cleared outputs directory: {outputs_dir}")
+            except Exception as e:
+                if self.verbose:
+                    print(f"⚠️  Warning: Could not clear {outputs_dir}: {e}")
+
+        # Clear universal_output directory contents but preserve structure
+        if universal_output_dir.exists():
+            try:
+                # Clear specific files but preserve directory structure
+                files_to_clear = [
+                    "universal_notes_registry.json",
+                    "coordination_metadata.json",
+                    "midi_pipeline_manifest.json",
+                    "svg_pipeline_manifest.json",
+                    "tied_note_assignments.json",
+                    "ae_timing_data.json"
+                ]
+
+                cleared_count = 0
+                for file_name in files_to_clear:
+                    file_path = universal_output_dir / file_name
+                    if file_path.exists():
+                        file_path.unlink()
+                        cleared_count += 1
+
+                # Clear subdirectories
+                subdirs_to_clear = ["logs", "shell_output", "manifests"]
+                for subdir in subdirs_to_clear:
+                    subdir_path = universal_output_dir / subdir
+                    if subdir_path.exists():
+                        shutil.rmtree(subdir_path)
+                        cleared_count += 1
+
+                if self.verbose and cleared_count > 0:
+                    print(f"🧹 Cleared {cleared_count} items from universal_output directory")
+
+            except Exception as e:
+                if self.verbose:
+                    print(f"⚠️  Warning: Could not clear {universal_output_dir}: {e}")
 
 
 # Factory functions for creating common pipeline stages

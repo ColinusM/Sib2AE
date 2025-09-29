@@ -98,12 +98,19 @@ universal_output/                      # ORCHESTRATOR COORDINATION HUB
 **Complete automated pipeline execution with Universal ID preservation and Smart Verbose Logging:**
 
 ```bash
-# RECOMMENDED: Smart Verbose Mode - Zero console pollution, rich file logs
+# RECOMMENDED: Smart Verbose Mode - Zero console pollution, rich file logs, automatic cleanup
 python -m Brain.orchestrator.universal_orchestrator \
     "Brain/Base/SS 9.musicxml" \
     "Brain/Base/Saint-Saens Trio No 2.mid" \
     --svg "Brain/Base/SS 9 full.svg" \
     --mode sequential --quiet > /dev/null 2>&1
+
+# Preserve previous results (disable automatic cleanup)
+python -m Brain.orchestrator.universal_orchestrator \
+    "Brain/Base/SS 9.musicxml" \
+    "Brain/Base/Saint-Saens Trio No 2.mid" \
+    --svg "Brain/Base/SS 9 full.svg" \
+    --mode sequential --no-cleanup --quiet > /dev/null 2>&1
 
 # Full pipeline with verbose console output (for debugging)
 python -m Brain.orchestrator.universal_orchestrator \
@@ -120,6 +127,7 @@ python -m Brain.orchestrator.universal_orchestrator \
 ```
 
 **Orchestrator Features:**
+- **Automatic Output Cleanup**: Clears previous pipeline results for clean execution (use `--no-cleanup` to preserve)
 - **Smart Verbose Logging**: Intelligent aggregation with pattern recognition and anomaly detection
 - **Zero Console Pollution**: Rich file logs without Claude Code context contamination
 - **Universal ID Preservation**: Maintains unique identifiers across all pipeline stages
