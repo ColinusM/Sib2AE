@@ -464,14 +464,17 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
         )
     )
 
-    # Stage 4: Individual Noteheads Creation (legacy command - no registry support yet)
+    # Stage 4: Individual Noteheads Creation (WITH Universal ID registry integration)
     individual_noteheads_command = [
         "python",
         "Brain/App/Symbolic Separators/individual_noteheads_creator.py",
         str(config.musicxml_file),
     ]
 
-    # Note: Symbolic Separators don't support --registry parameter yet
+    # Add Universal ID registry path for notehead-to-audio synchronization
+    if config.preserve_universal_ids:
+        registry_path = config.output_dir / "universal_notes_registry.json"
+        individual_noteheads_command.extend(["--registry", str(registry_path)])
 
     stages.append(
         PipelineStage(

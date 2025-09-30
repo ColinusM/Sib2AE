@@ -211,26 +211,39 @@ def create_individual_notehead_svgs(musicxml_file: str, output_dir: str, registr
     for i, note in enumerate(svg_notes):
         # Get appropriate unicode character
         unicode_char = get_notehead_unicode(note['duration'])
-        
+
         # Use EXACT coordinates from the universal transformation
         final_x = note['svg_x']
         final_y = note['svg_y']
-        
+
         # Create SVG content
         svg_content = svg_template.format(
             x=final_x,
             y=final_y,
             unicode=unicode_char
         )
-        
+
         # Get instrument name and create instrument directory
         part_id = note['part_id']
         instrument_name = instrument_mapping.get(part_id, f"Part_{part_id}")
         instrument_dir = os.path.join(output_dir, instrument_name)
         os.makedirs(instrument_dir, exist_ok=True)
 
-        # Generate filename
-        filename = f"notehead_{i:03d}_{note['part_id']}_{note['note_name']}_M{note['measure']}.svg"
+        # Generate filename with Universal ID suffix if registry available
+        uuid_suffix = ""
+        if registry:
+            # Lookup Universal ID by XML match (part_id + pitch)
+            match = registry.get_universal_id_by_xml_match(
+                part_id=part_id,
+                pitch=note['note_name'],
+                measure=note['measure']
+            )
+            if match:
+                universal_id = match.universal_id  # Attribute access, not dict
+                uuid_suffix = f"_{universal_id[:4]}"  # 4-char UUID prefix for filename
+                print(f"      🔗 Universal ID: {universal_id[:12]}... (confidence: {match.confidence*100:.1f}%)")
+
+        filename = f"notehead_{i:03d}_{note['part_id']}_{note['note_name']}_M{note['measure']}{uuid_suffix}.svg"
         filepath = os.path.join(instrument_dir, filename)
         
         # Write SVG file
