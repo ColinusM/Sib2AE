@@ -611,11 +611,17 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 
 ## 🎯 Version
 
-**Version**: 1.0.0
+**Version**: 1.1.0
 **Status**: Production Ready
-**Last Updated**: September 2025
+**Last Updated**: October 2025
 
 ### Recent Updates
+- **v1.1.0**: Targeted Universal ID registry integration for Symbolic Pipeline (October 2025)
+  - Fixed SVG output generation by removing unsupported --registry parameter from 4 structural scripts
+  - Implemented Universal ID integration ONLY for individual_noteheads_creator.py (critical sync path)
+  - Achieved 100% confidence audio-visual synchronization with bulletproof UUID matching
+  - Architecturally correct: Registry parameter distributed only to sync-critical elements
+  - Example sync: `notehead_002_P1_G4_M5_13b9.svg` ↔ `note_001_Flûte_G4_vel76_13b9.wav`
 - **v1.0.0**: Nuclear process termination fix for hanging issue (PRP-001)
 - **Performance**: 8x development workflow improvement
 - **Reliability**: Immediate process termination after pipeline completion
@@ -623,24 +629,3 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 ---
 
 🎼 **Ready to orchestrate your complete Sib2Ae pipeline with Universal ID integrity!**
-
-
-Summary: Audio Pipeline Universal ID Acquisition
-
-  The audio pipeline gets Universal IDs through a sophisticated
-  matching and propagation system:
-
-  1. Source: Note Coordinator creates Universal ID registry with
-  XML/MIDI relationships
-  2. Injection: Orchestrator passes registry path to audio
-  scripts automatically
-  3. Loading: MIDI separator reads registry and builds lookup
-  tables
-  4. Matching: Each MIDI note matched to Universal ID via
-  pitch+track algorithm
-  5. Embedding: UUID suffix added to filenames throughout
-  pipeline
-  6. Propagation: Subsequent stages extract UUID from filenames
-  and preserve forward
-  7. Output: Final keyframes contain Universal ID for After
-  Effects synchronization

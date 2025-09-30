@@ -342,10 +342,17 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 ## 🎯 Version
 
 **Status**: Production Ready
-**Last Updated**: September 2025
-**Pipeline Compatibility**: Universal ID Pipeline Orchestrator 1.5.0
+**Last Updated**: October 2025
+**Pipeline Compatibility**: Universal ID Pipeline Orchestrator 1.1.0
 
 ### Recent Updates
+- **v1.6.0**: Targeted Universal ID integration for individual_noteheads_creator.py (October 2025)
+  - **Architectural Fix**: Registry integration ONLY for scripts requiring audio-visual synchronization
+  - **Critical Path**: individual_noteheads_creator.py now generates UUID-suffixed filenames
+  - **100% Confidence Matching**: XML-based UUID lookup (part_id + pitch + measure)
+  - **Perfect Synchronization**: `notehead_002_P1_G4_M5_13b9.svg` ↔ `note_001_Flûte_G4_vel76_13b9.wav`
+  - **Correct Architecture**: 4 structural Symbolic scripts remain legacy (no unnecessary registry overhead)
+  - **Result**: Frame-accurate After Effects synchronization with bulletproof UUID correlation
 - **v1.5.0**: Sustain pedal (CC 64) detection and processing implemented (MAJOR ENHANCEMENT)
   - **Automatic Pedal Detection**: Built-in CC 64 event scanning during MIDI analysis
   - **File Duration Extension**: Individual MIDI files extended to pedal release times
