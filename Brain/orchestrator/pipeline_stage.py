@@ -393,17 +393,15 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
     """Create all symbolic pipeline stages"""
     stages = []
 
-    # Stage 1: Noteheads Extraction (with Universal ID registry integration)
+    # Stage 1: Noteheads Extraction (legacy command - no registry support yet)
     noteheads_extraction_command = [
         "python",
         "Brain/App/Symbolic Separators/truly_universal_noteheads_extractor.py",
         str(config.musicxml_file),
     ]
 
-    # Add Universal ID registry path if preserving Universal IDs
-    if config.preserve_universal_ids:
-        registry_path = config.output_dir / "universal_notes_registry.json"
-        noteheads_extraction_command.extend(["--registry", str(registry_path)])
+    # Note: Symbolic Separators don't support --registry parameter yet
+    # (Only Audio Separators have been updated with Universal ID registry integration)
 
     stages.append(
         PipelineStage(
@@ -419,7 +417,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
         )
     )
 
-    # Stage 2: Noteheads Subtraction (with Universal ID registry integration)
+    # Stage 2: Noteheads Subtraction (legacy command - no registry support yet)
     if config.svg_file:
         noteheads_subtraction_command = [
             "python",
@@ -428,10 +426,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
             str(config.svg_file),
         ]
 
-        # Add Universal ID registry path if preserving Universal IDs
-        if config.preserve_universal_ids:
-            registry_path = config.output_dir / "universal_notes_registry.json"
-            noteheads_subtraction_command.extend(["--registry", str(registry_path)])
+        # Note: Symbolic Separators don't support --registry parameter yet
 
         stages.append(
             PipelineStage(
@@ -445,7 +440,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
             )
         )
 
-    # Stage 3: Instrument Separation (with Universal ID registry integration)
+    # Stage 3: Instrument Separation (legacy command - no registry support yet)
     instrument_separation_command = [
         "python",
         "Brain/App/Symbolic Separators/xml_based_instrument_separator.py",
@@ -454,10 +449,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
         "outputs/svg/instruments",
     ]
 
-    # Add Universal ID registry path if preserving Universal IDs
-    if config.preserve_universal_ids:
-        registry_path = config.output_dir / "universal_notes_registry.json"
-        instrument_separation_command.extend(["--registry", str(registry_path)])
+    # Note: Symbolic Separators don't support --registry parameter yet
 
     stages.append(
         PipelineStage(
@@ -472,17 +464,14 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
         )
     )
 
-    # Stage 4: Individual Noteheads Creation (with Universal ID registry integration)
+    # Stage 4: Individual Noteheads Creation (legacy command - no registry support yet)
     individual_noteheads_command = [
         "python",
         "Brain/App/Symbolic Separators/individual_noteheads_creator.py",
         str(config.musicxml_file),
     ]
 
-    # Add Universal ID registry path if preserving Universal IDs
-    if config.preserve_universal_ids:
-        registry_path = config.output_dir / "universal_notes_registry.json"
-        individual_noteheads_command.extend(["--registry", str(registry_path)])
+    # Note: Symbolic Separators don't support --registry parameter yet
 
     stages.append(
         PipelineStage(
@@ -496,7 +485,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
         )
     )
 
-    # Stage 5: Staff and Barlines Extraction (with Universal ID registry integration)
+    # Stage 5: Staff and Barlines Extraction (legacy command - no registry support yet)
     if config.svg_file:
         staff_barlines_command = [
             "python",
@@ -505,10 +494,7 @@ def create_symbolic_pipeline_stages(config: OrchestrationConfig) -> List[Pipelin
             str(config.svg_file),
         ]
 
-        # Add Universal ID registry path if preserving Universal IDs
-        if config.preserve_universal_ids:
-            registry_path = config.output_dir / "universal_notes_registry.json"
-            staff_barlines_command.extend(["--registry", str(registry_path)])
+        # Note: Symbolic Separators don't support --registry parameter yet
 
         stages.append(
             PipelineStage(
