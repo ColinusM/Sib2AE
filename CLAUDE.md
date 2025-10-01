@@ -42,7 +42,7 @@ Brain/                                 # CORE PIPELINE SYSTEM
 ├── App/                               # Individual processing tools (10 scripts)
 │   ├── Symbolic Separators/           # 5 SVG/MusicXML processing scripts
 │   └── Audio Separators/              # 5 MIDI/audio processing scripts
-└── orchestrator/                      # Universal ID Pipeline Orchestrator (11 modules)
+└── orchestrator/                      # Universal ID Pipeline Orchestrator (12 modules)
     ├── universal_orchestrator.py       # Master pipeline coordinator
     ├── note_coordinator.py             # Universal ID registry creation
     ├── tied_note_processor.py          # Tied note relationship processing
@@ -50,6 +50,7 @@ Brain/                                 # CORE PIPELINE SYSTEM
     ├── midi_matcher.py                 # MIDI note matching utilities
     ├── pipeline_stage.py               # Pipeline stage definitions
     ├── universal_registry.py           # Universal ID tracking system
+    ├── registry_utils.py               # Standardized registry access utilities
     ├── manifest_manager.py             # Atomic manifest operations
     ├── progress_tracker.py             # Real-time progress tracking
     ├── error_handlers.py               # Circuit breaker and retry mechanisms
@@ -131,6 +132,7 @@ python -m Brain.orchestrator.universal_orchestrator \
 - **Smart Verbose Logging**: Intelligent aggregation with pattern recognition and anomaly detection
 - **Zero Console Pollution**: Rich file logs without Claude Code context contamination
 - **Universal ID Preservation**: Maintains unique identifiers across all pipeline stages
+- **Registry Architecture**: Standardized Universal ID access via registry utilities eliminates fragile data extraction
 - **Atomic Operations**: Safe manifest updates with backup and recovery
 - **Circuit Breaker Pattern**: Robust error handling and failure recovery
 - **Real-time Progress Tracking**: Universal ID-level granularity progress reporting
