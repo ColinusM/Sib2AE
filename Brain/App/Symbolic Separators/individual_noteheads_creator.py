@@ -62,28 +62,39 @@ def extract_xml_notes(musicxml_file: str) -> List[Dict]:
                     
                 step = pitch.find('step').text
                 octave = int(pitch.find('octave').text)
-                
+
+                # Handle accidentals (sharps/flats)
+                alter_elem = pitch.find('alter')
+                accidental = ""
+                if alter_elem is not None:
+                    alter = int(alter_elem.text)
+                    if alter == 1:
+                        accidental = "#"
+                    elif alter == -1:
+                        accidental = "b"
+
                 # Get duration for notehead type
                 note_type = note.find('type')
                 duration = note_type.text if note_type is not None else 'quarter'
-                
+
                 # XML coordinates (relative to measure)
                 xml_x = float(note.get('default-x', 0))
                 xml_y = float(note.get('default-y', 0))
-                
+
                 # Calculate absolute X position
                 absolute_x = cumulative_x + xml_x
-                
+
                 notes.append({
                     'part_id': part_id,
                     'measure': measure_num,
                     'step': step,
                     'octave': octave,
+                    'accidental': accidental,
                     'duration': duration,
                     'xml_x': xml_x,
                     'xml_y': xml_y,
                     'absolute_x': absolute_x,
-                    'note_name': f"{step}{octave}"
+                    'note_name': f"{step}{accidental}{octave}"
                 })
             
             cumulative_x += measure_width
@@ -231,6 +242,7 @@ def create_individual_notehead_svgs(musicxml_file: str, output_dir: str, registr
 
         # Generate filename with Universal ID suffix if registry available
         uuid_suffix = ""
+        confidence_info = ""
         if registry:
             # Lookup Universal ID by XML match (part_id + pitch)
             match = registry.get_universal_id_by_xml_match(
@@ -241,7 +253,11 @@ def create_individual_notehead_svgs(musicxml_file: str, output_dir: str, registr
             if match:
                 universal_id = match.universal_id  # Attribute access, not dict
                 uuid_suffix = f"_{universal_id[:4]}"  # 4-char UUID prefix for filename
-                print(f"      🔗 Universal ID: {universal_id[:12]}... (confidence: {match.confidence*100:.1f}%)")
+                confidence_info = f" (confidence: {match.confidence*100:.1f}%)"
+                print(f"      🔗 Universal ID: {universal_id[:12]}...{confidence_info}")
+            else:
+                confidence_info = " (confidence: 0.0%)"
+                print(f"      🔗 Universal ID: ... {confidence_info}")
 
         filename = f"notehead_{i:03d}_{note['part_id']}_{note['note_name']}_M{note['measure']}{uuid_suffix}.svg"
         filepath = os.path.join(instrument_dir, filename)
