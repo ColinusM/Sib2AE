@@ -62,7 +62,7 @@ class OrnamentSVGParser:
 
     def find_ornaments(self) -> List[SVGOrnament]:
         """
-        Find all ornaments in SVG and link to noteheads
+        Find all ornaments in SVG and link to noteheads (includes grace notes)
 
         Returns list of SVGOrnament objects with spatial relationships
         """
@@ -127,6 +127,26 @@ class OrnamentSVGParser:
 
                 ornament_objects.append(ornament)
 
+        # Process grace notes
+        if ornaments_data.get('grace_notes'):
+            for grace_elem in ornaments_data['grace_notes']:
+                symbols = [SVGOrnamentSymbol(
+                    unicode_code=grace_elem.code_point,
+                    symbol_type='grace_notehead',
+                    position=(grace_elem.x, grace_elem.y),
+                    utf8_hex=grace_elem.utf8_hex
+                )]
+
+                ornament = SVGOrnament(ornament_type='grace_note', symbols=symbols)
+
+                # Grace notes: find main notehead to the RIGHT (grace comes before)
+                notehead = self._find_notehead_right((grace_elem.x, grace_elem.y), all_noteheads)
+                if notehead:
+                    ornament.linked_notehead = notehead
+                    ornament.notehead_position = (notehead.x, notehead.y)
+
+                ornament_objects.append(ornament)
+
         return ornament_objects
 
     def _group_trill_symbols(self, trill_elements: List[SVGElement]) -> List[SVGOrnament]:
@@ -162,7 +182,7 @@ class OrnamentSVGParser:
             symbols = [
                 SVGOrnamentSymbol(
                     unicode_code=elem.code_point,
-                    symbol_type=self.analyzer.HELSINKI_STD_SYMBOLS.get(elem.code_point, 'unknown'),
+                    symbol_type=self.analyzer.MUSIC_SYMBOLS.get(elem.code_point, 'unknown'),
                     position=(elem.x, elem.y),
                     utf8_hex=elem.utf8_hex
                 )
@@ -194,6 +214,38 @@ class OrnamentSVGParser:
 
             # Check if notehead is in search area
             if dx < 100 and 50 < dy < 150:
+                # Calculate distance
+                distance = (dx**2 + dy**2) ** 0.5
+                candidates.append((distance, notehead))
+
+        if candidates:
+            # Return closest notehead
+            candidates.sort(key=lambda x: x[0])
+            return candidates[0][1]
+
+        return None
+
+    def _find_notehead_right(self, grace_pos: Tuple[float, float], noteheads: List[SVGElement]) -> Optional[SVGElement]:
+        """
+        Find main notehead to the RIGHT of grace note (20-150px right, ±50px vertical)
+
+        Args:
+            grace_pos: (x, y) position of grace note
+            noteheads: List of notehead elements
+
+        Returns:
+            Closest matching notehead or None
+        """
+        grace_x, grace_y = grace_pos
+
+        candidates = []
+
+        for notehead in noteheads:
+            dx = notehead.x - grace_x  # Main note should be to the RIGHT (positive dx)
+            dy = abs(notehead.y - grace_y)  # Vertical alignment
+
+            # Check if notehead is in search area (right of grace note)
+            if 20 < dx < 150 and dy < 50:
                 # Calculate distance
                 distance = (dx**2 + dy**2) ** 0.5
                 candidates.append((distance, notehead))

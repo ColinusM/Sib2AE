@@ -15,7 +15,7 @@ from dataclasses import dataclass
 @dataclass
 class XMLOrnament:
     """Ornament from MusicXML with position data"""
-    ornament_type: str  # 'trill', 'mordent', 'turn', 'inverted-mordent', etc.
+    ornament_type: str  # 'trill', 'mordent', 'turn', 'grace_acciaccatura', 'grace_appoggiatura', etc.
     note_pitch: str  # e.g., 'G4'
     note_step: str  # e.g., 'G'
     note_octave: int  # e.g., 4
@@ -27,6 +27,8 @@ class XMLOrnament:
 
     # Optional attributes
     placement: Optional[str] = None  # 'above' or 'below'
+    is_grace_note: bool = False  # True for grace notes (acciaccatura/appoggiatura)
+    has_slash: Optional[bool] = None  # True=acciaccatura, False=appoggiatura
 
     def __repr__(self):
         return f"XMLOrnament({self.ornament_type} on {self.note_pitch}, m{self.measure}, {self.part_id})"
@@ -55,7 +57,7 @@ class OrnamentXMLParser:
         self.part_names = self._build_part_names()
 
     def find_ornaments(self) -> List[XMLOrnament]:
-        """Find all ornaments in MusicXML file"""
+        """Find all ornaments in MusicXML file (including grace notes)"""
         ornaments = []
 
         # Iterate through all parts
@@ -69,16 +71,7 @@ class OrnamentXMLParser:
 
                 # Iterate through notes
                 for note_elem in measure.findall('.//note'):
-                    # Check if note has ornaments
-                    notations = note_elem.find('notations')
-                    if notations is None:
-                        continue
-
-                    ornaments_elem = notations.find('ornaments')
-                    if ornaments_elem is None:
-                        continue
-
-                    # Extract note pitch
+                    # Extract note pitch (needed for both ornaments and grace notes)
                     pitch_elem = note_elem.find('pitch')
                     if pitch_elem is None:
                         continue  # Rest or unpitched note
@@ -98,6 +91,36 @@ class OrnamentXMLParser:
                     staff_elem = note_elem.find('staff')
                     staff = int(staff_elem.text) if staff_elem is not None else 1
 
+                    # CHECK 1: Is this a grace note? (acciaccatura/appoggiatura)
+                    grace_elem = note_elem.find('grace')
+                    if grace_elem is not None:
+                        has_slash = grace_elem.get('slash') == 'yes'
+                        ornament_type = 'grace_acciaccatura' if has_slash else 'grace_appoggiatura'
+
+                        ornaments.append(XMLOrnament(
+                            ornament_type=ornament_type,
+                            note_pitch=pitch_name,
+                            note_step=step,
+                            note_octave=octave,
+                            measure=measure_num,
+                            part_id=part_id,
+                            part_name=part_name,
+                            voice=voice,
+                            staff=staff,
+                            is_grace_note=True,
+                            has_slash=has_slash
+                        ))
+                        continue  # Grace notes don't have additional ornaments
+
+                    # CHECK 2: Does note have ornaments? (trill, mordent, turn, etc.)
+                    notations = note_elem.find('notations')
+                    if notations is None:
+                        continue
+
+                    ornaments_elem = notations.find('ornaments')
+                    if ornaments_elem is None:
+                        continue
+
                     # Find all ornament types in this note
                     for ornament_tag, ornament_type in self.SUPPORTED_ORNAMENTS.items():
                         ornament_elem = ornaments_elem.find(ornament_tag)
@@ -114,7 +137,8 @@ class OrnamentXMLParser:
                                 part_name=part_name,
                                 voice=voice,
                                 staff=staff,
-                                placement=placement
+                                placement=placement,
+                                is_grace_note=False
                             ))
 
         return ornaments
@@ -176,6 +200,9 @@ def main():
             print(f"   Measure: {orn.measure}")
             print(f"   Part: {orn.part_name} ({orn.part_id})")
             print(f"   Voice: {orn.voice}, Staff: {orn.staff}")
+            if orn.is_grace_note:
+                slash_info = "with slash (acciaccatura)" if orn.has_slash else "no slash (appoggiatura)"
+                print(f"   Grace note: {slash_info}")
             if orn.placement:
                 print(f"   Placement: {orn.placement}")
             print()

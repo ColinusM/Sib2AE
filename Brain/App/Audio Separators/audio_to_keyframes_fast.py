@@ -315,7 +315,7 @@ def process_audio_directory_fast(audio_dir: str, registry: Optional[UniversalIDR
         # Process results as they complete
         for future in as_completed(future_to_task):
             task = future_to_task[future]
-            audio_file, _ = task
+            audio_file, _, _ = task  # Unpack all 3 elements: audio_file, audio_dir, registry
 
             try:
                 result = future.result()

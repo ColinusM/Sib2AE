@@ -38,6 +38,8 @@ class XMLNote:
     absolute_x: float
     note_name: str
     staff_index: int
+    is_grace_note: bool = False
+    grace_slash: bool = False  # True for acciaccatura, False for appoggiatura
 
 @dataclass
 class MIDINote:
@@ -121,21 +123,35 @@ class NoteCoordinator:
                 for note in measure.findall('note'):
                     if note.find('rest') is not None:
                         continue
-                        
+
                     pitch = note.find('pitch')
                     if pitch is None:
                         continue
-                        
+
+                    # Check if this is a grace note
+                    grace_elem = note.find('grace')
+                    is_grace = grace_elem is not None
+                    grace_slash = grace_elem.get('slash') == 'yes' if is_grace else False
+
                     step = pitch.find('step').text
                     octave = int(pitch.find('octave').text)
-                    
+
+                    # Handle accidentals for grace notes
+                    alter_elem = pitch.find('alter')
+                    alter = int(alter_elem.text) if alter_elem is not None else 0
+                    accidental = ''
+                    if alter == 1:
+                        accidental = '#'
+                    elif alter == -1:
+                        accidental = 'b'
+
                     note_type = note.find('type')
                     duration = note_type.text if note_type is not None else 'quarter'
-                    
+
                     xml_x = float(note.get('default-x', 0))
                     xml_y = float(note.get('default-y', 0))
                     absolute_x = cumulative_x + xml_x
-                    
+
                     xml_note = XMLNote(
                         part_id=part_id,
                         measure=measure_num,
@@ -145,10 +161,12 @@ class NoteCoordinator:
                         xml_x=xml_x,
                         xml_y=xml_y,
                         absolute_x=absolute_x,
-                        note_name=f"{step}{octave}",
-                        staff_index=parts.index(part_id) if part_id in parts else 0
+                        note_name=f"{step}{accidental}{octave}",
+                        staff_index=parts.index(part_id) if part_id in parts else 0,
+                        is_grace_note=is_grace,
+                        grace_slash=grace_slash
                     )
-                    
+
                     notes.append(xml_note)
                 
                 cumulative_x += measure_width
@@ -265,65 +283,104 @@ class NoteCoordinator:
         print(f"   ✅ Calculated {len(svg_notes)} SVG coordinates")
         
     def match_xml_to_midi(self) -> List[Tuple[XMLNote, Optional[MIDINote], float, str]]:
-        """Match XML notes to MIDI notes using pitch and timing"""
+        """Match XML notes to MIDI notes using pitch and timing (includes grace notes)"""
         print(f"🔗 Matching XML to MIDI notes")
-        
+
         matches = []
         used_midi_indices = set()
-        
-        for xml_note in self.xml_notes:
+
+        for xml_idx, xml_note in enumerate(self.xml_notes):
             best_match = None
             best_confidence = 0.0
             best_method = "no_match"
             best_midi_idx = -1
-            
-            xml_pitch = f"{xml_note.step}{xml_note.octave}"
-            
-            # Try exact pitch match first
-            for i, midi_note in enumerate(self.midi_notes):
-                if i in used_midi_indices:
-                    continue
-                    
-                if midi_note.pitch_name == xml_pitch:
-                    confidence = 0.9
-                    method = "exact_pitch"
-                    
-                    # Boost confidence using universal track-to-part matching
-                    # Match MIDI track index to XML part staff index
-                    if midi_note.track_index == xml_note.staff_index + 1:  # +1 because track 0 is usually tempo/meta
-                        confidence += 0.1
-                    
-                    if confidence > best_confidence:
-                        best_match = midi_note
-                        best_confidence = confidence
-                        best_method = method
-                        best_midi_idx = i
-            
-            # If no exact match, try enharmonic equivalents
-            if best_confidence < 0.5:
-                enharmonic_pitches = self.get_enharmonic_equivalents(xml_pitch)
+
+            # Use the complete note_name which includes accidentals (F#4, Bb3, etc.)
+            xml_pitch = xml_note.note_name
+
+            # SPECIAL HANDLING FOR GRACE NOTES
+            # Grace notes appear RIGHT BEFORE the next regular note in MIDI
+            if xml_note.is_grace_note:
+                # Find the next regular (non-grace) note in same part
+                next_regular_note = None
+                for future_xml in self.xml_notes[xml_idx + 1:]:
+                    if not future_xml.is_grace_note and future_xml.part_id == xml_note.part_id:
+                        next_regular_note = future_xml
+                        break
+
+                # Match grace note to MIDI note that comes just before the next regular note
                 for i, midi_note in enumerate(self.midi_notes):
                     if i in used_midi_indices:
                         continue
-                        
-                    if midi_note.pitch_name in enharmonic_pitches:
-                        confidence = 0.7
-                        method = "enharmonic"
-                        
+
+                    # Check pitch match (exact or enharmonic)
+                    pitch_matches = midi_note.pitch_name == xml_pitch
+                    if not pitch_matches:
+                        enharmonic_pitches = self.get_enharmonic_equivalents(xml_pitch)
+                        pitch_matches = midi_note.pitch_name in enharmonic_pitches
+
+                    if pitch_matches:
+                        confidence = 0.85  # High confidence for grace notes
+                        method = "grace_note_pitch"
+
+                        # Boost confidence if MIDI track matches XML part
+                        if midi_note.track_index == xml_note.staff_index + 1:
+                            confidence += 0.1
+
                         if confidence > best_confidence:
                             best_match = midi_note
                             best_confidence = confidence
                             best_method = method
                             best_midi_idx = i
-            
+
+            # REGULAR NOTE MATCHING
+            else:
+                # Try exact pitch match first
+                for i, midi_note in enumerate(self.midi_notes):
+                    if i in used_midi_indices:
+                        continue
+
+                    if midi_note.pitch_name == xml_pitch:
+                        confidence = 0.9
+                        method = "exact_pitch"
+
+                        # Boost confidence using universal track-to-part matching
+                        # Match MIDI track index to XML part staff index
+                        if midi_note.track_index == xml_note.staff_index + 1:  # +1 because track 0 is usually tempo/meta
+                            confidence += 0.1
+
+                        if confidence > best_confidence:
+                            best_match = midi_note
+                            best_confidence = confidence
+                            best_method = method
+                            best_midi_idx = i
+
+                # If no exact match, try enharmonic equivalents
+                if best_confidence < 0.5:
+                    enharmonic_pitches = self.get_enharmonic_equivalents(xml_pitch)
+                    for i, midi_note in enumerate(self.midi_notes):
+                        if i in used_midi_indices:
+                            continue
+
+                        if midi_note.pitch_name in enharmonic_pitches:
+                            confidence = 0.7
+                            method = "enharmonic"
+
+                            if confidence > best_confidence:
+                                best_match = midi_note
+                                best_confidence = confidence
+                                best_method = method
+                                best_midi_idx = i
+
             if best_midi_idx >= 0:
                 used_midi_indices.add(best_midi_idx)
-            
+
             matches.append((xml_note, best_match, best_confidence, best_method))
-        
+
         matched_count = sum(1 for _, midi, _, _ in matches if midi is not None)
-        print(f"   ✅ Matched {matched_count}/{len(self.xml_notes)} XML notes to MIDI")
-        
+        grace_count = sum(1 for xml, _, _, _ in matches if xml.is_grace_note)
+        print(f"   ✅ Matched {matched_count}/{len(self.xml_notes)} XML notes to MIDI ({grace_count} grace notes)")
+
         return matches
         
     def get_enharmonic_equivalents(self, note_name: str) -> List[str]:

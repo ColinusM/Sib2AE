@@ -35,8 +35,9 @@ class SVGElement:
 class DeepSVGAnalyzer:
     """Complete SVG analysis using hex-based extraction"""
 
-    # Unicode mappings discovered through hex analysis
-    HELSINKI_STD_SYMBOLS = {
+    # Unicode mappings for Sibelius fonts (Lelandia, Helsinki, etc.)
+    # These private-use codes are consistent across Sibelius notation fonts
+    MUSIC_SYMBOLS = {
         # Noteheads (filled)
         0xF0CF: 'notehead_filled',      # ef838f - Quarter/eighth notes
         0xF0B7: 'notehead_whole',       # ef82b7 - Whole notes
@@ -45,8 +46,10 @@ class DeepSVGAnalyzer:
         # Ornaments
         0xF0D9: 'trill_start',          # ef8399 - Trill symbol tr
         0xF07E: 'trill_wavy',           # ef81be - Wavy line segments
-        0xF0C4: 'mordent',              # Likely mordent symbol
+        0xF04D: 'mordent',              # ef818d - Mordent symbol (Lelandia/Sibelius)
+        0xF0C4: 'inverted_mordent',     # Alternative mordent form
         0xF0AA: 'turn',                 # ef82aa - Turn symbol
+        0xF0DE: 'grace_notehead',       # ef839e - Grace note (acciaccatura/appoggiatura)
 
         # Articulations
         0xF04A: 'staccato_or_accent',   # ef818a - Dot or accent
@@ -60,10 +63,6 @@ class DeepSVGAnalyzer:
         0xF0E4: 'sharp',                # ef83a4 - Sharp symbol
         0xF0EE: 'natural',              # ef83ae - Natural symbol
         0xF0FA: 'flat',                 # ef83ba - Flat symbol
-    }
-
-    HELSINKI_SPECIAL_SYMBOLS = {
-        0xF0AA: 'special_notehead',     # ef82aa
     }
 
     def __init__(self, svg_file: str):
@@ -105,17 +104,17 @@ class DeepSVGAnalyzer:
         }
 
         for elem in self.elements:
-            if 'Helsinki' in elem.font:
-                symbol_type = self.HELSINKI_STD_SYMBOLS.get(elem.code_point)
+            # Font-agnostic: works with Lelandia (Sibelius), Helsinki, and other notation fonts
+            symbol_type = self.MUSIC_SYMBOLS.get(elem.code_point)
 
-                if symbol_type == 'notehead_whole':
-                    noteheads['whole'].append(elem)
-                elif symbol_type == 'notehead_half':
-                    noteheads['half'].append(elem)
-                elif symbol_type == 'notehead_filled':
-                    noteheads['quarter'].append(elem)
-                elif symbol_type and 'notehead' in symbol_type:
-                    noteheads['unknown'].append(elem)
+            if symbol_type == 'notehead_whole':
+                noteheads['whole'].append(elem)
+            elif symbol_type == 'notehead_half':
+                noteheads['half'].append(elem)
+            elif symbol_type == 'notehead_filled':
+                noteheads['quarter'].append(elem)
+            elif symbol_type and 'notehead' in symbol_type and 'grace' not in symbol_type:
+                noteheads['unknown'].append(elem)
 
         return noteheads
 
@@ -125,11 +124,12 @@ class DeepSVGAnalyzer:
             'trills': [],
             'mordents': [],
             'turns': [],
+            'grace_notes': [],
             'other': []
         }
 
         for elem in self.elements:
-            symbol_type = self.HELSINKI_STD_SYMBOLS.get(elem.code_point)
+            symbol_type = self.MUSIC_SYMBOLS.get(elem.code_point)
 
             if symbol_type == 'trill_start' or symbol_type == 'trill_wavy':
                 ornaments['trills'].append(elem)
@@ -137,6 +137,8 @@ class DeepSVGAnalyzer:
                 ornaments['mordents'].append(elem)
             elif symbol_type == 'turn':
                 ornaments['turns'].append(elem)
+            elif symbol_type == 'grace_notehead':
+                ornaments['grace_notes'].append(elem)
             elif symbol_type and ('ornament' in symbol_type or 'trill' in symbol_type):
                 ornaments['other'].append(elem)
 
@@ -147,7 +149,7 @@ class DeepSVGAnalyzer:
         articulations = []
 
         for elem in self.elements:
-            symbol_type = self.HELSINKI_STD_SYMBOLS.get(elem.code_point)
+            symbol_type = self.MUSIC_SYMBOLS.get(elem.code_point)
             if symbol_type in ['staccato_or_accent', 'accent']:
                 articulations.append(elem)
 
@@ -162,7 +164,7 @@ class DeepSVGAnalyzer:
         }
 
         for elem in self.elements:
-            symbol_type = self.HELSINKI_STD_SYMBOLS.get(elem.code_point)
+            symbol_type = self.MUSIC_SYMBOLS.get(elem.code_point)
 
             if symbol_type == 'sharp':
                 accidentals['sharps'].append(elem)
@@ -177,7 +179,7 @@ class DeepSVGAnalyzer:
         """Extract clef symbols (previously: NOT DETECTED)"""
         clefs = []
         for elem in self.elements:
-            symbol_type = self.HELSINKI_STD_SYMBOLS.get(elem.code_point)
+            symbol_type = self.MUSIC_SYMBOLS.get(elem.code_point)
             if symbol_type == 'treble_clef':
                 clefs.append(elem)
         return clefs
