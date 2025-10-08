@@ -516,16 +516,24 @@ def main():
 Enhanced filenames include Universal ID suffixes with full traceability:
 
 ```
-# Before (collision-prone 4-char truncation)
-note_000_Flûte_A4_vel76.wav → Flûte_A4_vel76_2584.wav
-
-# After (registry-based full UUID preservation)
+# Standard UUIDs (4-character prefix)
 note_000_Flûte_A4_vel76.wav → Flûte_A4_vel76_5502.wav
 Registry: 5502a647-7bca-4d81-93e5-3fa5562c4caf (full UUID)
 Keyframes: "universal_id": "5502a647-7bca-4d81-93e5-3fa5562c4caf"
+
+# Ornament Universal IDs (8-character suffix)
+note_002_Flûte_F#4_vel75.mid → note_002_Flûte_F#4_vel75__exp_000.mid
+Registry: orn_mordent_001_exp_000 (semantic ornament ID)
+Keyframes: "universal_id": "orn_mordent_001_exp_000"
 ```
 
-This ensures bulletproof traceability from source Universal ID to final After Effects keyframes.
+**Ornament ID Architecture:**
+- **Semantic Structure**: `orn_{type}_{parent_id}_exp_{index}` (e.g., `orn_trill_001_exp_005`)
+- **Filename Suffix**: Last 8 characters (`exp_000`) to preserve expansion index
+- **Registry Expansion**: Partial suffix expanded to full ID via registry lookup
+- **Complete Chain**: Registry → MIDI → Audio → Keyframes with full traceability
+
+This ensures bulletproof traceability from source Universal ID to final After Effects keyframes for both standard notes and ornament expansions.
 
 ## 📊 Monitoring and Logging
 
@@ -681,6 +689,14 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 **Last Updated**: October 8, 2025
 
 ### Recent Updates
+- **v1.2.1**: Ornament Universal ID preservation (October 8, 2025) **CRITICAL FIX**
+  - **Complete UUID Chain**: Ornament expansions now preserve full Universal IDs through entire pipeline
+  - **Semantic IDs**: Ornament IDs like `orn_trill_001_exp_000` handled alongside standard UUIDs
+  - **Filename Suffixes**: Uses last 8 chars (`exp_000`) for ornaments vs first 4 for UUIDs
+  - **Registry Expansion**: `exp_000` → `orn_trill_001_exp_000` via registry lookup
+  - **Keyframe Embedding**: Full ornament Universal IDs embedded in JSON metadata
+  - **Tied Note Fix**: Processor now skips ornament expansions (xml_data: null)
+  - **Test Verification**: Mordent (2 expansions) and Trill (6 expansions) fully validated
 - **v1.2.0**: Complete ornament detection system (October 8, 2025) **MAJOR ENHANCEMENT**
   - **5 New Modules**: ornament_coordinator, XML/SVG parsers, symbol creator, orphan detector
   - **Grace Notes**: Acciaccatura/appoggiatura with spatial linking and accidental support (F#4, Bb3)

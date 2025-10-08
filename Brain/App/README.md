@@ -99,16 +99,23 @@ python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Sae
 ```
 - **Input**: Complete MIDI file + Universal ID registry (orchestrator provides automatically)
 - **Output**: Individual MIDI files per note in `outputs/midi/`
-- **Naming**: `note_000_Flûte_A4_vel76_5502.mid` (with 4-char Universal ID suffix)
+- **Naming Conventions**:
+  - Standard notes: `note_000_Flûte_A4_vel76_5502.mid` (4-char UUID prefix)
+  - Ornament expansions: `note_002_Flûte_F#4_vel75__exp_000.mid` (8-char ornament suffix)
 - **Foundation**: Required for all subsequent audio processing
 - **Registry Integration**: Loads Note Coordinator's registry to map MIDI notes to XML Universal IDs
 - **UUID Recovery**: Matches MIDI notes to registry via pitch+track lookup for source Universal ID retrieval
+- **Dual ID System**:
+  - **Standard UUIDs**: Uses first 4 characters (`universal_id[:4]`)
+  - **Ornament IDs**: Uses last 8 characters (`universal_id[-8:]`) to preserve `exp_000` suffix
+  - Automatic detection via `universal_id.startswith('orn_')` check
 - **Pedal Detection**: Automatic CC 64 (sustain pedal) detection and file extension
   - Notes starting during active pedal: CC 64 ON synthesized at file start
   - Notes with pedal release after note ends: File duration extended to pedal OFF
   - Channel-specific processing: Pedal events only affect same-channel notes
 - **Ornament Compatibility**: Handles ornament expansion notes (trills, mordents, grace notes) that lack xml_data
   - Graceful handling of registry entries without xml_data field
+  - Full Universal ID preservation: `orn_trill_001_exp_005` → `_exp_005` suffix
   - Ornament expansions processed normally through MIDI→Audio→Keyframe pipeline
 
 #### 2. `midi_to_audio_renderer_fast.py` (High-Quality Audio Rendering + Registry Integration)
@@ -141,9 +148,14 @@ python "Brain/App/Audio Separators/audio_to_keyframes_fast.py" "outputs/audio"
 - **Output**: Only amplitude over time (0-100 normalized) at true 60 data points/second
 - **Format**: `[frame, amplitude_value]` pairs with sequential frame indexing (0,1,2,3...)
 - **Frame Rate**: 60 FPS for YouTube compatibility (upgraded from 30 FPS)
-- **Universal ID Preservation**: Full 36-character UUIDs embedded in keyframe JSON metadata
+- **Universal ID Preservation**: Full UUIDs embedded in keyframe JSON metadata (both standard and ornament)
 - **Enhanced Metadata**: Data integrity tracking with confidence scoring and registry validation
-- **Registry Integration**: Expands 4-character UUID prefixes to full Universal IDs via registry lookup
+- **Registry Integration**: Expands partial IDs to full Universal IDs via registry lookup
+  - Standard UUIDs: `5502` → `5502a647-7bca-4d81-93e5-3fa5562c4caf`
+  - Ornament IDs: `exp_000` → `orn_trill_001_exp_000`
+- **Dual Pattern Recognition**:
+  - UUID pattern: `[a-f0-9]{4}` (hex characters)
+  - Ornament pattern: `exp_\d{3}` (expansion index)
 - **Simplified**: Removed over-engineered scale, opacity, hue, position properties
 - **Performance**: ~0.5-1 second per file, eliminates keyframe conflicts
 - **Clean**: Perfect for direct After Effects amplitude animation with bulletproof synchronization
@@ -284,7 +296,16 @@ python "Brain/App/Audio Separators/audio_to_keyframes_fast.py" "outputs/audio"
 - **Confidence-Based Matching**: Exact (1.0), fuzzy (0.9), fallback (0.8) strategies for reliable note identification
 - **Enhanced Metadata**: Data integrity tracking with registry validation and confidence scoring
 - **Frame-Accurate Synchronization**: Bulletproof relationships between visual coordinates and audio timing
-- **Complex Musical Support**: Handles tied notes, sustain pedal, and multi-instrument synchronization
+- **Complex Musical Support**: Handles tied notes, sustain pedal, ornaments, and multi-instrument synchronization
+
+**Ornament Universal ID Architecture**:
+- **Semantic IDs**: `orn_{type}_{parent}_exp_{index}` (e.g., `orn_trill_001_exp_005`)
+- **Dual ID System**: Standard UUIDs (4-char prefix) + Ornament IDs (8-char suffix)
+- **Filename Examples**:
+  - Standard: `note_000_Flûte_A4_vel76_5502.wav` (UUID: `5502a647-7bca...`)
+  - Ornament: `note_002_Flûte_F#4_vel75__exp_000.wav` (ID: `orn_mordent_001_exp_000`)
+- **Registry Expansion**: Partial `exp_000` → Full `orn_trill_001_exp_000` via lookup
+- **Complete Traceability**: Registry → MIDI → Audio → Keyframes with full ID preservation
 
 ### Orchestrator Coordination
 - Sequential execution for reliability
@@ -348,6 +369,14 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 **Pipeline Compatibility**: Universal ID Pipeline Orchestrator 1.2.0
 
 ### Recent Updates
+- **v1.7.1**: Ornament Universal ID preservation (October 8, 2025) **CRITICAL FIX**
+  - **Complete UUID Chain**: Ornament expansions now preserve full Universal IDs through entire pipeline
+  - **MIDI Separator**: Uses last 8 chars (`exp_000`) for ornament IDs vs first 4 for standard UUIDs
+  - **Audio Renderer**: Preserves ornament suffixes through .mid → .wav transformation
+  - **Keyframe Generator**: Recognizes `exp_\d{3}` pattern and expands to full ornament ID
+  - **Registry Utils**: Enhanced filename parsing supports both UUID and ornament patterns
+  - **Full Traceability**: `exp_000` → `orn_trill_001_exp_000` via registry expansion
+  - **Test Verification**: Mordent (2 expansions) and Trill (6 expansions) fully validated
 - **v1.7.0**: Ornament compatibility for Audio Separators (October 8, 2025)
   - **MIDI Separator**: Graceful handling of ornament expansion notes without xml_data
   - **Audio Renderer**: Compatible with grace notes, trills, mordents from ornament detection

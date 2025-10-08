@@ -533,6 +533,10 @@ def main():
                 if not registry_entry.get('midi_data'):
                     continue
 
+                # Skip ornament expansion notes (they have midi_data but no xml_data)
+                if not registry_entry.get('xml_data'):
+                    continue
+
                 xml_data = registry_entry['xml_data']
                 midi_data = registry_entry['midi_data']
 

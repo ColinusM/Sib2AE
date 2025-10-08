@@ -259,11 +259,34 @@ class UniversalIDRegistry:
         Extract Universal ID from filename using pattern matching.
 
         Args:
-            filename: File name containing UUID pattern
+            filename: File name containing UUID pattern or ornament ID
 
         Returns:
             UniversalIDMatch with extracted ID or fallback
         """
+        # First check for ornament Universal IDs (e.g., "exp_000", "exp_001")
+        ornament_pattern = r'(exp_\d{3})'
+        ornament_matches = re.findall(ornament_pattern, filename)
+        if ornament_matches:
+            # Find full ornament Universal ID (e.g., "orn_mordent_001_exp_000")
+            partial_ornament = ornament_matches[0]  # e.g., "exp_000"
+            for universal_id in self.universal_id_lookup:
+                if universal_id.endswith(partial_ornament):
+                    entry = self.universal_id_lookup[universal_id]
+                    return UniversalIDMatch(
+                        universal_id=universal_id,
+                        confidence=0.95,
+                        match_method="filename_ornament_expanded",
+                        source_data=entry
+                    )
+            # Return partial ornament ID if no expansion found
+            return UniversalIDMatch(
+                universal_id=partial_ornament,
+                confidence=0.6,
+                match_method="filename_ornament_partial",
+                source_data={}
+            )
+
         # Extract UUID patterns from filename
         uuid_patterns = [
             r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',  # Full UUID

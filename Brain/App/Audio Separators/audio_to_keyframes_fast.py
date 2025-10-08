@@ -19,10 +19,19 @@ from registry_utils import create_registry_for_script, UniversalIDRegistry, get_
 
 def extract_universal_id_from_filename(filename: str) -> Optional[str]:
     """Extract Universal ID suffix from filename if present"""
-    # Pattern: name_XXXX.ext where XXXX is 4-character UUID suffix
+    # Pattern: name_XXXX.ext where XXXX is either:
+    # - 4-character UUID suffix (e.g., "2584")
+    # - 8-character ornament suffix (e.g., "exp_000")
     basename = os.path.basename(filename)
-    match = re.search(r'_([a-f0-9]{4})\.\w+$', basename)
-    return match.group(1) if match else None
+
+    # Try ornament pattern first (exp_NNN, starts with exp_)
+    ornament_match = re.search(r'_(exp_\d{3})\.\w+$', basename)
+    if ornament_match:
+        return ornament_match.group(1)
+
+    # Fall back to UUID pattern
+    uuid_match = re.search(r'_([a-f0-9]{4})\.\w+$', basename)
+    return uuid_match.group(1) if uuid_match else None
 
 def extract_note_metadata_from_filename(filename: str) -> Dict[str, str]:
     """Extract note metadata from audio filename"""
@@ -30,8 +39,8 @@ def extract_note_metadata_from_filename(filename: str) -> Dict[str, str]:
     basename = os.path.basename(filename)
     name_without_ext = basename.replace('.wav', '').replace('.mp3', '').replace('.flac', '')
 
-    # Remove Universal ID suffix if present
-    name_without_id = re.sub(r'_[a-f0-9]{4}$', '', name_without_ext)
+    # Remove Universal ID suffix if present (handles both UUID and ornament suffixes)
+    name_without_id = re.sub(r'_(exp_\d{3}|[a-f0-9]{4})$', '', name_without_ext)
 
     parts = name_without_id.split('_')
 

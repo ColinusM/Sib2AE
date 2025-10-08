@@ -440,8 +440,14 @@ def separate_midi_notes(midi_file: str, registry_path: Optional[str] = None):
         base_filename = f"note_{note['id']:03d}_{track_name}_{note['note_name']}_vel{note['velocity']}"
 
         if note.get('universal_id'):
-            # Add 4-character UUID suffix for Universal ID preservation
-            uuid_suffix = note['universal_id'][:4]
+            universal_id = note['universal_id']
+            # Handle ornament Universal IDs (e.g., "orn_mordent_001_exp_000")
+            if universal_id.startswith('orn_'):
+                # Use last 8 characters for ornament IDs to preserve expansion index
+                uuid_suffix = universal_id[-8:]
+            else:
+                # Standard UUID: use first 4 characters
+                uuid_suffix = universal_id[:4]
             filename = f"{base_filename}_{uuid_suffix}.mid"
         else:
             # Fallback to standard naming without Universal ID
