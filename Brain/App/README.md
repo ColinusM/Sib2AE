@@ -88,8 +88,8 @@ Transform MIDI data into audio files and After Effects keyframe data, maintainin
 
 ### Scripts
 
-#### 1. `midi_note_separator.py` (Foundation with Pedal Detection + Registry Integration)
-**Purpose**: Split MIDI files into individual note files with Universal ID preservation and sustain pedal processing
+#### 1. `midi_note_separator.py` (Foundation with Pedal + Ornament Support)
+**Purpose**: Split MIDI files into individual note files with Universal ID preservation, sustain pedal, and ornament compatibility
 ```bash
 # With Universal ID registry (orchestrator mode)
 python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Saens Trio No 2.mid" --registry "universal_output/universal_notes_registry.json"
@@ -103,11 +103,13 @@ python "Brain/App/Audio Separators/midi_note_separator.py" "Brain/Base/Saint-Sae
 - **Foundation**: Required for all subsequent audio processing
 - **Registry Integration**: Loads Note Coordinator's registry to map MIDI notes to XML Universal IDs
 - **UUID Recovery**: Matches MIDI notes to registry via pitch+track lookup for source Universal ID retrieval
-- **NEW: Pedal Detection**: Automatic CC 64 (sustain pedal) detection and file extension
+- **Pedal Detection**: Automatic CC 64 (sustain pedal) detection and file extension
   - Notes starting during active pedal: CC 64 ON synthesized at file start
   - Notes with pedal release after note ends: File duration extended to pedal OFF
   - Channel-specific processing: Pedal events only affect same-channel notes
-  - Graceful fallback: Works normally when no pedal events present
+- **Ornament Compatibility**: Handles ornament expansion notes (trills, mordents, grace notes) that lack xml_data
+  - Graceful handling of registry entries without xml_data field
+  - Ornament expansions processed normally through MIDI→Audio→Keyframe pipeline
 
 #### 2. `midi_to_audio_renderer_fast.py` (High-Quality Audio Rendering + Registry Integration)
 **Purpose**: Convert MIDI notes to audio using 247MB SGM-V2.01 soundfont with Universal ID preservation
@@ -342,17 +344,22 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 ## 🎯 Version
 
 **Status**: Production Ready
-**Last Updated**: October 2025
-**Pipeline Compatibility**: Universal ID Pipeline Orchestrator 1.1.0
+**Last Updated**: October 8, 2025
+**Pipeline Compatibility**: Universal ID Pipeline Orchestrator 1.2.0
 
 ### Recent Updates
-- **v1.6.0**: Targeted Universal ID integration for individual_noteheads_creator.py (October 2025)
+- **v1.7.0**: Ornament compatibility for Audio Separators (October 8, 2025)
+  - **MIDI Separator**: Graceful handling of ornament expansion notes without xml_data
+  - **Audio Renderer**: Compatible with grace notes, trills, mordents from ornament detection
+  - **Keyframe Generator**: Processes ornament audio files with full Universal ID preservation
+  - **Track-Specific**: Registry utils updated to prevent cross-instrument interference
+  - **Complete Pipeline**: Ornaments flow seamlessly through MIDI→Audio→Keyframe stages
+- **v1.6.0**: Targeted Universal ID integration for individual_noteheads_creator.py (September 30, 2025)
   - **Architectural Fix**: Registry integration ONLY for scripts requiring audio-visual synchronization
   - **Critical Path**: individual_noteheads_creator.py now generates UUID-suffixed filenames
   - **100% Confidence Matching**: XML-based UUID lookup (part_id + pitch + measure)
   - **Perfect Synchronization**: `notehead_002_P1_G4_M5_13b9.svg` ↔ `note_001_Flûte_G4_vel76_13b9.wav`
   - **Correct Architecture**: 4 structural Symbolic scripts remain legacy (no unnecessary registry overhead)
-  - **Result**: Frame-accurate After Effects synchronization with bulletproof UUID correlation
 - **v1.5.0**: Sustain pedal (CC 64) detection and processing implemented (MAJOR ENHANCEMENT)
   - **Automatic Pedal Detection**: Built-in CC 64 event scanning during MIDI analysis
   - **File Duration Extension**: Individual MIDI files extended to pedal release times
@@ -390,4 +397,4 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 
 ---
 
-🎼 **Ready to transform your musical notation into synchronized After Effects animations with realistic sustain pedal expression!**
+🎼 **Ready to transform your musical notation into synchronized After Effects animations with ornament detection and sustain pedal expression!**

@@ -35,22 +35,30 @@ python3 gui/launch_gui.py
 ### Core Structure
 ```
 Brain/                                 # CORE PIPELINE SYSTEM
-├── Base/                              # INPUT FILES
-│   ├── SS 9.musicxml                  # Source MusicXML score
-│   ├── SS 9 full.svg                  # Complete SVG score
-│   └── Saint-Saens Trio No 2.mid     # Source MIDI file
-├── App/                               # Individual processing tools (10 scripts)
+├── Base/                              # SOURCE SCORES (organized by articulation/export type)
+│   ├── Acciatura/                     # SOURCE: Grace note (acciaccatura) test case
+│   │   ├── Saint-Saens Trio No 2.musicxml
+│   │   ├── Saint-Saens Trio No 2.svg
+│   │   └── Saint-Saens Trio No 2.mid
+│  
+├── App/                               # Individual processing tools (8 scripts)
 │   ├── Symbolic Separators/           # 5 SVG/MusicXML processing scripts
-│   └── Audio Separators/              # 5 MIDI/audio processing scripts
-└── orchestrator/                      # Universal ID Pipeline Orchestrator (12 modules)
+│   └── Audio Separators/              # 3 MIDI/audio processing scripts
+└── orchestrator/                      # Universal ID Pipeline Orchestrator (17 modules, 8469 lines)
     ├── universal_orchestrator.py       # Master pipeline coordinator
     ├── note_coordinator.py             # Universal ID registry creation
+    ├── ornament_coordinator.py         # Ornament detection coordinator (NEW)
+    ├── ornament_xml_parser.py          # XML ornament tag parser (NEW)
+    ├── ornament_svg_parser.py          # SVG ornament symbol detector (NEW)
+    ├── ornament_symbol_creator.py      # Ornament SVG generator (NEW)
+    ├── orphan_midi_detector.py         # Orphan MIDI note detector (NEW)
     ├── tied_note_processor.py          # Tied note relationship processing
     ├── xml_temporal_parser.py          # MusicXML temporal parsing utilities
     ├── midi_matcher.py                 # MIDI note matching utilities
     ├── pipeline_stage.py               # Pipeline stage definitions
     ├── universal_registry.py           # Universal ID tracking system
     ├── registry_utils.py               # Standardized registry access utilities
+    ├── smart_log_aggregator.py         # Intelligent output aggregation (NEW)
     ├── manifest_manager.py             # Atomic manifest operations
     ├── progress_tracker.py             # Real-time progress tracking
     ├── error_handlers.py               # Circuit breaker and retry mechanisms
@@ -128,11 +136,14 @@ python -m Brain.orchestrator.universal_orchestrator \
 ```
 
 **Orchestrator Features:**
+- **Ornament Detection**: Automatic detection of trills, mordents, grace notes (acciaccatura/appoggiatura)
+  - 3-way coordination: XML tags + SVG symbols + orphan MIDI clustering
+  - Enabled by default (use `--disable-ornaments` to turn off)
 - **Automatic Output Cleanup**: Clears previous pipeline results for clean execution (use `--no-cleanup` to preserve)
 - **Smart Verbose Logging**: Intelligent aggregation with pattern recognition and anomaly detection
 - **Zero Console Pollution**: Rich file logs without Claude Code context contamination
-- **Universal ID Preservation**: Maintains unique identifiers across all pipeline stages
-- **Registry Architecture**: Standardized Universal ID access via registry utilities eliminates fragile data extraction
+- **Universal ID Preservation**: Maintains unique identifiers across all pipeline stages (including ornaments)
+- **Registry Architecture**: Standardized Universal ID access via registry utilities
 - **Atomic Operations**: Safe manifest updates with backup and recovery
 - **Circuit Breaker Pattern**: Robust error handling and failure recovery
 - **Real-time Progress Tracking**: Universal ID-level granularity progress reporting
@@ -293,15 +304,18 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 ## Documentation
 
 ### Comprehensive Guides
-- **`Brain/orchestrator/README.md`** - Universal ID Pipeline Orchestrator (510 lines)
+- **`Brain/orchestrator/README.md`** - Universal ID Pipeline Orchestrator with Ornament Detection
+  - 17 modules including ornament detection system (ornament_coordinator, XML/SVG parsers, orphan detector)
   - Complete API reference and configuration options
+  - Ornament detection: grace notes, trills, mordents with 3-way coordination
+  - Smart logging and automatic output cleanup
   - Circuit breaker patterns and error handling
-  - Production usage and monitoring guidance
 
-- **`Brain/App/README.md`** - Symbolic and Audio Separators (280 lines)
+- **`Brain/App/README.md`** - Symbolic and Audio Separators with Ornament Compatibility
+  - 8 scripts (5 symbolic, 3 audio) with ornament expansion support
   - Detailed script usage and command examples
+  - Pedal detection (CC 64) and ornament processing
   - Performance characteristics and technical specifications
-  - Integration patterns and coordinate systems
 
 ### Quick Reference
 - **`gui/`** - Modular GUI system with tabbed interface
@@ -333,4 +347,4 @@ note_000_Flûte_A4_vel76.mid → .wav → _keyframes.json
 
 ---
 
-🎼 **Ready to transform your musical notation into synchronized After Effects animations with Universal ID precision!**
+🎼 **Ready to transform your musical notation into synchronized After Effects animations with ornament detection, sustain pedal, and Universal ID precision!**

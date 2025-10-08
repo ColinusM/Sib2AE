@@ -1,39 +1,42 @@
 # Universal ID Pipeline Orchestrator
 
-A comprehensive orchestration system for the Sib2Ae pipeline, maintaining Universal ID integrity throughout all processing stages from MusicXML/MIDI input to synchronized After Effects-ready output.
+A comprehensive orchestration system for the Sib2Ae pipeline, maintaining Universal ID integrity throughout all processing stages from MusicXML/MIDI input to synchronized After Effects-ready output with complete ornament detection.
 
 ## 🎯 Overview
 
 The Universal ID Pipeline Orchestrator coordinates the complete Sib2Ae pipeline execution with:
 
 - **Universal ID Preservation**: Maintains unique identifiers across all pipeline stages
-- **Tied Note Processing**: Handles complex N:1 notehead-to-MIDI relationships with precise timing calculations
+- **Ornament Detection System**: Automatic detection and processing of trills, mordents, grace notes
+- **Tied Note Processing**: Handles complex N:1 notehead-to-MIDI relationships with precise timing
+- **Smart Logging**: Intelligent aggregation with pattern recognition and anomaly detection
 - **Atomic Operations**: Safe manifest updates with backup and recovery
 - **Circuit Breaker Pattern**: Robust error handling and failure recovery
 - **Real-time Progress Tracking**: Universal ID-level granularity progress reporting
-- **Pipeline Coordination**: Sequential and parallel execution modes
 
-## 📦 Package Structure
+## 📦 Package Structure (17 modules, 8469 lines)
 
 ```
 orchestrator/
-├── __init__.py                 # Package exports and version info
-├── pipeline_stage.py          # Pipeline stage definitions and factory functions
-├── universal_registry.py      # Universal ID tracking and filename transformations
-├── registry_utils.py          # Universal ID registry utilities with confidence-based matching (NEW)
-├── manifest_manager.py        # Atomic manifest operations with backup/recovery
-├── progress_tracker.py        # Real-time progress tracking with tqdm integration
-├── error_handlers.py          # Circuit breaker pattern and retry mechanisms
-├── note_coordinator.py        # Universal note coordination and registry creation
-├── tied_note_processor.py     # Tied note relationship processing with Universal ID integration
-├── universal_orchestrator.py  # Main orchestrator script
-├── xml_temporal_parser.py     # MusicXML temporal parsing utilities
-├── midi_matcher.py            # MIDI note matching utilities
-├── tests/                      # Comprehensive test suite (32 tests)
-│   ├── test_pipeline_stage.py
-│   ├── test_manifest_manager.py
-│   └── test_error_handlers.py
-└── README.md                   # This file
+├── __init__.py                    # Package exports and version info
+├── universal_orchestrator.py      # Main orchestrator script
+├── pipeline_stage.py              # Pipeline stage definitions and factory
+├── note_coordinator.py            # Universal note coordination and registry creation
+├── registry_utils.py              # Universal ID registry with confidence-based matching
+├── universal_registry.py          # Universal ID tracking and transformations
+├── tied_note_processor.py         # Tied note relationship processing
+├── xml_temporal_parser.py         # MusicXML temporal parsing utilities
+├── midi_matcher.py                # MIDI note matching utilities
+├── ornament_coordinator.py        # Ornament detection coordinator (NEW)
+├── ornament_xml_parser.py         # XML ornament tag parser (NEW)
+├── ornament_svg_parser.py         # SVG ornament symbol detector (NEW)
+├── ornament_symbol_creator.py     # Ornament SVG generator (NEW)
+├── orphan_midi_detector.py        # Orphan MIDI note detector (NEW)
+├── smart_log_aggregator.py        # Intelligent output aggregation (NEW)
+├── manifest_manager.py            # Atomic manifest operations
+├── progress_tracker.py            # Real-time progress tracking
+├── error_handlers.py              # Circuit breaker and retry mechanisms
+└── tests/                         # Comprehensive test suite
 ```
 
 ## 🚀 Quick Start
@@ -67,58 +70,54 @@ result = orchestrator.orchestrate_complete_pipeline()
 ### Command Line Usage
 
 ```bash
-# From project root directory
-python Brain/orchestrator/universal_orchestrator.py \
-    "Brain/Base/SS 9.musicxml" \
-    "Brain/Base/Saint-Saens Trio No 2.mid" \
-    --svg "Brain/Base/SS 9 full.svg" \
-    --output "universal_output" \
-    --mode sequential
-
-# Python module execution (recommended)
+# RECOMMENDED: Smart Verbose Mode (zero console pollution, rich file logs)
 python -m Brain.orchestrator.universal_orchestrator \
     "Brain/Base/SS 9.musicxml" \
     "Brain/Base/Saint-Saens Trio No 2.mid" \
     --svg "Brain/Base/SS 9 full.svg" \
-    --mode sequential
+    --mode sequential --quiet > /dev/null 2>&1
 
-# Background execution (avoids verbose logs in Claude Code)
+# With ornament detection (trills, mordents, grace notes)
 python -m Brain.orchestrator.universal_orchestrator \
     "Brain/Base/SS 9.musicxml" \
     "Brain/Base/Saint-Saens Trio No 2.mid" \
     --svg "Brain/Base/SS 9 full.svg" \
-    --mode sequential > /dev/null 2>&1 &
+    --mode sequential --quiet > /dev/null 2>&1
+# Note: Ornaments enabled by default, use --disable-ornaments to turn off
+
+# Preserve previous outputs (disable automatic cleanup)
+python -m Brain.orchestrator.universal_orchestrator \
+    "Brain/Base/SS 9.musicxml" \
+    "Brain/Base/Saint-Saens Trio No 2.mid" \
+    --svg "Brain/Base/SS 9 full.svg" \
+    --mode sequential --no-cleanup --quiet > /dev/null 2>&1
 ```
 
 ## 💻 Claude Code Usage
 
-### Context Management
-When using the orchestrator in Claude Code sessions, avoid context pollution from verbose logs:
+### Zero Console Pollution (CRITICAL)
+Always use `--quiet > /dev/null 2>&1` to avoid contaminating Claude Code context:
 
 ```bash
-# Background execution (recommended for Claude Code)
+# CORRECT: Clean execution with rich file logs
 python -m Brain.orchestrator.universal_orchestrator \
     "Brain/Base/SS 9.musicxml" \
     "Brain/Base/Saint-Saens Trio No 2.mid" \
     --svg "Brain/Base/SS 9 full.svg" \
-    --mode sequential > /dev/null 2>&1 &
+    --mode sequential --quiet > /dev/null 2>&1
 
-# Check completion
-ls -la universal_output/
-ls -la outputs/
+# Verification: Check outputs, not logs
+find outputs/ -name "*.wav" | wc -l      # Audio files
+find outputs/ -name "*.svg" | wc -l      # SVG files
+find outputs/ -name "*keyframes*.json" | wc -l  # Keyframes
 ```
 
-### Quick Verification
+### Smart Log Monitoring
 ```bash
-# Verify pipeline completion
-find outputs/ -name "*.wav" | wc -l     # Count audio files
-find outputs/ -name "*.svg" | wc -l     # Count SVG files
-find outputs/ -name "*keyframes*.json" | wc -l  # Count keyframes
-```
+# View intelligent aggregated logs (not raw output)
+tail -f universal_output/shell_output/execution_output.log
 
-### Status Monitoring
-```bash
-# Monitor progress without verbose output
+# Check progress summaries
 tail -f universal_output/logs/progress.log | grep "Stage completed"
 ```
 
@@ -212,7 +211,73 @@ by_exact_match = registry.get_universal_id_by_exact_match(pitch="G4", track=0)
 - **Robust Error Handling**: Graceful fallbacks with detailed error reporting
 - **Standardized API**: Consistent registry access patterns across all scripts
 
-### 4. Manifest Manager (`manifest_manager.py`)
+### 4. Ornament Detection System **NEW** (5 modules)
+
+Complete 3-way coordination for musical ornaments (trills, mordents, grace notes):
+
+```python
+from orchestrator import OrnamentCoordinator
+
+# Automatic ornament detection and expansion
+coordinator = OrnamentCoordinator(
+    xml_file="score.musicxml",
+    svg_file="score.svg",
+    registry_path="universal_notes_registry.json"
+)
+
+# Detect ornaments across all sources
+ornament_results = coordinator.detect_and_expand_ornaments()
+
+# Results include:
+# - XML tags: <trill-mark>, <mordent>, <grace/>
+# - SVG symbols: U+F0D9 (trill), U+F04D (mordent), U+F0DE (grace notehead)
+# - Orphan MIDI: Notes between matched anchors (expansion notes)
+```
+
+**Components:**
+- **ornament_coordinator.py**: Master coordinator with 3-way consensus matching
+- **ornament_xml_parser.py**: Parse `<trill-mark>`, `<mordent>`, `<grace/>` tags
+- **ornament_svg_parser.py**: Detect ornament Unicode symbols with spatial linking
+- **ornament_symbol_creator.py**: Generate ornament SVG elements for After Effects
+- **orphan_midi_detector.py**: Anchor-based detection of expansion notes
+
+**Detection Strategies:**
+- **Grace Notes**: Spatial linking (notehead RIGHT of main note, 20-150px horizontal)
+- **Trills/Mordents**: Temporal clustering (orphan MIDI between matched anchors)
+- **Confidence**: 95% for grace notes with accidental support (F#4, Bb3)
+- **Universal IDs**: All ornament expansions receive UUIDs and flow through pipeline
+
+**Pipeline Integration:**
+- Enabled by default (use `--disable-ornaments` to turn off)
+- Runs after Note Coordinator, before Symbolic/Audio pipelines
+- Test cases: `Brain/Base/Acciatura/`, `Brain/Base/Trill/`, `Brain/Base/Mordent/`
+
+### 5. Smart Log Aggregator **NEW** (`smart_log_aggregator.py`)
+
+Intelligent shell output aggregation replacing repetitive logs with statistical summaries:
+
+```python
+from orchestrator import SmartLogAggregator
+
+aggregator = SmartLogAggregator()
+
+# Pattern detection and aggregation
+aggregator.process_message("Stage completed: audio_rendering (6/6 Universal IDs, 12.5 notes/s, 0.48s)")
+aggregator.process_message("Stage completed: keyframe_generation (6/6 Universal IDs, 14.2 notes/s, 0.42s)")
+
+# Generate intelligent summary
+summary = aggregator.generate_summary()
+# Output: "2 stages completed (avg: 13.35 notes/s, total: 0.90s)"
+```
+
+**Key Features:**
+- **Pattern Recognition**: Detects repetitive orchestrator messages
+- **Anomaly Detection**: Highlights outliers and errors
+- **Statistical Analysis**: Aggregates performance metrics
+- **Zero Console Pollution**: Rich logs saved to `universal_output/shell_output/execution_output.log`
+- **Context Preservation**: Complete original data maintained for debugging
+
+### 6. Manifest Manager (`manifest_manager.py`)
 
 Provides atomic manifest operations with backup and recovery:
 
@@ -611,21 +676,28 @@ Part of the Sib2Ae project - Music notation to After Effects synchronization pip
 
 ## 🎯 Version
 
-**Version**: 1.1.0
+**Version**: 1.2.0 (17 modules, 8469 lines)
 **Status**: Production Ready
-**Last Updated**: October 2025
+**Last Updated**: October 8, 2025
 
 ### Recent Updates
-- **v1.1.0**: Targeted Universal ID registry integration for Symbolic Pipeline (October 2025)
-  - Fixed SVG output generation by removing unsupported --registry parameter from 4 structural scripts
-  - Implemented Universal ID integration ONLY for individual_noteheads_creator.py (critical sync path)
-  - Achieved 100% confidence audio-visual synchronization with bulletproof UUID matching
-  - Architecturally correct: Registry parameter distributed only to sync-critical elements
-  - Example sync: `notehead_002_P1_G4_M5_13b9.svg` ↔ `note_001_Flûte_G4_vel76_13b9.wav`
-- **v1.0.0**: Nuclear process termination fix for hanging issue (PRP-001)
-- **Performance**: 8x development workflow improvement
-- **Reliability**: Immediate process termination after pipeline completion
+- **v1.2.0**: Complete ornament detection system (October 8, 2025) **MAJOR ENHANCEMENT**
+  - **5 New Modules**: ornament_coordinator, XML/SVG parsers, symbol creator, orphan detector
+  - **Grace Notes**: Acciaccatura/appoggiatura with spatial linking and accidental support (F#4, Bb3)
+  - **Trills/Mordents**: 3-way coordination (XML tags + SVG symbols + orphan MIDI clustering)
+  - **Anchor-Based Detection**: No false positives - orphans between matched notes = ornaments
+  - **Track-Specific Clustering**: Prevents cross-instrument interference in temporal windows
+  - **Smart Logging**: Intelligent aggregation with pattern recognition (smart_log_aggregator.py)
+  - **Automatic Cleanup**: --no-cleanup flag to preserve previous outputs
+  - **Pipeline Integration**: Enabled by default, ornaments receive Universal IDs and flow through complete pipeline
+  - **Test Coverage**: Brain/Base/Acciatura/, Trill/, Mordent/ with full audio/keyframe generation
+- **v1.1.0**: Targeted Universal ID registry integration (September 30, 2025)
+  - Registry parameter distributed only to sync-critical scripts
+  - 100% confidence audio-visual synchronization with bulletproof UUID matching
+- **v1.0.0**: Nuclear process termination fix (September 28, 2025)
+  - 8x development workflow improvement
+  - Immediate process termination after pipeline completion
 
 ---
 
-🎼 **Ready to orchestrate your complete Sib2Ae pipeline with Universal ID integrity!**
+🎼 **Ready to orchestrate your complete Sib2Ae pipeline with ornament detection and Universal ID integrity!**
