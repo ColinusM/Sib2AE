@@ -41,8 +41,8 @@ Brain/                                 # CORE PIPELINE SYSTEM
 │   │   ├── Saint-Saens Trio No 2.svg
 │   │   └── Saint-Saens Trio No 2.mid
 │  
-├── App/                               # Individual processing tools (8 scripts)
-│   ├── Symbolic Separators/           # 5 SVG/MusicXML processing scripts
+├── App/                               # Individual processing tools (9 scripts)
+│   ├── Symbolic Separators/           # 6 SVG/MusicXML processing scripts
 │   └── Audio Separators/              # 3 MIDI/audio processing scripts
 └── orchestrator/                      # Universal ID Pipeline Orchestrator (17 modules, 8469 lines)
     ├── universal_orchestrator.py       # Master pipeline coordinator
@@ -152,7 +152,7 @@ python -m Brain.orchestrator.universal_orchestrator \
 ### Individual Script Execution
 For development and testing, scripts can be run individually:
 
-#### Symbolic Pipeline (5 stages)
+#### Symbolic Pipeline (6 stages)
 ```bash
 # 1. Extract noteheads from MusicXML with pixel-perfect coordinates
 python "Brain/App/Symbolic Separators/truly_universal_noteheads_extractor.py" "Brain/Base/SS 9.musicxml"
@@ -168,6 +168,9 @@ python "Brain/App/Symbolic Separators/individual_noteheads_creator.py" "Brain/Ba
 
 # 5. Extract staff lines and barlines for background elements
 python "Brain/App/Symbolic Separators/staff_barlines_extractor.py" "Brain/Base/SS 9.musicxml" "Brain/Base/SS 9 full.svg"
+
+# 6. Extract ornament symbols (trills, mordents, accents) as individual SVG files
+python "Brain/App/Symbolic Separators/ornament_symbols_extractor.py" "Brain/Base/Trill/Saint-Saens Trio No 2.svg"
 ```
 
 #### Audio Pipeline (3 stages)

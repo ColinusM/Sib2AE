@@ -15,12 +15,13 @@ These tools work independently but are coordinated by the Universal ID Pipeline 
 
 ```
 Brain/App/
-├── Symbolic Separators/        # SVG and MusicXML processing (5 scripts)
+├── Symbolic Separators/        # SVG and MusicXML processing (6 scripts)
 │   ├── truly_universal_noteheads_extractor.py
 │   ├── truly_universal_noteheads_subtractor.py
 │   ├── xml_based_instrument_separator.py
 │   ├── individual_noteheads_creator.py
-│   └── staff_barlines_extractor.py
+│   ├── staff_barlines_extractor.py
+│   └── ornament_symbols_extractor.py    # NEW: Extract ornament symbols
 ├── Audio Separators/           # MIDI and audio processing (3 scripts)
 │   ├── midi_note_separator.py
 │   ├── midi_to_audio_renderer_fast.py
@@ -80,6 +81,17 @@ python "Brain/App/Symbolic Separators/staff_barlines_extractor.py" "Brain/Base/S
 - **Input**: MusicXML + SVG
 - **Output**: Staff/barline SVG in `outputs/svg/staff_barlines/`
 - **Elements**: Staff lines (stroke-width: 2.25), barlines (stroke-width: 5)
+
+#### 6. `ornament_symbols_extractor.py` **NEW**
+**Purpose**: Extract ornament symbols (trills, mordents, accents) as individual SVG files
+```bash
+python "Brain/App/Symbolic Separators/ornament_symbols_extractor.py" "Brain/Base/Trill/Saint-Saens Trio No 2.svg"
+```
+- **Input**: SVG file with ornament symbols
+- **Output**: Individual ornament SVG files in `outputs/svg/ornaments/`
+- **Detected Symbols**: Trills (U+F0D9), Mordents (U+F04D), Accents (U+F06A), Staccato (U+F04A)
+- **Format**: `{ornament_type}_{index:03d}_U+{unicode:04X}.svg`
+- **Example Output**: `trill_start_000_U+F0D9.svg`, `mordent_000_U+F04D.svg`
 
 ## 🎵 Audio Separators
 
