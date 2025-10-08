@@ -64,7 +64,7 @@
    <note-size type="cue">75</note-size>
    <note-size type="grace">60</note-size>
   </appearance>
-  <music-font font-family="Helsinki Std" font-size="17.0079" />
+  <music-font font-family="Lelandia Std" font-size="17.0079" />
   <word-font font-family="Palatino" font-size="10.2313" />
   <lyric-font font-family="Palatino" font-size="9.8327" />
   <lyric-language xml:lang="en" />
@@ -349,7 +349,7 @@
   <measure number="4" width="231">
    <direction>
     <direction-type>
-     <dynamics default-x="5" default-y="-96" color="#000000" font-family="Helsinki Text Std" font-style="normal" font-size="10.2313" font-weight="normal">
+     <dynamics default-x="5" default-y="-96" color="#000000" font-family="Lelandia Text Std" font-style="normal" font-size="10.2313" font-weight="normal">
       <p />
      </dynamics>
     </direction-type>

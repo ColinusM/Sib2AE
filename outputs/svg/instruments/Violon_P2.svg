@@ -13,35 +13,42 @@
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="1388,1250 1388,1346 " />
+<ns0:polyline fill="none" vector-effect="none" points="1380,1250 1380,1346 " />
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="2030,1250 2030,1346 " />
+<ns0:polyline fill="none" vector-effect="none" points="2014,1250 2014,1346 " />
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="2673,1250 2673,1346 " />
+<ns0:polyline fill="none" vector-effect="none" points="2647,1250 2647,1346 " />
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3421,1250 3421,1346 " />
+<ns0:polyline fill="none" vector-effect="none" points="3387,1250 3387,1346 " />
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
+<ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="16" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+</ns0:g>
+
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="4604,1250 4604,1346 " />
+<ns0:polyline fill="none" vector-effect="none" points="4576,1250 4576,1346 " />
+</ns0:g>
+
+<ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="16" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+<ns0:polyline fill="none" vector-effect="none" points="4598,1250 4598,1346 " />
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
@@ -77,66 +84,60 @@
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1431.85,766.315)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1418.03,766.315)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1431.85,766.315)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1418.03,766.315)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1431.85,766.315)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1418.03,766.315)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1459.49,773.341)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1445.67,773.341)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1459.49,773.341)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1445.67,773.341)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1459.49,773.341)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.398622,0,0,0.398622,1445.67,773.341)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="2929,1491 3164,1507 " />
+<ns0:polyline fill="none" vector-effect="none" points="2903,1491 3133,1507 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="2929,1491 3164,1476 " />
+<ns0:polyline fill="none" vector-effect="none" points="2903,1491 3133,1476 " />
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:path vector-effect="none" fill-rule="evenodd" d="M2741,1400 C2778,1439 3166,1439 3203,1400 " />
+<ns0:path vector-effect="none" fill-rule="evenodd" d="M2715,1400 C2753,1439 3134,1439 3172,1400 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:path vector-effect="none" fill-rule="evenodd" d="M2741,1400 C2778,1435 3166,1435 3203,1400 C3166,1443 2778,1443 2741,1400 " />
+<ns0:path vector-effect="none" fill-rule="evenodd" d="M2715,1400 C2753,1435 3134,1435 3172,1400 C3134,1443 2753,1443 2715,1400 " />
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:path vector-effect="none" fill-rule="evenodd" d="M3209,1400 C3261,1429 3431,1429 3483,1400 " />
+<ns0:path vector-effect="none" fill-rule="evenodd" d="M3178,1400 C3230,1429 3397,1429 3449,1400 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:path vector-effect="none" fill-rule="evenodd" d="M3209,1400 C3261,1425 3431,1425 3483,1400 C3431,1433 3261,1433 3209,1400 " />
+<ns0:path vector-effect="none" fill-rule="evenodd" d="M3178,1400 C3230,1425 3397,1425 3449,1400 C3397,1433 3230,1433 3178,1400 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3228,1506 4009,1491 " />
+<ns0:polyline fill="none" vector-effect="none" points="3197,1506 3968,1491 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3228,1476 4009,1491 " />
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+<ns0:polyline fill="none" vector-effect="none" points="3197,1476 3968,1491 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
@@ -146,6 +147,30 @@
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+</ns0:g>
+
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+</ns0:g>
+
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family=".AppleSystemUIFont" font-size="45.8611" font-weight="400" font-style="normal">
+</ns0:g>
+
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
+</ns0:g>
+
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
+</ns0:g>
+
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
+</ns0:g>
+
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
+</ns0:g>
+
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
+</ns0:g>
+
+<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
@@ -192,65 +217,23 @@
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="1054" y="1298" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="1050" y="1298" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="1696" y="1298" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="1684" y="1298" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="2338" y="1298" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-</ns0:g>
-
-<ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="2317" y="1298" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:path vector-effect="none" fill-rule="evenodd" d="M2743,1423 C2839,1480 3786,1455 3881,1393 " />
+<ns0:path vector-effect="none" fill-rule="evenodd" d="M2717,1423 C2813,1480 3746,1454 3841,1393 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:path vector-effect="none" fill-rule="evenodd" d="M2743,1423 C2839,1476 3786,1451 3881,1393 C3786,1459 2839,1484 2743,1423 " />
+<ns0:path vector-effect="none" fill-rule="evenodd" d="M2717,1423 C2813,1476 3746,1450 3841,1393 C3746,1458 2813,1484 2717,1423 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
@@ -299,99 +282,99 @@
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.75" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="2715,1370 2761,1370 " />
+<ns0:polyline fill="none" vector-effect="none" points="2689,1370 2735,1370 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="2752,1378 2752,1298 " />
+<ns0:polyline fill="none" vector-effect="none" points="2726,1378 2726,1298 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="2723" y="1382" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="2697" y="1382" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="2769" y="1382" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="2743" y="1382" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.75" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3183,1370 3229,1370 " />
+<ns0:polyline fill="none" vector-effect="none" points="3152,1370 3198,1370 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Special Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3220,1378 3220,1298 " />
+<ns0:polyline fill="none" vector-effect="none" points="3189,1378 3189,1298 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3191" y="1382" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3160" y="1382" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.75" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3463,1370 3509,1370 " />
+<ns0:polyline fill="none" vector-effect="none" points="3429,1370 3475,1370 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3500,1378 3500,1298 " />
+<ns0:polyline fill="none" vector-effect="none" points="3466,1378 3466,1298 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3471" y="1382" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3437" y="1382" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3498" y="1322" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3464" y="1322" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.75" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3631,1370 3677,1370 " />
+<ns0:polyline fill="none" vector-effect="none" points="3594,1370 3640,1370 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.75" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3631,1394 3677,1394 " />
+<ns0:polyline fill="none" vector-effect="none" points="3594,1394 3640,1394 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3668,1390 3668,1298 " />
+<ns0:polyline fill="none" vector-effect="none" points="3631,1390 3631,1298 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3639" y="1394" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3602" y="1394" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.75" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3863,1370 3909,1370 " />
+<ns0:polyline fill="none" vector-effect="none" points="3823,1370 3869,1370 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="3900,1366 3900,1286 " />
+<ns0:polyline fill="none" vector-effect="none" points="3860,1366 3860,1286 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3871" y="1370" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3831" y="1370" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3898" y="1310" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3858" y="1310" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.75" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="4030,1370 4076,1370 " />
+<ns0:polyline fill="none" vector-effect="none" points="3989,1370 4035,1370 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:polyline fill="none" vector-effect="none" points="4067,1378 4067,1298 " />
+<ns0:polyline fill="none" vector-effect="none" points="4026,1378 4026,1298 " />
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="4038" y="1382" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="3997" y="1382" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="4270" y="1298" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="4226" y="1298" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 
 <ns0:g fill="#000000" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="butt" stroke-linejoin="bevel" transform="matrix(0.531496,0,0,0.531496,0,0)" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal">
-<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="4438" y="1298" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
+<ns0:text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="4391" y="1298" font-family="Helsinki Std" font-size="96" font-weight="400" font-style="normal"></ns0:text>
 </ns0:g>
 </ns0:g>
 </ns0:svg>
