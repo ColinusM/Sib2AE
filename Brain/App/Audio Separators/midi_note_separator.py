@@ -51,7 +51,7 @@ def create_id_lookup_tables(registry_data: Dict) -> Dict:
 
     for note in registry_data.get('notes', []):
         universal_id = note.get('universal_id')
-        xml_data = note.get('xml_data', {})
+        xml_data = note.get('xml_data')
         midi_data = note.get('midi_data')
 
         if not universal_id or not midi_data:
@@ -61,7 +61,12 @@ def create_id_lookup_tables(registry_data: Dict) -> Dict:
         lookup['all_notes'][universal_id] = note
 
         # Create pitch-based lookups
-        pitch_name = xml_data.get('note_name')  # e.g., "A4"
+        # Try xml_data first, fallback to midi_data (for ornament expansions)
+        if xml_data and isinstance(xml_data, dict):
+            pitch_name = xml_data.get('note_name')
+        else:
+            pitch_name = midi_data.get('pitch_name')
+
         track_index = midi_data.get('track_index', 0)
 
         if pitch_name:

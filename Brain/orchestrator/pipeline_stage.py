@@ -188,6 +188,7 @@ class OrchestrationConfig:
 
     # Pipeline customization
     skip_tied_note_processing: bool = False  # Always run tied note processor by default
+    enable_ornaments: bool = False  # Enable ornament detection (XML + SVG + MIDI coordination)
     audio_renderer_mode: str = "fast"  # "fast" or "standard"
     keyframe_generator_mode: str = "fast"  # "fast" or "standard"
 

@@ -235,7 +235,11 @@ class UniversalIDRegistry:
         """
         # Search for exact XML match
         for entry in self.notes:
-            xml_data = entry.get('xml_data', {})
+            xml_data = entry.get('xml_data')
+            # Skip entries with no xml_data (e.g., ornament expansions)
+            if not xml_data or not isinstance(xml_data, dict):
+                continue
+
             if (xml_data.get('part_id') == part_id and
                 xml_data.get('pitch') == pitch and
                 xml_data.get('measure') == measure):

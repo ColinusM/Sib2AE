@@ -128,6 +128,11 @@ class UniversalOrchestrator:
             self._log("Phase 2: Executing Note Coordinator")
             self._execute_note_coordinator()
 
+            # Phase 2.5: Execute Ornament Detection (if enabled)
+            if self.config.enable_ornaments:
+                self._log("Phase 2.5: Executing Ornament Detection")
+                self._execute_ornament_detection()
+
             # Phase 3: Execute Tied Note Processor (if enabled)
             if not self.config.skip_tied_note_processing:
                 self._log("Phase 3: Executing Tied Note Processor")
@@ -273,6 +278,184 @@ class UniversalOrchestrator:
                 self.failed_stages.add(stage.name)
             else:
                 raise RuntimeError("Tied Note Processor execution failed")
+
+    def _execute_ornament_detection(self):
+        """
+        Execute ornament detection pipeline (Phase 2.5)
+
+        Coordinates ornament detection across XML, SVG, and MIDI sources:
+        1. Detect orphan MIDI notes (notes without Universal IDs)
+        2. Parse XML ornament tags (<trill-mark>, <mordent>, etc.)
+        3. Parse SVG ornament symbols (if SVG provided)
+        4. Coordinate all three sources into ornament registry
+        """
+        self._log("📍 Starting Ornament Detection Pipeline")
+
+        registry_file = self.config.output_dir / "universal_notes_registry.json"
+
+        try:
+            # Import ornament detection modules
+            from .orphan_midi_detector import OrphanMIDIDetector
+            from .ornament_xml_parser import OrnamentXMLParser
+            from .ornament_svg_parser import OrnamentSVGParser
+            from .ornament_coordinator import OrnamentCoordinator
+
+            # Load Universal ID registry
+            with open(registry_file, 'r') as f:
+                universal_registry = json.load(f)
+
+            # Step 1: Detect orphan MIDI notes
+            self._log("  Step 1: Detecting orphan MIDI notes...")
+            orphan_detector = OrphanMIDIDetector(
+                self.config.midi_file,
+                registry_file
+            )
+            orphan_clusters = orphan_detector.detect_orphans()
+            self._log(f"    ✅ Found {len(orphan_clusters)} orphan cluster(s)")
+
+            # Step 2: Parse XML ornaments
+            self._log("  Step 2: Parsing XML ornament tags...")
+            xml_parser = OrnamentXMLParser(self.config.musicxml_file)
+            xml_ornaments = xml_parser.find_ornaments()
+            self._log(f"    ✅ Found {len(xml_ornaments)} XML ornament(s)")
+
+            # Step 3: Parse SVG ornaments (if SVG provided)
+            svg_ornaments = []
+            if self.config.svg_file:
+                self._log("  Step 3: Parsing SVG ornament symbols...")
+                svg_parser = OrnamentSVGParser(self.config.svg_file)
+                svg_ornaments = svg_parser.find_ornaments()
+                self._log(f"    ✅ Found {len(svg_ornaments)} SVG ornament(s)")
+            else:
+                self._log("  Step 3: Skipping SVG parsing (no SVG file provided)")
+
+            # Step 4: Coordinate all sources
+            self._log("  Step 4: Coordinating all sources...")
+            coordinator = OrnamentCoordinator(
+                xml_ornaments,
+                svg_ornaments,
+                orphan_clusters,
+                universal_registry
+            )
+
+            ornament_registry = coordinator.create_relationships()
+            self._log(f"    ✅ Created {len(ornament_registry.ornaments)} ornament relationship(s)")
+
+            # Step 5: Save ornament registry
+            registry_path = self.config.output_dir / "ornament_coordination_registry.json"
+            with open(registry_path, 'w') as f:
+                json.dump(ornament_registry.to_dict(), f, indent=2)
+
+            self._log(f"✅ Ornament Detection Complete: {registry_path}")
+
+            # Print summary
+            summary = ornament_registry.to_dict()['summary']
+            self._log(f"   Total ornaments: {summary['total_ornaments']}")
+            self._log(f"   All sources matched: {summary['verification']['all_sources_matched']}")
+
+            # Step 6: Integrate ornament expansions into Universal ID registry
+            self._log("  Step 5: Integrating ornament expansions into Universal ID registry...")
+            expansion_count = self._integrate_ornament_expansions(ornament_registry)
+            self._log(f"    ✅ Added {expansion_count} expansion note(s) to registry")
+
+        except Exception as e:
+            self._log(f"⚠️  Ornament detection failed: {e}")
+            if self.config.verbose:
+                traceback.print_exc()
+            # Don't fail the entire pipeline - ornament detection is optional
+
+    def _integrate_ornament_expansions(self, ornament_registry) -> int:
+        """
+        Add ornament expansion notes to Universal ID registry
+
+        For each confirmed ornament with MIDI expansions, adds entries to
+        universal_notes_registry.json so expansions get Universal IDs and
+        flow through the audio/keyframe pipeline.
+
+        Args:
+            ornament_registry: OrnamentRegistry with detected ornaments
+
+        Returns:
+            Number of expansion notes added
+        """
+        registry_file = self.config.output_dir / "universal_notes_registry.json"
+
+        # Load current registry
+        with open(registry_file, 'r') as f:
+            universal_registry = json.load(f)
+
+        expansion_count = 0
+
+        # For each confirmed ornament
+        for ornament in ornament_registry.ornaments:
+            # Only process ornaments with confirmed MIDI expansions
+            if not ornament.midi_confirmed:
+                continue
+
+            if not ornament.midi_data or not ornament.midi_data.get('expansion_notes'):
+                continue
+
+            expansion_notes = ornament.midi_data['expansion_notes']
+
+            # Find parent note Universal ID (the note with the ornament tag)
+            parent_universal_id = None
+            if ornament.xml_data:
+                # Search for matching note in registry
+                for note in universal_registry.get('notes', []):
+                    xml_data = note.get('xml_data', {})
+                    if (xml_data.get('part_id') == ornament.xml_data['part_id'] and
+                        xml_data.get('measure') == ornament.xml_data['measure'] and
+                        xml_data.get('note_name') == ornament.xml_data['note']):
+                        parent_universal_id = note['universal_id']
+                        break
+
+            # Add each expansion note to registry
+            for idx, expansion_note in enumerate(expansion_notes):
+                expansion_id = f"{ornament.ornament_id}_exp_{idx:03d}"
+
+                # Get MIDI track info from parent note or use defaults
+                track_name = "Unknown"
+                if parent_universal_id:
+                    for note in universal_registry['notes']:
+                        if note['universal_id'] == parent_universal_id:
+                            track_name = note.get('midi_data', {}).get('track_name', 'Unknown')
+                            break
+
+                # Create expansion entry
+                expansion_entry = {
+                    'universal_id': expansion_id,
+                    'ornament_data': {
+                        'parent_ornament_id': ornament.ornament_id,
+                        'parent_note_id': parent_universal_id,
+                        'expansion_index': idx,
+                        'ornament_type': ornament.ornament_type
+                    },
+                    'midi_data': {
+                        'track_index': 0,  # Will be looked up from MIDI
+                        'track_name': track_name,
+                        'pitch_midi': expansion_note['pitch'],
+                        'pitch_name': expansion_note['pitch_name'],
+                        'velocity': expansion_note['velocity'],
+                        'start_time_seconds': expansion_note['time'],
+                        'end_time_seconds': expansion_note['time'] + 0.1,  # Default duration
+                        'duration_seconds': 0.1,
+                        'channel': 0
+                    },
+                    'xml_data': None,  # Expansions don't have XML representation
+                    'svg_data': None,  # Not visible as individual noteheads
+                    'match_confidence': 1.0,
+                    'match_method': 'ornament_expansion',
+                    'timing_priority': 'midi'
+                }
+
+                universal_registry['notes'].append(expansion_entry)
+                expansion_count += 1
+
+        # Save updated registry
+        with open(registry_file, 'w') as f:
+            json.dump(universal_registry, f, indent=2)
+
+        return expansion_count
 
     def _execute_sequential_pipeline(self):
         """Execute pipeline stages sequentially"""
@@ -755,6 +938,7 @@ Examples:
     parser.add_argument("--timeout", type=float, default=600.0, help="Stage timeout in seconds")
     parser.add_argument("--no-circuit-breaker", action="store_true", help="Disable circuit breaker")
     parser.add_argument("--skip-tied-notes", action="store_true", help="Skip tied note processing")
+    parser.add_argument("--disable-ornaments", action="store_true", help="Disable ornament detection (enabled by default)")
     parser.add_argument("--audio-mode", choices=["fast", "standard"], default="fast", help="Audio rendering mode")
     parser.add_argument("--keyframe-mode", choices=["fast", "standard"], default="fast", help="Keyframe generation mode")
     parser.add_argument("--no-cleanup", action="store_true", help="Disable automatic output cleanup before run")
@@ -804,6 +988,7 @@ Examples:
             verbose=not args.quiet,
             stage_timeout_seconds=args.timeout,
             skip_tied_note_processing=args.skip_tied_notes,
+            enable_ornaments=not args.disable_ornaments,
             audio_renderer_mode=args.audio_mode,
             keyframe_generator_mode=args.keyframe_mode,
             clear_outputs_before_run=not args.no_cleanup,

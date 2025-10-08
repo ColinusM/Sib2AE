@@ -226,31 +226,41 @@ class OrphanMIDIDetector:
 
         clusters = []
 
-        # For each consecutive pair of anchors
-        for i in range(len(self.anchor_notes) - 1):
-            before_anchor = self.anchor_notes[i]
-            after_anchor = self.anchor_notes[i + 1]
+        # Group anchors by part/track
+        anchors_by_part = {}
+        for anchor in self.anchor_notes:
+            if anchor.part_id not in anchors_by_part:
+                anchors_by_part[anchor.part_id] = []
+            anchors_by_part[anchor.part_id].append(anchor)
 
-            # Define temporal window
-            # Start: after before_anchor ends
-            # End: before after_anchor starts
-            window_start = before_anchor.end_time_seconds
-            window_end = after_anchor.start_time_seconds
+        # For each part, find orphans between consecutive anchors on that part
+        for part_id, part_anchors in anchors_by_part.items():
+            # Convert part_id (e.g., "P1") to track index (e.g., 1)
+            expected_track = int(part_id.replace('P', ''))
 
-            # Find orphans in this window
-            orphans_in_window = [
-                orphan for orphan in self.orphan_notes
-                if window_start <= orphan.start_time_seconds < window_end
-            ]
+            for i in range(len(part_anchors) - 1):
+                before_anchor = part_anchors[i]
+                after_anchor = part_anchors[i + 1]
 
-            # Only create cluster if orphans found
-            if orphans_in_window:
-                clusters.append(OrphanCluster(
-                    orphan_notes=orphans_in_window,
-                    before_anchor=before_anchor,
-                    after_anchor=after_anchor,
-                    time_window=(window_start, window_end)
-                ))
+                # Define temporal window with tolerance for timing errors
+                window_start = min(before_anchor.end_time_seconds, after_anchor.start_time_seconds)
+                window_end = max(before_anchor.end_time_seconds, after_anchor.start_time_seconds)
+
+                # Find orphans in this window on the same track
+                orphans_in_window = [
+                    orphan for orphan in self.orphan_notes
+                    if (window_start <= orphan.start_time_seconds <= window_end and
+                        orphan.track_index == expected_track)
+                ]
+
+                # Only create cluster if orphans found
+                if orphans_in_window:
+                    clusters.append(OrphanCluster(
+                        orphan_notes=orphans_in_window,
+                        before_anchor=before_anchor,
+                        after_anchor=after_anchor,
+                        time_window=(window_start, window_end)
+                    ))
 
         return clusters
 
